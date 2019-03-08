@@ -1,4 +1,4 @@
-package com.fridgein.kris.entities;
+package com.fridgein.kris.entity;
 
 import javax.persistence.*;
 
