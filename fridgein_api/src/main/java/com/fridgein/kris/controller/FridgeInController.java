@@ -13,8 +13,11 @@ public class FridgeInController {
     /**
      * The service retrieving foodItems
      */
-    @Autowired
     private FoodItemService foodItemService;
+
+    public FridgeInController(FoodItemService foodItemService) {
+        this.foodItemService = foodItemService;
+    }
 
     /**
      * Retrieve all foodItems in the repository {@link com.fridgein.kris.repositories.FoodItemRepository}

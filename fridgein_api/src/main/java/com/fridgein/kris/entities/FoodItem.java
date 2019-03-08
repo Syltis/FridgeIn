@@ -1,9 +1,6 @@
 package com.fridgein.kris.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * DTO for a a food-item in the fridge
@@ -11,6 +8,8 @@ import javax.persistence.Id;
  * @author Kristoffer Sylte Dahl
  */
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(discriminatorType = DiscriminatorType.STRING, name = "EXPIRABLE")
 public class FoodItem {
 
     @Id

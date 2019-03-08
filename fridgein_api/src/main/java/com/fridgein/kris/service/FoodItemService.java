@@ -11,17 +11,20 @@ import java.util.List;
 @Service
 public class FoodItemService {
 
-    @Autowired
     private FoodItemRepository foodItemRepository;
-    @Autowired
     private FoodItemJDBCRepository foodItemJDBCRepository;
 
+    public FoodItemService(FoodItemRepository foodItemRepository, FoodItemJDBCRepository foodItemJDBCRepository) {
+        this.foodItemRepository = foodItemRepository;
+        this.foodItemJDBCRepository = foodItemJDBCRepository;
+    }
+
     public List<FoodItem> getAllFoodItems() {
-        return foodItemJDBCRepository.getAll();
+        return foodItemJDBCRepository.readAll();
     }
 
     public FoodItem getById(long id) {
-        return foodItemJDBCRepository.findById(id); }
+        return foodItemJDBCRepository.readById(id); }
 
     public void insert(FoodItem foodItem) {
         foodItemRepository.save(foodItem);

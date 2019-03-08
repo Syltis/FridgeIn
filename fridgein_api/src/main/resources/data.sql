@@ -1,4 +1,9 @@
-insert into FOOD_ITEM
-values (1, 'Tomat', 'Frukt'),
-       (2, 'Melk', 'Meieriprodukt'),
-       (3, 'Eplejuice', 'Juice');
+/**
+* Columns
+* EXPIRATIONTYPE, ID, NAME, TYPE, EXPIRATIONDATE, BOUGHTAT
+*/
+
+INSERT INTO FOOD_ITEM
+VALUES ('N', 1, 'Tomat', 'Frukt', null, '2019-03-03'),
+       ('Y', 2, 'Melk', 'Meieri', '2019-03-21', GetDate()),
+       ('Y', 3, 'Kjøttdeig', 'Kjøtt', '2019-03-16', GetDate());
