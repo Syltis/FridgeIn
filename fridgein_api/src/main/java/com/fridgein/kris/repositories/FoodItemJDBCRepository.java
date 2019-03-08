@@ -28,9 +28,13 @@ public class FoodItemJDBCRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FoodItem.class));
     }
 
-    public void create(long id, String name, String type) {
+    public void create(FoodItem foodItem) {
         String sql = "INSERT INTO food_item (id, name, type) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, id, name, type);
+        jdbcTemplate.update(
+                sql,
+                foodItem.getId(),
+                foodItem.getName(),
+                foodItem.getType());
     }
 
 }
