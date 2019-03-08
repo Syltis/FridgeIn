@@ -1,8 +1,9 @@
 package com.fridgein.kris.controller;
 
 import com.fridgein.kris.entities.FoodItem;
+import com.fridgein.kris.entities.StockItem;
 import com.fridgein.kris.service.FoodItemService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fridgein.kris.service.StockItemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,33 +12,31 @@ import java.util.List;
 public class FridgeInController {
 
     /**
-     * The service retrieving foodItems
+     * The service retrieving getAllFoodItems
      */
     private FoodItemService foodItemService;
+    private StockItemService stockItemService;
 
-    public FridgeInController(FoodItemService foodItemService) {
+    public FridgeInController(FoodItemService foodItemService, StockItemService stockItemService) {
         this.foodItemService = foodItemService;
+        this.stockItemService = stockItemService;
     }
 
-    /**
-     * Retrieve all foodItems in the repository {@link com.fridgein.kris.repositories.FoodItemRepository}
-     *
-     * @return  A list of all foodItems
-     */
+    @PostMapping("/fooditem")
+    public void createFoodItem(@RequestBody FoodItem foodItem) {
+        foodItemService.create(foodItem);
+    }
+
     @GetMapping("/fooditems")
-    public List<FoodItem> foodItems() {
+    public List<FoodItem> getAllFoodItems() {
         return foodItemService.getAllFoodItems();
     }
 
-    /**
-     * Publish a foodItem to the repository {@link com.fridgein.kris.repositories.FoodItemRepository}
-     *
-     * @param foodItem
-     */
-    @PostMapping("/fooditem")
-    public void publishFoodItem(@RequestBody FoodItem foodItem) {
-        foodItemService.insert(foodItem);
-    }
+    @PostMapping("/stockitem")
+    public void createStockItem(@RequestBody StockItem stockItem) { stockItemService.create(stockItem); }
+
+    @GetMapping("/stockitems")
+    public List<StockItem> getAllStockItems() { return stockItemService.getAllStockItems(); }
 
 
 }
