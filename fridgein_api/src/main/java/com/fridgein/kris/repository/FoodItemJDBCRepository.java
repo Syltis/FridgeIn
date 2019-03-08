@@ -1,7 +1,6 @@
-package com.fridgein.kris.repositories;
+package com.fridgein.kris.repository;
 
-import com.fridgein.kris.entities.FoodItem;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fridgein.kris.entity.FoodItem;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -28,9 +27,13 @@ public class FoodItemJDBCRepository {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FoodItem.class));
     }
 
-    public void create(long id, String name, String type) {
+    public void create(FoodItem foodItem) {
         String sql = "INSERT INTO food_item (id, name, type) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, id, name, type);
+        jdbcTemplate.update(
+                sql,
+                foodItem.getId(),
+                foodItem.getName(),
+                foodItem.getType());
     }
 
 }
