@@ -1,9 +1,18 @@
 /**
-* Columns
-* EXPIRATIONTYPE, ID, NAME, TYPE, EXPIRATIONDATE, BOUGHTAT
+* Tables
+*
+* FOOD_ITEM
+* ID, NAME, TYPE
+*
+* STOCK_ITEM table
+* ID, BOUGHT_AT, EXPIRATION_DATE, NAME, TYPE,
 */
+INSERT INTO FOOD_ITEM (ID, NAME, TYPE)
+VALUES (1, 'Tomat', 'Frukt'),
+       (2, 'Melk', 'Meieri'),
+       (3, 'Eplejuice', 'Juice');
 
-INSERT INTO FOOD_ITEM
-VALUES ('N', 1, 'Tomat', 'Frukt', null, '2019-03-03'),
-       ('Y', 2, 'Melk', 'Meieri', '2019-03-21', GetDate()),
-       ('Y', 3, 'Kjøttdeig', 'Kjøtt', '2019-03-16', GetDate());
+INSERT INTO STOCK_ITEM (ID, NAME, TYPE, BOUGHT_AT, EXPIRATION_DATE)
+VALUES (1, 'Tomat', 'Frukt',  '2019-03-03', null),
+       (2, 'Melk', 'Meieri', GetDate(), '2019-03-21'),
+       (3, 'Kjøttdeig', 'Kjøtt', GetDate(), '2019-03-16');

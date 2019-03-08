@@ -1,14 +1,10 @@
 package com.fridgein.kris.entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 
-/**
- * DTO for a a food-item in the fridge
- *
- * @author Kristoffer Sylte Dahl
- */
 @Entity
-public class FoodItem {
+public class StockItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,8 +12,10 @@ public class FoodItem {
 
     private String name;
     private String type;
+    private Date boughtAt;
+    private Date expirationDate;
 
-    public FoodItem() {}
+    public StockItem() {}
 
     public long getId() {
         return id;
@@ -42,4 +40,18 @@ public class FoodItem {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Date getBoughtAt() { return boughtAt;
+    }
+
+    public void setBoughtAt(Date boughtAt) { this.boughtAt = boughtAt;
+    }
+
+    public Date getExpirationDate() { return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;
+    }
+
+
 }
