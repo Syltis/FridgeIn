@@ -15,14 +15,13 @@ public class FoodItemJDBCRepository {
     private JdbcTemplate jdbcTemplate;
 
     public FoodItem findById(long id) {
-
-        String sql = "select * from FOOD_ITEM where ID=?";
+        String sql = "select * from food_item where id=?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id},
                 new BeanPropertyRowMapper<>(FoodItem.class));
     }
 
     public List<FoodItem> getAll() {
-        String sql = "select * from FOOD_ITEM";
+        String sql = "select * from food_item";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FoodItem.class));
     }
 

@@ -13,6 +13,7 @@ public class FoodItemService {
 
     @Autowired
     private FoodItemRepository foodItemRepository;
+    @Autowired
     private FoodItemJDBCRepository foodItemJDBCRepository;
 
     public List<FoodItem> getAllFoodItems() {
