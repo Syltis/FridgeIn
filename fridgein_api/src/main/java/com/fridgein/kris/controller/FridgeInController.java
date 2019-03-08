@@ -1,7 +1,7 @@
 package com.fridgein.kris.controller;
 
-import com.fridgein.kris.entities.FoodItem;
-import com.fridgein.kris.entities.StockItem;
+import com.fridgein.kris.entity.FoodItem;
+import com.fridgein.kris.entity.StockItem;
 import com.fridgein.kris.service.FoodItemService;
 import com.fridgein.kris.service.StockItemService;
 import org.springframework.web.bind.annotation.*;

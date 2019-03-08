@@ -1,7 +1,7 @@
 package com.fridgein.kris.service;
 
-import com.fridgein.kris.entities.FoodItem;
-import com.fridgein.kris.repositories.FoodItemJDBCRepository;
+import com.fridgein.kris.entity.FoodItem;
+import com.fridgein.kris.repository.FoodItemJDBCRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

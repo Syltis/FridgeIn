@@ -1,12 +1,10 @@
-package com.fridgein.kris.repositories;
+package com.fridgein.kris.repository;
 
-import com.fridgein.kris.entities.FoodItem;
-import com.fridgein.kris.entities.StockItem;
+import com.fridgein.kris.entity.StockItem;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.util.List;
 
 @Repository

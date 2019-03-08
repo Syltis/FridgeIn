@@ -1,7 +1,6 @@
-package com.fridgein.kris.repositories;
+package com.fridgein.kris.repository;
 
-import com.fridgein.kris.entities.FoodItem;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fridgein.kris.entity.FoodItem;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
