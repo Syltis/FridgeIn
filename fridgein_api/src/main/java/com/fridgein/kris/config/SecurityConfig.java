@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * TODO Set up proper security and login
      *
      * @param httpSecurity  Allows configuring web based security for specific http-requests.
-     * @throws Exception  regular ol'exception
+     * @throws Exception  Regular ol'exception
      */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
