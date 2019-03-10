@@ -1,30 +1,17 @@
-<!-- npm run serve -- --port8090 -->
-
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+      <div id="header">
+        <navigation-bar></navigation-bar>
+      </div>
+      <hr>
+      <div id="content">
+        <food-item-list></food-item-list>
+      </div>
+      <div id="footer">
+        <bottom-bar></bottom-bar>
+      </div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

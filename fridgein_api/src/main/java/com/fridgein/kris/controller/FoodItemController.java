@@ -7,19 +7,18 @@ import com.fridgein.kris.service.StockItemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-public class FridgeInController {
+public class FoodItemController {
 
     /**
      * The service retrieving getAllFoodItems
      */
     private FoodItemService foodItemService;
-    private StockItemService stockItemService;
 
-    public FridgeInController(FoodItemService foodItemService, StockItemService stockItemService) {
+    public FoodItemController(FoodItemService foodItemService) {
         this.foodItemService = foodItemService;
-        this.stockItemService = stockItemService;
     }
 
     @PostMapping("/fooditem")
@@ -31,12 +30,4 @@ public class FridgeInController {
     public List<FoodItem> getAllFoodItems() {
         return foodItemService.getAllFoodItems();
     }
-
-    @PostMapping("/stockitem")
-    public void createStockItem(@RequestBody StockItem stockItem) { stockItemService.create(stockItem); }
-
-    @GetMapping("/stockitems")
-    public List<StockItem> getAllStockItems() { return stockItemService.getAllStockItems(); }
-
-
 }
