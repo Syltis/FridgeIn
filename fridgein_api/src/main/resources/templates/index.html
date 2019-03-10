@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -12,7 +12,7 @@
         <div class="twelve columns">
             <h1>Food Items</h1>
             <ul>
-                <li v-for="fooditem in fooditems">
+                <li v-for="fooditem in fooditems" v-bind:key="type">
                     <h3>ID {{fooditem.id}} {{fooditem.name}}</h3>
                     <h5>{{fooditem.type}}</h5>
                     <hr>

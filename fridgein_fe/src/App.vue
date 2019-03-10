@@ -2,12 +2,14 @@
 
 <template>
 	<div id="app">
-		<img alt="Vue logo" src="./assets/logo.png">
+		<!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+		<p><strong>Food Items</strong></p>
 		<ul v-if="fooditems && fooditems.length">
-			<li v-for="fooditem of fooditems">
+			<li v-for="fooditem in fooditems" v-bind:key="type">
 				<p><strong>{{fooditem.name}}</strong></p>
 			</li>
 		</ul>
+		<hr>
 	</div>
 </template>
 
@@ -16,19 +18,19 @@
 
     export default {
         data() {
-            return {
-                ids: [],
-                names: []
-            }
+            return {fooditems : []}
         },
-
-        created() {
-            axios.get("http://localhost:8080/greeting")
-                .then(response => {
-                    // JSON responses are automatically parsed.
-                    this.fooditems = response.data
-                })
-        }
+		mounted() {
+            this.fetchFoodItems();
+		},
+        methods: {
+            fetchFoodItems() {
+                axios.get("http://localhost:8080/fooditems")
+                    .then(response => {
+                        this.fooditems = response.data;
+                    })
+            }
+		},
         // async / await version (created() becomes async created())
         //
         // try {
