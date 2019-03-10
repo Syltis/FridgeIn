@@ -3,11 +3,17 @@ package com.fridgein.kris.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @Controller
 public class HomeController {
 
+    /**
+     * Redirect default localhost-adress to the H2 console. This is pure laziness
+     */
     @GetMapping(value = "/")
-    public String index() {
-        return "index";
+    public void redirectToH2(HttpServletResponse httpServletResponse) throws IOException {
+        httpServletResponse.sendRedirect("http://localhost:8080/h2-console/");
     }
 }
