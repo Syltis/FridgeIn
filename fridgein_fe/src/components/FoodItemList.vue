@@ -1,5 +1,3 @@
-<!-- npm run serve -- --port8090 -->
-
 <template id="foodItemList">
 	<div id="list">
 		<p><strong>Food Items</strong></p>
@@ -35,7 +33,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 	#foodItemList {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;

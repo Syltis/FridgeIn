@@ -1,21 +1,17 @@
-<!-- npm run serve -- --port8090 -->
-
 <template>
-	<div id="app">
-		<food-item-list></food-item-list>
-	</div>
+  <div id="app">
+      <div id="header">
+        <navigation-bar></navigation-bar>
+      </div>
+      <hr>
+      <div id="content">
+        <food-item-list></food-item-list>
+      </div>
+      <div id="footer">
+        <bottom-bar></bottom-bar>
+      </div>
+    </div>
 </template>
 
 <script>
 </script>
-
-<style>
-	#app {
-		font-family: 'Avenir', Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
-		color: #2c3e50;
-		margin-top: 60px;
-	}
-</style>
