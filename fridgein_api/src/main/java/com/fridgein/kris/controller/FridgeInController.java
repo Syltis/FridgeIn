@@ -39,15 +39,4 @@ public class FridgeInController {
     @GetMapping("/stockitems")
     public List<StockItem> getAllStockItems() { return stockItemService.getAllStockItems(); }
 
-    // Rest service-testing -> https://spring.io/guides/gs/rest-service-cors/
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
-    @CrossOrigin(origins = "http://localhost:9000")
-    @GetMapping("/greeting")
-    public FoodItem greeting(@RequestParam(required = false, defaultValue = "World") String name) {
-        System.out.println("==== in greeting ====");
-        return new FoodItem(counter.incrementAndGet(), String.format(template, name), "test");
-    }
-
 }
