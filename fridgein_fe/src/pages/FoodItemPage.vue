@@ -8,17 +8,17 @@
             </v-card-title>
         </v-card>
         <v-spacer></v-spacer>
-            <v-layout>
-            <v-flex align-self-baseline>
-                <stock-item-list/>
+        <v-layout>
+            <v-flex class="flexBox">
+                <v-card class="formCard">
+                    <stock-item-list/>
+                </v-card>
             </v-flex>
-            <v-flex>
-                <v-card>
-                    <v-card-title>
-                        <h5 class="headline">
-                            Add food to your stock
-                        </h5>
-                    </v-card-title>
+            <v-flex class="flexBox">
+                <v-card class="formCard">
+                    <h5 class="headline">
+                        Add food to your stock
+                    </h5>
                     <add-stock-item-form></add-stock-item-form>
                 </v-card>
             </v-flex>
@@ -34,4 +34,15 @@
 
 <style scoped>
 
+    .title {
+        color: white;
+    }
+
+    .flexBox {
+        margin: 30px;
+    }
+
+    .formCard {
+        padding: 20px;
+    }
 </style>
