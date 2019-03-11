@@ -12,9 +12,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class FoodItemController {
 
-    /**
-     * The service retrieving getAllFoodItems
-     */
     private FoodItemService foodItemService;
 
     public FoodItemController(FoodItemService foodItemService) {
