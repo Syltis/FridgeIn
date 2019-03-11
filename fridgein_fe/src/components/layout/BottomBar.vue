@@ -6,9 +6,7 @@
 				Built with Spring Boot as backend API currently using a H2 in-memory database, and Vue.js as frontend
 				using Axios and Vuetify.
 				</v-card-text>
-				<strong class="subheading">Get connected with us on social networks!</strong>
 				<v-spacer></v-spacer>
-
 			</v-card-title>
 			<v-card-actions class="grey darken-2 justify-center">
 				&copy;2018 — Fridge<strong>In</strong>
@@ -17,7 +15,6 @@
 		</v-card>
 	</v-footer>
 </template>
-
 
 <script>
 	export default {

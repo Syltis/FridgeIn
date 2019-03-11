@@ -3,7 +3,6 @@
         <div id="header">
             <navigation-bar></navigation-bar>
         </div>
-        <hr>
         <v-content>
             <v-container fluid>
                 <router-view/>

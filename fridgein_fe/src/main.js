@@ -11,11 +11,15 @@ import NavigationBar from "./components/layout/NavigationBar";
 import BottomBar from "./components/layout/BottomBar";
 import FoodItemPage from "./pages/FoodItemPage";
 import StartPage from "./pages/StartPage";
+import StockItemList from "./components/ui/StockItemList";
+import AddStockItemForm from "./components/ui/AddStockItemForm";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 Vue.component('foodItemList', FoodItemList);
+Vue.component('stockItemList', StockItemList);
+Vue.component('addStockItemForm', AddStockItemForm);
 Vue.component('navigationBar', NavigationBar);
 Vue.component('bottomBar', BottomBar);
 
