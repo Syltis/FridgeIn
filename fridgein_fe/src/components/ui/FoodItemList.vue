@@ -1,10 +1,23 @@
 <template id="foodItemList">
 	<div id="list">
-		<p><strong>Food Items</strong></p>
 		<ul v-if="fooditems && fooditems.length">
-			<li v-for="fooditem in fooditems" v-bind:key="type">
-				<p><strong>{{fooditem.name}}</strong></p>
-			</li>
+		<v-list two-line>
+			<template v-for="fooditem in fooditems">
+				<v-list-tile
+				:key="fooditem.name"
+				avatar
+				ripple
+				>
+				<v-list-tile-content>
+					<v-list-tile-title>{{fooditem.name}}</v-list-tile-title>
+					<v-list-tile-sub-title class="text--primary">{{fooditem.type}}</v-list-tile-sub-title>
+				</v-list-tile-content>
+				</v-list-tile>
+				<v-divider></v-divider>
+			</template>
+
+		</v-list>
+
 		</ul>
 		<hr>
 	</div>
