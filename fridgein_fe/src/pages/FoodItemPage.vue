@@ -16,9 +16,25 @@
             </v-flex>
             <v-flex class="flexBox">
                 <v-card class="formCard">
-                    <h5 class="headline">
-                        Add food to your stock
-                    </h5>
+                    <v-layout row wrap>
+                        <h5 class="headline">
+                            Add food to your stock
+                        </h5>
+                        <v-spacer></v-spacer>
+                        <v-flex xs12 sm6>
+                            <v-select
+                                    v-model="fooditem"
+                                    :items="fooditems"
+                                    item-text="name"
+                                    :menu-props="{ maxHeight: '400' }"
+                                    label="Pick an item from your saved foods"
+                                    hint="Creating a new one will save it to this list."
+                                    multiple
+                                    persistent-hint
+                            ></v-select>
+                        </v-flex>
+
+                    </v-layout>
                     <add-stock-item-form></add-stock-item-form>
                 </v-card>
             </v-flex>
@@ -27,8 +43,28 @@
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
-        name: "FoodItemPage"
+
+        name: "FoodItemPage",
+        data() {
+            return {
+                e6: [],
+                fooditems: []
+            }
+        },
+        mounted() {
+            this.fetchFoodItems();
+        },
+        methods: {
+            fetchFoodItems() {
+                axios.get('http://localhost:8080/fooditems')
+                    .then(response => {
+                        this.fooditems = response.data
+                    })
+            }
+        }
     }
 </script>
 
@@ -43,6 +79,6 @@
     }
 
     .formCard {
-        padding: 20px;
+        padding: 30px;
     }
 </style>
