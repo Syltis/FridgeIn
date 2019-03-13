@@ -2,9 +2,9 @@
     <v-flex class="flexBox">
         <v-card class="formCard">
             <v-layout row wrap>
-                <h5 class="headline">
+                <h4 class="display-1">
                     Add food to your stock
-                </h5>
+                </h4>
                 <v-spacer></v-spacer>
                 <v-flex x6>
                     <v-select
@@ -131,10 +131,12 @@
 
     .formCard {
         padding: 40px;
-        min-width: 30%;;
+
     }
 
     .flexBox {
         margin: 30px;
+        min-width: 30%;
+        max-width: 50%;
     }
 </style>

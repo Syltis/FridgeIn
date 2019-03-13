@@ -2,6 +2,12 @@
     <v-flex class="flexBox">
         <v-card class="formCard"
         >
+            <v-form>
+                <v-text-field
+                label="Search stock">
+
+                </v-text-field>
+            </v-form>
             <div id="list">
                 <v-list
                         one-line
