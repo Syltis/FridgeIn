@@ -1,9 +1,14 @@
 <template>
     <div>
-        <v-layout>
+        <v-layout row wrap>
+            <v-flex>
+                <no-ssr>
+                    <v-img src="src/assets/images/header-fresh-produce.jpg" alt=""></v-img>
+                </no-ssr>
+            </v-flex>
             <v-flex>
                 <v-card>
-                    <v-card-title primary-title class="cyan lighten-2">
+                    <v-card-title primary-title class="green">
                         <h6 class="title">
                             We at FridgeIn wants to help <strong>you</strong> keep better track of your stores. Out goal
                             is to reduce food
@@ -30,4 +35,7 @@
 
 <style scoped>
 
+    .title {
+        color: white;
+    }
 </style>

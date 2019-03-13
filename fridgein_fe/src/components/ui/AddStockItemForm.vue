@@ -1,4 +1,5 @@
 <template id="addStockItemForm" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+
     <v-form ref="form">
         <v-text-field
                 label="Food Name"

@@ -29,11 +29,9 @@
                                     :menu-props="{ maxHeight: '400' }"
                                     label="Pick an item from your saved foods"
                                     hint="Creating a new one will save it to this list."
-                                    multiple
                                     persistent-hint
                             ></v-select>
                         </v-flex>
-
                     </v-layout>
                     <add-stock-item-form></add-stock-item-form>
                 </v-card>
