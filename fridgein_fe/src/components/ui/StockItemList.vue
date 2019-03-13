@@ -1,24 +1,28 @@
 <template id="stockItemList">
     <div id="list">
-        <ul v-if="stockitems && stockitems.length">
-            <v-list three-line>
-                <template v-for="stockitem in stockitems">
-                    <v-list-tile
-                            :key="stockitem.name"
-                            avatar
-                            ripple
-                    >
-                        <v-list-tile-content>
-                            <v-list-tile-title>{{stockitem.name}}</v-list-tile-title>
-                            <v-list-tile-sub-title>{{stockitem.type}}</v-list-tile-sub-title>
-                            <v-list-tile-action-text>Bought at {{stockitem.boughtAt}}</v-list-tile-action-text>
-                            <v-list-tile-action-text v-if="stockitem.expirationDate !== null">Expires at {{stockitem.expirationDate}}</v-list-tile-action-text>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                </template>
-            </v-list>
-        </ul>
+        <v-list
+                one-line
+                style="max-height: 400px"
+                class="scroll-y"
+        >
+            <template v-for="stockitem in stockitems">
+                <v-list-tile
+                        :key="stockitem.name"
+                >
+                    <v-list-tile-content>
+                        <v-list-tile-title>
+                            <span class="left">{{stockitem.name}}</span>
+                            <span class="right"><i>{{stockitem.type.toLowerCase()}}</i></span>
+                        </v-list-tile-title>
+                        <v-list-tile-action-text>
+                            <span class="left">Bought at {{stockitem.boughtAt}} &nbsp;</span>
+                            <span class="right" v-if="stockitem.expirationDate !== null"> Expires at {{stockitem.expirationDate}}</span>
+                        </v-list-tile-action-text>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+            </template>
+        </v-list>
     </div>
 </template>
 
@@ -40,7 +44,7 @@
                         this.stockitems = response.data
                     })
             }
-        },
+        }
     }
 </script>
 
