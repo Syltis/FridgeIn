@@ -52,7 +52,7 @@
         },
         methods: {
             fetchStockItems() {
-                axios.get("http://localhost:8080/stockitems")
+                axios.get("http://localhost:8080/api/stockitems")
                     .then(response => {
                         this.stockitems = response.data
                     })

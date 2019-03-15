@@ -2,14 +2,12 @@ package com.fridgein.kris.controller;
 
 import com.fridgein.kris.entity.StockItem;
 import com.fridgein.kris.service.StockItemService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class StockItemController {
 
     private StockItemService stockItemService;
