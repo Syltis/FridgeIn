@@ -13,6 +13,8 @@ import FoodItemPage from "./pages/FoodItemPage";
 import StartPage from "./pages/StartPage";
 import StockItemList from "./components/ui/StockItemList";
 import AddStockItemForm from "./components/ui/AddStockItemForm";
+import ContactPage from "./pages/ContactPage";
+import RecipePage from "./pages/RecipePage";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -25,7 +27,9 @@ Vue.component('bottomBar', BottomBar);
 
 const routes = [
   {path: '/', component: StartPage},
-  {path: '/foodItems', component: FoodItemPage}
+  {path: '/foodItems', component: FoodItemPage},
+  {path: '/contact', component: ContactPage},
+  {path: '/recipes', component: RecipePage}
 ];
 
 const router = new VueRouter({
