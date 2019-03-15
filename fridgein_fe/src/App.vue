@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-app>
         <div id="header">
             <navigation-bar></navigation-bar>
         </div>
@@ -11,7 +11,7 @@
         <div id="footer">
             <bottom-bar></bottom-bar>
         </div>
-    </div>
+    </v-app>
 </template>
 
 <script>
