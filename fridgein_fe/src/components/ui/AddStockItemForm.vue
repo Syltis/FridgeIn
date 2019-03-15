@@ -115,7 +115,7 @@
                 this.expirationCheckBox = !this.expirationCheckBox;
             },
             fetchFoodItems() {
-                axios.get('http://localhost:8080/fooditems')
+                axios.get('http://localhost:8080/api/fooditems')
                     .then(response => {
                         this.fooditems = response.data
                     })

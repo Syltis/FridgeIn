@@ -2,20 +2,16 @@
     <v-toolbar app>
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title class="headline text-uppercase">
-            <router-link class="rlink" to="/">
+            <router-link class="btnlink" to="/">
                 <span class="font-weight-light">Fridge</span>
                 <span>In</span>
             </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items >
-            <v-btn flat>
-                <router-link class="rlink" to="/foodItems">
-                    Stocks
-                </router-link>
-            </v-btn>
-            <v-btn flat>Recipies</v-btn>
-            <v-btn flat>Contact</v-btn>
+            <v-btn flat to="/foodItems" class="btnlink">Stocks</v-btn>
+            <v-btn flat to="/recipes" class="btnlink">Recipies</v-btn>
+            <v-btn flat to="contact" class="btnlink">Contact</v-btn>
         </v-toolbar-items>
     </v-toolbar>
 </template>
@@ -28,7 +24,7 @@
 
 <style scoped>
 
-    .rlink {
+    .btnlink {
         text-decoration: none;
         color: inherit;
     }
