@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
+@RequestMapping("api/")
 public class FoodItemController {
 
     private FoodItemService foodItemService;
