@@ -17,18 +17,18 @@ public class FoodItemJDBCRepository {
     }
 
     public FoodItem readById(long id) {
-        String sql = "select * from food_item where id=?";
+        String sql = "select * from fooditem where id=?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id},
                 new BeanPropertyRowMapper<>(FoodItem.class));
     }
 
     public List<FoodItem> readAll() {
-        String sql = "select * from food_item";
+        String sql = "select * from fooditem";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FoodItem.class));
     }
 
     public void create(FoodItem foodItem) {
-        String sql = "INSERT INTO food_item (id, name, type) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO fooditem (id, name, type) VALUES (?, ?, ?)";
         jdbcTemplate.update(
                 sql,
                 foodItem.getId(),

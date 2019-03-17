@@ -10,9 +10,10 @@ public class StockItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private int foodId;
     private String name;
     private String type;
-    private Date boughtAt;
+    private Date purchaseDate;
     private Date expirationDate;
 
     public StockItem() {}
@@ -23,6 +24,14 @@ public class StockItem {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getFoodId() {
+        return foodId;
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
     public String getName() {
@@ -41,10 +50,10 @@ public class StockItem {
         this.type = type;
     }
 
-    public Date getBoughtAt() { return boughtAt;
+    public Date getPurchaseDate() { return purchaseDate;
     }
 
-    public void setBoughtAt(Date boughtAt) { this.boughtAt = boughtAt;
+    public void setPurchaseDate(Date purchaseDate) { this.purchaseDate = purchaseDate;
     }
 
     public Date getExpirationDate() { return expirationDate;
@@ -52,6 +61,4 @@ public class StockItem {
 
     public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;
     }
-
-
 }
