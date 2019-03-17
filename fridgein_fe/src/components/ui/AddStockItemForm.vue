@@ -33,7 +33,6 @@
                             <v-flex xs12>
                                 <v-dialog
                                         ref="dialog"
-                                        persistent
                                         lazy
                                         full-width
                                         width="290px"
@@ -61,7 +60,6 @@
                                     <v-dialog
                                             ref="dialog"
                                             :return-value.sync="date"
-                                            persistent
                                             lazy
                                             full-width
                                             width="290px"
@@ -85,8 +83,13 @@
                         </v-layout>
                             <v-spacer></v-spacer>
                             <v-flex xs12>
-                                <v-btn @click="submit" :class="{ red: !valid, green: valid }">submit</v-btn>
-                                <v-btn @click="clear">clear</v-btn>
+                                <v-btn @click="submit"
+                                       :disabled="!valid"
+                                       color="success"
+                                >
+                                    submit
+                                </v-btn>
+                                <v-btn @click="reset" color="error">clear</v-btn>
                             </v-flex>
                     </v-form>
                 </v-flex>
@@ -122,6 +125,9 @@
             },
             valid() {
                 return true;
+            },
+            reset() {
+                this.$refs.form.reset();
             }
         }
     }

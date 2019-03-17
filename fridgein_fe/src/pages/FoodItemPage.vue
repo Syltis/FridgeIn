@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card color="green" class="subHeader" >
+        <v-card color="#90CCF4" class="subHeader" >
             <v-card-title>
                 <h3 class="title">
                     Your stock
