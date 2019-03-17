@@ -15,6 +15,7 @@ import StockItemList from "./components/ui/StockItemList";
 import AddStockItemForm from "./components/ui/AddStockItemForm";
 import ContactPage from "./pages/ContactPage";
 import RecipePage from "./pages/RecipePage";
+import StartPageParralax from "./pages/StartPageParralax";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -26,7 +27,7 @@ Vue.component('navigationBar', NavigationBar);
 Vue.component('bottomBar', BottomBar);
 
 const routes = [
-  {path: '/', component: StartPage},
+  {path: '/', component: StartPageParralax},
   {path: '/foodItems', component: FoodItemPage},
   {path: '/contact', component: ContactPage},
   {path: '/recipes', component: RecipePage}
