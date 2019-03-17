@@ -17,24 +17,25 @@ public class StockItemJDBCRepository {
     }
 
     public StockItem readById(long id) {
-        String sql = "select * from stock_item where id=?";
+        String sql = "select * from stockitem where id=?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id},
                 new BeanPropertyRowMapper<>(StockItem.class));
     }
 
     public List<StockItem> readAll() {
-        String sql = "select * from stock_item";
+        String sql = "select * from stockitem";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(StockItem.class));
     }
 
     public void create(StockItem stockItem) {
-        String sql = "INSERT INTO stock_item (id, name, type, bought_at, expiration_date) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO stockitem (id, foodid, name, type, purchase_date, expiration_date) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(
                 sql,
                 stockItem.getId(),
+                stockItem.getFoodId(),
                 stockItem.getName(),
                 stockItem.getType() ,
-                stockItem.getBoughtAt(),
+                stockItem.getPurchaseDate(),
                 stockItem.getExpirationDate());
     }
 

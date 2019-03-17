@@ -26,7 +26,7 @@
                                             class="typeI">{{stockitem.type.toLowerCase()}}&nbsp;&nbsp;</i></span>
                                 </v-list-tile-title>
                                 <v-list-tile-action-text>
-                                    <span class="left">Bought at {{stockitem.boughtAt}} &nbsp;</span>
+                                    <span class="left">Bought at {{stockitem.purchaseDate}} &nbsp;</span>
                                     <span class="right" v-if="stockitem.expirationDate !== null"> Expires at {{stockitem.expirationDate}} </span>
                                 </v-list-tile-action-text>
                             </v-list-tile-content>

@@ -9,16 +9,18 @@
 				</v-card>
 			</v-flex>
 			<v-flex>
-				<v-card>
-					<v-card-title primary-title class="green">
+				<v-card color="#90CCF4">
+					<v-card-title primary-title >
 						<h4 class="display-1">
-							We want to help <strong>you</strong> keep better track of your food. Our goal
-							is to reduce food waste and make life easier for our users.
-						</h4>
+						We want to help <strong>you</strong> keep better track of your food. Our goal
+						is to reduce food waste and make life easier for our users.
+					</h4>
 					</v-card-title>
+				</v-card>
+				<v-card>
 					<v-card-text>
 						<p class="font-weight-regular">
-							Our site gives you the tools you need to optimize your kitchen stores.
+							FridgeIn gives you the tools you need to optimize your kitchen stores.
 						</p>
 					</v-card-text>
 				</v-card>
@@ -33,7 +35,7 @@
         name: "StartPage",
         data() {
             return {
-                header: require('@/assets/images/header-fresh-produce.jpg')
+                header: require('@/assets/images/refrigeratorheader.jpg'),
             }
         },
     }
