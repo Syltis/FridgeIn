@@ -3,6 +3,7 @@
         <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title class="headline text-uppercase">
             <router-link class="btnlink" to="/">
+                <v-img></v-img>
                 <span class="font-weight-light">Fridge</span>
                 <span>In</span>
             </router-link>
@@ -18,7 +19,12 @@
 
 <script>
     export default {
-        name: "Top"
+        name: "Top",
+        data() {
+            return {
+                logo: require("@/assets/images/LogoMakr_3nTx2g.png")
+            }
+        }
     }
 </script>
 

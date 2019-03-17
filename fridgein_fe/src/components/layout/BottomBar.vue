@@ -1,7 +1,7 @@
 <template>
 	<v-footer height="auto" dark>
-		<v-card class="flex">
-			<v-card-title class="green justify-center" align="center">
+		<v-card class="flex" color="#5DA2D5">
+			<v-card-title class="justify-center"  align="center">
 				Make sure to check us out on social media
 			</v-card-title>
 			<v-card-actions class="grey darken-2 justify-center">
