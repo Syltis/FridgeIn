@@ -24,7 +24,7 @@
                                     stores.
                                 </h4>
                                 <v-btn
-                                        color="light-blue"
+                                        color="#82b9dd"
                                         class="white--text"
                                         large
                                         round>
@@ -95,7 +95,6 @@
                 <v-parallax
                         dark
                         :src="header2"
-
                         class="parallax2"
                 ></v-parallax>
             </section>
@@ -154,10 +153,6 @@
         border-color: transparent !important;
     }
 
-    #mainTitle {
-
-    }
-
     #titleCard, h4 {
         color: black;
     }
@@ -168,10 +163,6 @@
             width: 70%;
             margin: auto;
         }
-    }
-
-    #startPageLogo {
-        margin: auto;
     }
 
     .parallax {

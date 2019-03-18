@@ -17,7 +17,7 @@
             <v-btn flat to="/foodItems" class="btnlink">Stocks</v-btn>
             <v-btn flat to="/recipes" class="btnlink">Recipies</v-btn>
             <v-btn flat to="contact" class="btnlink">Contact</v-btn>
-            <v-btn flat class="info btnlink">Log in</v-btn>
+            <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>
         </v-toolbar-items>
     </v-toolbar>
 </template>
@@ -40,5 +40,9 @@
         color: inherit;
     }
 
+    #loginBtn {
+        color: white;
+        background-color: #90CCF4;
+    }
 
 </style>

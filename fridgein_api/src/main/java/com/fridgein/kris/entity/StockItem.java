@@ -10,7 +10,7 @@ public class StockItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private int foodId;
+    private int fooditem_id;
     private String name;
     private String type;
     private Date purchaseDate;
@@ -26,12 +26,12 @@ public class StockItem {
         this.id = id;
     }
 
-    public int getFoodId() {
-        return foodId;
+    public int getFooditem_id() {
+        return fooditem_id;
     }
 
-    public void setFoodId(int foodId) {
-        this.foodId = foodId;
+    public void setFooditem_id(int fooditem_id) {
+        this.fooditem_id = fooditem_id;
     }
 
     public String getName() {
