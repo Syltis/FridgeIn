@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/stockitem")
 public class StockItemController {
 
     private StockItemService stockItemService;
@@ -16,9 +16,9 @@ public class StockItemController {
         this.stockItemService = stockItemService;
     }
 
-    @PostMapping("/stockitem")
+    @PostMapping("/post")
     public void createStockItem(@RequestBody StockItem stockItem) { stockItemService.create(stockItem); }
 
-    @GetMapping("/stockitems")
-    public List<StockItem> getAllStockItems() { return stockItemService.getAllStockItems(); }
+    @GetMapping("/readAll")
+    public List<StockItem> readAllStockItems() { return stockItemService.readAllStockItems(); }
 }

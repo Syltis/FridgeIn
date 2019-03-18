@@ -15,11 +15,11 @@ public class StockItemService {
         this.stockItemJDBCRepository = stockItemJDBCRepository;
     }
 
-    public List<StockItem> getAllStockItems() {
+    public List<StockItem> readAllStockItems() {
        return stockItemJDBCRepository.readAll();
     }
 
-    public StockItem getById(long id) {
+    public StockItem readById(long id) {
         return stockItemJDBCRepository.readById(id);
     }
 
