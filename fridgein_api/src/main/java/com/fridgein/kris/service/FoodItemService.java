@@ -15,14 +15,20 @@ public class FoodItemService {
         this.foodItemJDBCRepository = foodItemJDBCRepository;
     }
 
-    public List<FoodItem> getAllFoodItems() {
-        return foodItemJDBCRepository.readAll();
+    public FoodItem readByName(String name) {
+        return foodItemJDBCRepository.readByName(name);
     }
 
-    public FoodItem getById(long id) {
+    public FoodItem readById(long id) {
         return foodItemJDBCRepository.readById(id); }
+
+    public List<FoodItem> readAllFoodItems() {
+        return foodItemJDBCRepository.readAll();
+    }
 
     public void create(FoodItem foodItem) {
         foodItemJDBCRepository.create(foodItem);
     }
+
+
 }

@@ -17,7 +17,7 @@ public class StockItemJDBCRepository {
     }
 
     public StockItem readById(long id) {
-        String sql = "select * from stockitem where id=?";
+        String sql = "select * from stockitem where stockitem_id=?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id},
                 new BeanPropertyRowMapper<>(StockItem.class));
     }
@@ -28,11 +28,10 @@ public class StockItemJDBCRepository {
     }
 
     public void create(StockItem stockItem) {
-        String sql = "INSERT INTO stockitem (id, foodid, name, type, purchase_date, expiration_date) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO stockitem (fooditem_id, name, type, purchase_date, expiration_date) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(
                 sql,
-                stockItem.getId(),
-                stockItem.getFoodId(),
+                stockItem.getFooditem_id(),
                 stockItem.getName(),
                 stockItem.getType() ,
                 stockItem.getPurchaseDate(),

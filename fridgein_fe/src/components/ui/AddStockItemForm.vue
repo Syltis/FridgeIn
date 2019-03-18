@@ -2,96 +2,108 @@
     <v-flex class="flexBox">
         <v-card class="formCard">
             <v-layout row wrap>
-                <h4 class="display-1">
-                    Add food to your stock
-                </h4>
-                <v-spacer></v-spacer>
-                <v-flex x6>
+
+                <!-- Row one -->
+                <v-flex xs7>
+                    <h1 class="display-1 font-weight-thin">
+                        Add food to your stock
+                    </h1>
+                    <v-spacer></v-spacer>
+                </v-flex>
+                <v-flex x5>
                     <v-select
-                            v-model="fooditem"
                             :items="fooditems"
                             item-text="name"
                             :menu-props="{ maxHeight: '400' }"
-                            label="Pick an item from your saved foods"
+                            label="Pick item from saved foods"
                             hint="Creating a new one will save it to this list."
                             persistent-hint
                     ></v-select>
                 </v-flex>
+
+                <!-- Row two -->
+                <v-flex xs5 class="formFlex">
+                    <v-text-field
+                            v-model="stockItemName"
+                            label="Food Name"
+                            :counter="20"
+                            required
+                    ></v-text-field>
+                </v-flex>
+                <v-spacer xs2></v-spacer>
+                <v-flex xs5 class="formFlex">
+                    <v-text-field
+                            v-model="stockItemType"
+                            label="Type"
+                            :counter="20"
+                            required
+                    ></v-text-field>
+                </v-flex>
+
+                <!-- Row three -->
+                <v-flex xs4 class="formFlex">
+                    <v-dialog
+                            v-model="modal"
+                            ref="dialog"
+                            lazy
+                            full-width
+                            width="290px"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                    v-model="purchaseDate"
+                                    label="Purchase Date"
+                                    prepend-icon="event"
+                                    readonly
+                                    v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="purchaseDate" @input="modal = false"
+                                       scrollable></v-date-picker>
+                    </v-dialog>
+                </v-flex>
+                <v-spacer xs1></v-spacer>
+                <v-flex xs2 class="formFlex">
+                    <v-checkbox
+                            label="Expirable"
+                            @click.native="atChecked"
+                            id="expirationCheckBox"
+                    ></v-checkbox>
+                </v-flex>
+                <v-spacer xs1></v-spacer>
+                <v-flex xs4 class="formFlex">
+                    <div v-if="expirationCheckBox">
+                        <v-dialog
+                                v-model="modal2"
+                                ref="dialog"
+                                lazy
+                                full-width
+                                width="290px"
+                        >
+                            <template v-slot:activator="{ on }">
+                                <v-text-field
+                                        v-model="expirationDate"
+                                        label="Expiration Date"
+                                        prepend-icon="event"
+                                        readonly
+                                        v-on="on"
+                                ></v-text-field>
+                            </template>
+                            <v-date-picker v-model="expirationDate" @input="modal2 = false"
+                                           scrollable></v-date-picker>
+                        </v-dialog>
+                    </div>
+                </v-flex>
+
+                <!-- Row four -->
                 <v-flex xs12>
-                    <v-form ref="form">
-                        <v-text-field
-                                label="Food Name"
-                                :counter="15"
-                                required
-                        ></v-text-field>
-                        <v-text-field
-                                label="Type"
-                                required
-                        ></v-text-field>
-                        <v-layout row wrap>
-                            <v-spacer></v-spacer>
-                            <v-flex xs12>
-                                <v-dialog
-                                        ref="dialog"
-                                        lazy
-                                        full-width
-                                        width="290px"
-                                >
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field
-                                                label="Bought At"
-                                                prepend-icon="event"
-                                                readonly
-                                                v-on="on"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker v-model="date" scrollable>
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                                        <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-                                    </v-date-picker>
-                                </v-dialog>
-                                <v-checkbox
-                                        label="Expirable?"
-                                        @click="atChecked"
-                                        id="expirationCheckBox"
-                                ></v-checkbox>
-                                <div v-if="expirationCheckBox">
-                                    <v-dialog
-                                            ref="dialog"
-                                            :return-value.sync="date"
-                                            lazy
-                                            full-width
-                                            width="290px"
-                                    >
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field
-                                                    label="Expiration Date"
-                                                    prepend-icon="event"
-                                                    readonly
-                                                    v-on="on"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-date-picker scrollable>
-                                            <v-spacer></v-spacer>
-                                            <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-                                            <v-btn flat color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
-                                        </v-date-picker>
-                                    </v-dialog>
-                                </div>
-                            </v-flex>
-                        </v-layout>
-                            <v-spacer></v-spacer>
-                            <v-flex xs12>
-                                <v-btn @click="submit"
-                                       :disabled="!valid"
-                                       color="success"
-                                >
-                                    submit
-                                </v-btn>
-                                <v-btn @click="reset" color="error">clear</v-btn>
-                            </v-flex>
-                    </v-form>
+                    <v-btn @click="submitStockItem"
+                           :disabled="!valid"
+                           color="success"
+                    >
+                        submit
+                    </v-btn>
+                    <v-btn @click="reset" color="error">clear</v-btn>
                 </v-flex>
             </v-layout>
         </v-card>
@@ -105,9 +117,19 @@
         name: "AddStockItemForm",
         data() {
             return {
+                stockItemName: "",
+                stockItemType: "",
+                purchaseDate: new Date().toISOString().substr(0, 10),
+                expirationDate: null,
                 expirationCheckBox: false,
                 e6: [],
-                fooditems: []
+                fooditems: [],
+                modal: false,
+                modal2: false,
+                foodItemSuccess: false,
+                foodItemError: false,
+                stockItemSuccess: false,
+                stockItemError: false
             }
         },
         mounted() {
@@ -117,15 +139,65 @@
             atChecked() {
                 this.expirationCheckBox = !this.expirationCheckBox;
             },
+
             fetchFoodItems() {
-                axios.get('http://localhost:8080/api/fooditems')
+                axios.get('http://localhost:8080/api/fooditem/readAll')
                     .then(response => {
                         this.fooditems = response.data
                     })
             },
+
+            fetchFoodItemByName(name) {
+                return axios.get('http://localhost:8080/api/fooditem/readByName', {
+                    params: {
+                        name: name
+                    }
+                })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            },
+
+            async submitStockItem() {
+                // post foodItem
+                axios.post('http://localhost:8080/api/fooditem/post', {
+                    name: this.stockItemName,
+                    type: this.stockItemType
+                })
+                    .then(response => {
+                        this.foodItemSuccess = true;
+                        console.log(response);
+
+                        // fetch ID of new Fooditem
+                        const newFoodItem = this.fetchFoodItemByName(name);
+
+                        // post Stockitem
+                        axios.post('http://localhost:8080/api/stockitem/post', {
+                            fooditem_id: newFoodItem.fooditem_id,
+                            name: this.stockItemName,
+                            type: this.stockItemType,
+                            purchaseDate: this.purchaseDate,
+                            expirationDate: this.expirationDate
+                        })
+                            .then(response => {
+                                this.stockItemSuccess = true;
+                                console.log(response);
+                            })
+                            .catch(err => {
+                                this.stockItemError = true;
+                                console.log(err);
+                            })
+                    })
+                    .catch(err => {
+                        this.foodItemError = true;
+                        console.log(err);
+                    });
+            },
+
             valid() {
                 return true;
             },
+
             reset() {
                 this.$refs.form.reset();
             }
@@ -145,4 +217,11 @@
         min-width: 30%;
         max-width: 50%;
     }
+
+    .formFlex {
+        margin-top: 3%;
+        margin-bottom: 3%;
+    }
+
+
 </style>
