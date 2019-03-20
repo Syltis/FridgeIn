@@ -14,6 +14,6 @@ public class HomeController {
      */
     @GetMapping(value = "/")
     public void redirectToH2(HttpServletResponse httpServletResponse) throws IOException {
-        httpServletResponse.sendRedirect("http://localhost:8080/h2-console/");
+        httpServletResponse.sendRedirect("https://console.cloud.google.com/sql/instances/fridgeindata/overview?project=fridgein&folder&organizationId&duration=PT1H");
     }
 }

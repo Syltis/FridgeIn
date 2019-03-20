@@ -52,7 +52,7 @@
         },
         methods: {
             fetchStockItems() {
-                axios.get("http://localhost:8080/api/stockitem/readAll")
+                axios.get("http://localhost:8080/api/stockitem/readall")
                     .then(response => {
                         this.stockitems = response.data
                     })
@@ -77,7 +77,9 @@
     }
 
     .flexBox {
-        margin: 30px;
+        margin-top: 20px;
+        margin-right: 2%;
+        margin-left: 2%;
         min-width: 30%;
     }
 
