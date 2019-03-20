@@ -7,8 +7,9 @@ import java.sql.Date;
 public class StockItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "stockitem_id")
+    @GeneratedValue
+    private long stockitem_id;
 
     private int fooditem_id;
     private String name;
@@ -16,12 +17,12 @@ public class StockItem {
     private Date purchaseDate;
     private Date expirationDate;
 
-    public long getId() {
-        return id;
+    public long getStockitem_id() {
+        return stockitem_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setStockitem_id(long stockitem_id) {
+        this.stockitem_id = stockitem_id;
     }
 
     public int getFooditem_id() {
