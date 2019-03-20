@@ -148,8 +148,7 @@
             },
 
             fetchFoodItemByName(name) {
-                return axios.get('http://localhost:8080/api/fooditem/readbyname/' + name, {
-
+                return axios.get('http://localhost:8080/api/fooditem/readbyname?name='+ name, {
                 })
                     .catch(err => {
                         console.log(err);
