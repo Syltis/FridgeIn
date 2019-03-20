@@ -141,17 +141,15 @@
             },
 
             fetchFoodItems() {
-                axios.get('http://localhost:8080/api/fooditem/readAll')
+                axios.get('http://localhost:8080/api/fooditem/readall')
                     .then(response => {
                         this.fooditems = response.data
                     })
             },
 
             fetchFoodItemByName(name) {
-                return axios.get('http://localhost:8080/api/fooditem/readByName', {
-                    params: {
-                        name: name
-                    }
+                return axios.get('http://localhost:8080/api/fooditem/readbyname/' + name, {
+
                 })
                     .catch(err => {
                         console.log(err);
