@@ -1,5 +1,5 @@
 <template id="addStockItemForm" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <v-flex class="flexBox">
+
         <v-card class="formCard">
             <v-layout row wrap>
 
@@ -111,7 +111,7 @@
                 </v-flex>
             </v-layout>
         </v-card>
-    </v-flex>
+
 </template>
 
 <script>
@@ -133,7 +133,7 @@
                 modal2: false,
                 foodItemSuccess: false,
                 foodItemError: false,
-                stockItemSuccess: true,
+                stockItemSuccess: false,
                 stockItemError: false
             }
         },
@@ -210,12 +210,6 @@
     .formCard {
         padding: 40px;
 
-    }
-
-    .flexBox {
-        margin-top: 30px;
-        min-width: 30%;
-        max-width: 50%;
     }
 
     .formFlex {

@@ -1,5 +1,5 @@
 <template id="stockItemList">
-    <v-flex class="flexBox">
+
         <v-card class="formCard"
         >
             <v-form>
@@ -36,7 +36,7 @@
                 </v-list>
             </div>
         </v-card>
-    </v-flex>
+
 </template>
 
 <script>
@@ -74,13 +74,6 @@
     .formCard {
         padding: 30px;
 
-    }
-
-    .flexBox {
-        margin-top: 20px;
-        margin-right: 2%;
-        margin-left: 2%;
-        min-width: 30%;
     }
 
     .typeI {
