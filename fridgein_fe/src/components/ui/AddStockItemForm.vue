@@ -105,6 +105,9 @@
                         submit
                     </v-btn>
                     <v-btn @click="reset" color="error">clear</v-btn>
+                    <span class="font-weight-bold" v-if="stockItemSuccess">
+                        Food added to stock!
+                    </span>
                 </v-flex>
             </v-layout>
         </v-card>
@@ -125,11 +128,12 @@
                 expirationCheckBox: false,
                 e6: [],
                 fooditems: [],
+                newFoodItem: null,
                 modal: false,
                 modal2: false,
                 foodItemSuccess: false,
                 foodItemError: false,
-                stockItemSuccess: false,
+                stockItemSuccess: true,
                 stockItemError: false
             }
         },
@@ -148,17 +152,6 @@
                     })
             },
 
-            async fetchFoodItemByName(name) {
-                return axios.get('http://localhost:8080/api/fooditem/readbyname', {
-                    params: {
-                        name: name
-                    }
-                })
-                    .catch(err => {
-                        console.log(err);
-                    })
-            },
-
             async submitStockItem() {
                 // post foodItem
                 axios.post('http://localhost:8080/api/fooditem/post', {
@@ -169,30 +162,36 @@
                         this.foodItemSuccess = true;
                         console.log(response);
 
-                        // fetch ID of new Fooditem
-                        const newFoodItem = this.fetchFoodItemByName(this.stockItemName);
-
-                        // post Stockitem
-                        axios.post('http://localhost:8080/api/stockitem/post', {
-                            fooditem_id: newFoodItem.fooditem_id,
-                            name: this.stockItemName,
-                            type: this.stockItemType,
-                            purchaseDate: this.purchaseDate,
-                            expirationDate: this.expirationDate
+                        axios.get('http://localhost:8080/api/fooditem/readbyname', {
+                            params: {
+                                name: this.stockItemName
+                            }
+                        }).then(response => {
+                            // post Stockitem
+                            axios.post('http://localhost:8080/api/stockitem/post', {
+                                fooditem_id: response.data.fooditem_id,
+                                name: this.stockItemName,
+                                type: this.stockItemType,
+                                purchaseDate: this.purchaseDate,
+                                expirationDate: this.expirationDate
+                            })
+                                .then(response => {
+                                    this.stockItemSuccess = true;
+                                    console.log(response);
+                                })
+                                .catch(err => {
+                                    this.stockItemError = true;
+                                    console.log(err);
+                                })
                         })
-                            .then(response => {
-                                this.stockItemSuccess = true;
-                                console.log(response);
-                            })
                             .catch(err => {
-                                this.stockItemError = true;
+                                this.foodItemError = true;
                                 console.log(err);
-                            })
+                            });
                     })
                     .catch(err => {
-                        this.foodItemError = true;
-                        console.log(err);
-                    });
+                        console.log(err)
+                    })
             },
 
             valid() {
@@ -214,14 +213,15 @@
     }
 
     .flexBox {
-        margin: 30px;
+        margin-top: 30px;
         min-width: 30%;
         max-width: 50%;
     }
 
     .formFlex {
         margin-top: 3%;
-        margin-bottom: 3%;
+        margin-right: 2%;
+        margin-left: 2%;
     }
 
 

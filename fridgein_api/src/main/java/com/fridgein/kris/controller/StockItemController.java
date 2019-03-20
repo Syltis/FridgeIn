@@ -16,9 +16,9 @@ public class StockItemController {
         this.stockItemService = stockItemService;
     }
 
-    @PostMapping("/post")
+    @PostMapping(path = "/post")
     public void createStockItem(@RequestBody StockItem stockItem) { stockItemService.create(stockItem); }
 
-    @GetMapping("/readall")
+    @GetMapping(path = "/readall")
     public List<StockItem> readAllStockItems() { return stockItemService.readAllStockItems(); }
 }

@@ -21,7 +21,7 @@
                         >
                             <v-list-tile-content>
                                 <v-list-tile-title>
-                                    <span class="left">{{stockitem.stockitem_id}} {{stockitem.name}}</span>
+                                    <span class="left">{{stockitem.name}}</span>
                                     <span class="right"><i
                                             class="typeI">{{stockitem.type.toLowerCase()}}&nbsp;&nbsp;</i></span>
                                 </v-list-tile-title>
@@ -77,7 +77,9 @@
     }
 
     .flexBox {
-        margin: 30px;
+        margin-top: 20px;
+        margin-right: 2%;
+        margin-left: 2%;
         min-width: 30%;
     }
 
