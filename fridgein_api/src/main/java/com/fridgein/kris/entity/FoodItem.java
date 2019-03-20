@@ -11,18 +11,19 @@ import javax.persistence.*;
 public class FoodItem {
 
     @Id
+    @Column(name = "fooditem_id")
     @GeneratedValue
-    private long id;
+    private long fooditem_id;
 
     private String name;
     private String type;
 
-    public long getId() {
-        return id;
+    public long getFooditem_id() {
+        return fooditem_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setFooditem_id(long fooditem_id) {
+        this.fooditem_id = fooditem_id;
     }
 
     public String getName() {
