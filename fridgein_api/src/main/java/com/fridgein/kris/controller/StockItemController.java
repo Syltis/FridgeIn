@@ -19,6 +19,6 @@ public class StockItemController {
     @PostMapping("/post")
     public void createStockItem(@RequestBody StockItem stockItem) { stockItemService.create(stockItem); }
 
-    @GetMapping("/readAll")
+    @GetMapping("/readall")
     public List<StockItem> readAllStockItems() { return stockItemService.readAllStockItems(); }
 }

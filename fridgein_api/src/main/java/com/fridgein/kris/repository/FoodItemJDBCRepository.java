@@ -24,6 +24,7 @@ public class FoodItemJDBCRepository {
 
     public FoodItem readByName(String name) {
         String sql = "select * from fooditem where name = ?";
+        System.out.println("READNAME REPO ACCESSED");
         return jdbcTemplate.queryForObject(sql, new Object[] {name},
                 new BeanPropertyRowMapper<>(FoodItem.class));
     }

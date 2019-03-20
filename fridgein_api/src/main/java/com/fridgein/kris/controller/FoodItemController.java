@@ -4,10 +4,12 @@ import com.fridgein.kris.entity.FoodItem;
 import com.fridgein.kris.service.FoodItemService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
+import java.sql.SQLOutput;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/fooditem")
+@RequestMapping(path = "api/fooditem")
 public class FoodItemController {
 
     private FoodItemService foodItemService;
@@ -16,16 +18,17 @@ public class FoodItemController {
         this.foodItemService = foodItemService;
     }
 
-    @PostMapping("/post")
+    @PostMapping(path = "/post")
     public void createFoodItem(@RequestBody FoodItem foodItem) {
         foodItemService.create(foodItem);
     }
 
-    @GetMapping("/readByName")
-    public FoodItem readFoodItemByName(String name) {
+    @GetMapping(path = "/readbyname")
+    public @ResponseBody FoodItem readFoodItemByName(@RequestParam String name) {
+        System.out.println("READNAME CONTROLLER ACCESSES");
         return foodItemService.readByName(name); }
 
-    @GetMapping("/readAll")
+    @GetMapping(path = "/readall")
     public List<FoodItem> readAllFoodItems() {
         return foodItemService.readAllFoodItems();
     }
