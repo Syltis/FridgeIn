@@ -14,6 +14,7 @@
                     <v-select
                             :items="fooditems"
                             item-text="name"
+                            return-object
                             :menu-props="{ maxHeight: '400' }"
                             label="Pick item from saved foods"
                             hint="Creating a new one will save it to this list."
@@ -147,8 +148,11 @@
                     })
             },
 
-            fetchFoodItemByName(name) {
-                return axios.get('http://localhost:8080/api/fooditem/readbyname?name='+ name, {
+            async fetchFoodItemByName(name) {
+                return axios.get('http://localhost:8080/api/fooditem/readbyname', {
+                    params: {
+                        name: name
+                    }
                 })
                     .catch(err => {
                         console.log(err);
@@ -166,7 +170,7 @@
                         console.log(response);
 
                         // fetch ID of new Fooditem
-                        const newFoodItem = this.fetchFoodItemByName(name);
+                        const newFoodItem = this.fetchFoodItemByName(this.stockItemName);
 
                         // post Stockitem
                         axios.post('http://localhost:8080/api/stockitem/post', {
