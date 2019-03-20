@@ -16,8 +16,6 @@ public class StockItem {
     private Date purchaseDate;
     private Date expirationDate;
 
-    public StockItem() {}
-
     public long getId() {
         return id;
     }

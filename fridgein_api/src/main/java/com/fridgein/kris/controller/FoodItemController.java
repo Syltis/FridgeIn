@@ -26,7 +26,8 @@ public class FoodItemController {
     @GetMapping(path = "/readbyname")
     public @ResponseBody FoodItem readFoodItemByName(@RequestParam String name) {
         System.out.println("READNAME CONTROLLER ACCESSES");
-        return foodItemService.readByName(name); }
+        return foodItemService.readByName(name);
+    }
 
     @GetMapping(path = "/readall")
     public List<FoodItem> readAllFoodItems() {

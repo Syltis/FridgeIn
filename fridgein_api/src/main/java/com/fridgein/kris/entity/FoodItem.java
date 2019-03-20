@@ -11,23 +11,11 @@ import javax.persistence.*;
 public class FoodItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     private String name;
     private String type;
-
-    public FoodItem() {
-        this.id = -1;
-        this.name = "test";
-        this.type = "test";
-    }
-
-    public FoodItem(Long id, String name, String type) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-    }
 
     public long getId() {
         return id;
