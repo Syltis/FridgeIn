@@ -169,7 +169,7 @@
                         }).then(response => {
                             // post Stockitem
                             axios.post('http://localhost:8080/api/stockitem/post', {
-                                fooditem_id: response.data.fooditem_id,
+                                fooditem: response.data,
                                 name: this.stockItemName,
                                 type: this.stockItemType,
                                 purchaseDate: this.purchaseDate,

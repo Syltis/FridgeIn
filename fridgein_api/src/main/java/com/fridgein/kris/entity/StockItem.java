@@ -7,30 +7,33 @@ import java.sql.Date;
 public class StockItem {
 
     @Id
-    @Column(name = "stockitem_id")
+    @Column(name = "stockItem_id")
     @GeneratedValue
-    private long stockitem_id;
+    private long stockItem_id;
 
-    private int fooditem_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "foodItem_id")
+    private FoodItem foodItem;
+
     private String name;
     private String type;
     private Date purchaseDate;
     private Date expirationDate;
 
-    public long getStockitem_id() {
-        return stockitem_id;
+    public long getStockItem_id() {
+        return stockItem_id;
     }
 
-    public void setStockitem_id(long stockitem_id) {
-        this.stockitem_id = stockitem_id;
+    public void setStockItem_id(long stockItem_id) {
+        this.stockItem_id = stockItem_id;
     }
 
-    public int getFooditem_id() {
-        return fooditem_id;
+    public FoodItem getFoodItem() {
+        return foodItem;
     }
 
-    public void setFooditem_id(int fooditem_id) {
-        this.fooditem_id = fooditem_id;
+    public void setFoodItem(FoodItem foodItem) {
+        this.foodItem = foodItem;
     }
 
     public String getName() {
