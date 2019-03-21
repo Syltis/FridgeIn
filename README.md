@@ -5,6 +5,8 @@ Site for keeping track of fridge items, using them in recipes and tracking expir
 
 #### Trello: https://trello.com/b/HmgAibgp/fridgein
 
+---
+
 #### Functional requirements
 
 - [x] Add foods to current stock and view them
