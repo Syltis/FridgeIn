@@ -31,7 +31,7 @@ public class StockItemJDBCRepository {
         String sql = "INSERT INTO stockitem (fooditem_id, name, type, purchase_date, expiration_date) VALUES (?, ?, ?, ?, ?)";
         jdbcTemplate.update(
                 sql,
-                stockItem.getFooditem_id(),
+                stockItem.getFoodItem(),
                 stockItem.getName(),
                 stockItem.getType() ,
                 stockItem.getPurchaseDate(),

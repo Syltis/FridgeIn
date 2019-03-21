@@ -1,6 +1,7 @@
 package com.fridgein.kris.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * DTO for a a food-item in the fridge
@@ -11,19 +12,30 @@ import javax.persistence.*;
 public class FoodItem {
 
     @Id
-    @Column(name = "fooditem_id")
+    @Column(name = "foodItem_id")
     @GeneratedValue
-    private long fooditem_id;
+    private long foodItem_id;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodItem")
+    private List<StockItem> stockItems;
 
     private String name;
     private String type;
 
-    public long getFooditem_id() {
-        return fooditem_id;
+    public long getFoodItem_id() {
+        return foodItem_id;
     }
 
-    public void setFooditem_id(long fooditem_id) {
-        this.fooditem_id = fooditem_id;
+    public void setFoodItem_id(long foodItem_id) {
+        this.foodItem_id = foodItem_id;
+    }
+
+    public List<StockItem> getStockItems() {
+        return stockItems;
+    }
+
+    public void setStockItems(List<StockItem> stockItems) {
+        this.stockItems = stockItems;
     }
 
     public String getName() {
