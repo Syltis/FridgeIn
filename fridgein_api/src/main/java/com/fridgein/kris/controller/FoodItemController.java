@@ -28,7 +28,7 @@ public class FoodItemController {
         return foodItemService.readByName(name);
     }
 
-    @GetMapping(path = "readbyid")
+    @GetMapping(path = "/readbyid")
     public @ResponseBody FoodItem readFoodItemById(@RequestParam long id) {
         return foodItemService.readById(id);
     }
