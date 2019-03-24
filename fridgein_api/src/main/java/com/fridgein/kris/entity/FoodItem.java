@@ -1,5 +1,7 @@
 package com.fridgein.kris.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,14 +11,16 @@ import java.util.List;
  * @author Kristoffer Sylte Dahl
  */
 @Entity
+@Table(name = "fooditem")
 public class FoodItem {
 
     @Id
-    @Column(name = "foodItem_id")
+    @Column(name = "fooditem_id")
     @GeneratedValue
     private long foodItem_id;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodItem")
+    @JsonManagedReference
     private List<StockItem> stockItems;
 
     private String name;

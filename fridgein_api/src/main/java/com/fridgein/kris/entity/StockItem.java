@@ -1,23 +1,27 @@
 package com.fridgein.kris.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Table(name = "stockitem")
 public class StockItem {
 
     @Id
-    @Column(name = "stockItem_id")
+    @Column(name = "stockitem_id")
     @GeneratedValue
     private long stockItem_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "foodItem_id")
+    @JoinColumn(name = "fooditem_id")
+    @JsonBackReference
     private FoodItem foodItem;
 
-    private String name;
-    private String type;
+    @Column(name = "purchase_date")
     private Date purchaseDate;
+    @Column(name = "expiration_date")
     private Date expirationDate;
 
     public long getStockItem_id() {
@@ -34,22 +38,6 @@ public class StockItem {
 
     public void setFoodItem(FoodItem foodItem) {
         this.foodItem = foodItem;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Date getPurchaseDate() { return purchaseDate;

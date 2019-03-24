@@ -1,7 +1,8 @@
 package com.fridgein.kris.service;
 
+import com.fridgein.kris.config.NotFoundException;
 import com.fridgein.kris.entity.StockItem;
-import com.fridgein.kris.repository.StockItemJDBCRepository;
+import com.fridgein.kris.repository.StockItemJPARepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,22 +10,22 @@ import java.util.List;
 @Service
 public class StockItemService {
 
-    private StockItemJDBCRepository stockItemJDBCRepository;
+    private StockItemJPARepository stockItemJPARepository;
 
-    public StockItemService(StockItemJDBCRepository stockItemJDBCRepository) {
-        this.stockItemJDBCRepository = stockItemJDBCRepository;
+    public StockItemService(StockItemJPARepository stockItemJPARepository) {
+        this.stockItemJPARepository = stockItemJPARepository;
     }
 
     public List<StockItem> readAllStockItems() {
-       return stockItemJDBCRepository.readAll();
+       return stockItemJPARepository.findAll();
     }
 
     public StockItem readById(long id) {
-        return stockItemJDBCRepository.readById(id);
+        return stockItemJPARepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
     public void create(StockItem stockItem) {
-        stockItemJDBCRepository.create(stockItem);
+        stockItemJPARepository.save(stockItem);
     }
 
 }
