@@ -1,7 +1,8 @@
 package com.fridgein.kris.service;
 
+import com.fridgein.kris.config.NotFoundException;
 import com.fridgein.kris.entity.FoodItem;
-import com.fridgein.kris.repository.FoodItemJDBCRepository;
+import com.fridgein.kris.repository.FoodItemJPARepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,25 +10,26 @@ import java.util.List;
 @Service
 public class FoodItemService {
 
-    private FoodItemJDBCRepository foodItemJDBCRepository;
+    private FoodItemJPARepository foodItemJPARepository;
 
-    public FoodItemService(FoodItemJDBCRepository foodItemJDBCRepository) {
-        this.foodItemJDBCRepository = foodItemJDBCRepository;
+    public FoodItemService(FoodItemJPARepository foodItemJPARepository) {
+        this.foodItemJPARepository = foodItemJPARepository;
     }
 
     public FoodItem readByName(String name) {
-        return foodItemJDBCRepository.readByName(name);
+        return foodItemJPARepository.findByName(name);
     }
 
     public FoodItem readById(long id) {
-        return foodItemJDBCRepository.readById(id); }
+        return foodItemJPARepository.findById(id).orElseThrow(NotFoundException::new);
+    }
 
     public List<FoodItem> readAllFoodItems() {
-        return foodItemJDBCRepository.readAll();
+        return foodItemJPARepository.findAll();
     }
 
     public void create(FoodItem foodItem) {
-        foodItemJDBCRepository.create(foodItem);
+        foodItemJPARepository.save(foodItem);
     }
 
 
