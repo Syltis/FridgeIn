@@ -134,14 +134,18 @@
 
             async submitStockItem2() {
                 axios.post('http://localhost:8080/api/fooditem/post', {
-                    "stockItems": [
+                    stockItems: [
                         {
-                            "purchaseDate": this.purchaseDate,
-                            "expirationDate": this.expirationDate
+                            purchaseDate: this.purchaseDate,
+                            expirationDate: this.expirationDate
                         }
                     ],
-                    "name": this.stockItemName,
-                    "type": this.stockItemType
+                    name: this.stockItemName,
+                    type: this.stockItemType
+                }).then(response => {
+                    console.log(response.data);
+                }).catch(error => {
+                    console.log(error);
                 })
             },
             async submitStockItem() {
