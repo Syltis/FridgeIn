@@ -4,7 +4,7 @@ select * from fooditem;
 
 select foodItem_id from fooditem where type = 1;
 delete from fooditem where type = 't';
-delete from stockitem where purchase_date = '2019-03-21';
+delete from stockitem where expiration_date = '2019-03-25';
 
 # CONSTRAINT statements
 
