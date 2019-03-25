@@ -27,5 +27,4 @@ public class StockItemService {
     public void create(StockItem stockItem) {
         stockItemJPARepository.save(stockItem);
     }
-
 }

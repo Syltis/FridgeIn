@@ -6,22 +6,17 @@ import './../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import VueRouter from 'vue-router';
 
-import FoodItemList from "./components/ui/FoodItemList";
 import NavigationBar from "./components/layout/NavigationBar";
 import BottomBar from "./components/layout/BottomBar";
 import FoodItemPage from "./pages/FoodItemPage";
-import StockItemList from "./components/ui/StockItemList";
-import AddStockItemForm from "./components/ui/AddStockItemForm";
 import ContactPage from "./pages/ContactPage";
 import RecipePage from "./pages/RecipePage";
 import StartPage from "./pages/StartPage";
 
+
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
-Vue.component('foodItemList', FoodItemList);
-Vue.component('stockItemList', StockItemList);
-Vue.component('addStockItemForm', AddStockItemForm);
 Vue.component('navigationBar', NavigationBar);
 Vue.component('bottomBar', BottomBar);
 

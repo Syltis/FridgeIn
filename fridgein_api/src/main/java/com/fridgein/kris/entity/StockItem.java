@@ -11,7 +11,7 @@ public class StockItem {
 
     @Id
     @Column(name = "stockitem_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long stockItem_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,7 +27,6 @@ public class StockItem {
     public long getStockItem_id() {
         return stockItem_id;
     }
-
     public void setStockItem_id(long stockItem_id) {
         this.stockItem_id = stockItem_id;
     }
@@ -35,20 +34,17 @@ public class StockItem {
     public FoodItem getFoodItem() {
         return foodItem;
     }
-
     public void setFoodItem(FoodItem foodItem) {
         this.foodItem = foodItem;
     }
 
     public Date getPurchaseDate() { return purchaseDate;
     }
-
     public void setPurchaseDate(Date purchaseDate) { this.purchaseDate = purchaseDate;
     }
 
     public Date getExpirationDate() { return expirationDate;
     }
-
     public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;
     }
 }
