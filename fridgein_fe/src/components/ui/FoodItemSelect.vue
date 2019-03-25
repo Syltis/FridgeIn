@@ -1,6 +1,6 @@
 <template>
     <v-select
-            :items="fooditems"
+            :items="foodItems"
             item-text="name"
             return-object
             :menu-props="{ maxHeight: '400' }"
@@ -17,7 +17,7 @@
         name: "FoodItemSelect",
         data() {
             return {
-                fooditems: []
+                foodItems: []
             }
         },
         mounted() {
@@ -27,7 +27,7 @@
             fetchFoodItems() {
                 axios.get('http://localhost:8080/api/fooditem/readall')
                     .then(response => {
-                        this.fooditems = response.data;
+                        this.foodItems = response.data;
                 })
             }
         }
