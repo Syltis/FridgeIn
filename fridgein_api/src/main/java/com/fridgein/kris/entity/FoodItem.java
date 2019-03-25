@@ -16,7 +16,7 @@ public class FoodItem {
 
     @Id
     @Column(name = "fooditem_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodItem_id;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodItem")

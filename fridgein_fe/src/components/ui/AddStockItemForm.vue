@@ -1,25 +1,16 @@
 <template id="addStockItemForm" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
         <v-card class="formCard">
             <v-layout row wrap>
 
                 <!-- Row one -->
-                <v-flex xs7>
+                <v-flex xs6>
                     <h1 class="display-1 font-weight-thin">
                         Add food to your stock
                     </h1>
                     <v-spacer></v-spacer>
                 </v-flex>
-                <v-flex x5>
-                    <v-select
-                            :items="fooditems"
-                            item-text="name"
-                            return-object
-                            :menu-props="{ maxHeight: '400' }"
-                            label="Pick item from saved foods"
-                            hint="Creating a new one will save it to this list."
-                            persistent-hint
-                    ></v-select>
+                <v-flex x4>
+                    <food-item-select></food-item-select>
                 </v-flex>
 
                 <!-- Row two -->
@@ -127,7 +118,6 @@
                 expirationDate: null,
                 expirationCheckBox: false,
                 e6: [],
-                fooditems: [],
                 newFoodItem: null,
                 modal: false,
                 modal2: false,
@@ -137,19 +127,9 @@
                 stockItemError: false
             }
         },
-        mounted() {
-            this.fetchFoodItems();
-        },
         methods: {
             atChecked() {
                 this.expirationCheckBox = !this.expirationCheckBox;
-            },
-
-            fetchFoodItems() {
-                axios.get('http://localhost:8080/api/fooditem/readall')
-                    .then(response => {
-                        this.fooditems = response.data
-                    })
             },
 
             async submitStockItem() {
@@ -217,6 +197,5 @@
         margin-right: 2%;
         margin-left: 2%;
     }
-
 
 </style>

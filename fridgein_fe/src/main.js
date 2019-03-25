@@ -15,11 +15,13 @@ import AddStockItemForm from "./components/ui/AddStockItemForm";
 import ContactPage from "./pages/ContactPage";
 import RecipePage from "./pages/RecipePage";
 import StartPage from "./pages/StartPage";
+import FoodItemSelect from "./components/ui/FoodItemSelect";
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
 Vue.component('foodItemList', FoodItemList);
+Vue.component('foodItemSelect', FoodItemSelect);
 Vue.component('stockItemList', StockItemList);
 Vue.component('addStockItemForm', AddStockItemForm);
 Vue.component('navigationBar', NavigationBar);
