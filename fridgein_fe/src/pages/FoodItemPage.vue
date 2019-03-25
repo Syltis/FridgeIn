@@ -15,18 +15,22 @@
 		<v-layout row wrap justify-center>
 
 			<v-flex xs5 class="flexBox ma-3">
-				<stock-item-list/>
+				<StockItemList></StockItemList>
 			</v-flex>
 			<v-flex xs6 class="flexBox ma-3">
-				<add-stock-item-form></add-stock-item-form>
+				<AddStockItemForm></AddStockItemForm>
 			</v-flex>
 		</v-layout>
 	</div>
 </template>
 
 <script>
+    import StockItemList from "../components/ui/StockItemList";
+    import AddStockItemForm from "../components/ui/AddStockItemForm";
+
     export default {
         name: "FoodItemPage",
+        components: {AddStockItemForm, StockItemList},
     }
 </script>
 
