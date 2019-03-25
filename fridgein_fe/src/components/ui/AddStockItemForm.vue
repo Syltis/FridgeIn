@@ -3,13 +3,13 @@
 		<v-layout row wrap>
 
 			<!-- Row one -->
-			<v-flex xs6>
+			<v-flex xs6 class="formFlex">
 				<h1 class="display-1 font-weight-thin">
 					Add food to your stock
 				</h1>
 				<v-spacer></v-spacer>
 			</v-flex>
-			<v-flex x4>
+			<v-flex x4 class="formFlex">
 				<FoodItemSelect></FoodItemSelect>
 			</v-flex>
 
@@ -142,8 +142,8 @@
                             expirationDate: this.expirationDate
                         }
                     ],
-                    name: this.stockItemName,
-                    type: this.stockItemType
+                    name: this.stockItemName.toLowerCase(),
+                    type: this.stockItemType.toLowerCase()
                 }).then(response => {
                     this.stockItemSuccess = true;
                 }).catch(error => {
@@ -170,9 +170,7 @@
 	}
 
 	.formFlex {
-		margin-top: 3%;
-		margin-right: 2%;
-		margin-left: 2%;
+		margin: 3% 2% 2%;
 	}
 
 </style>
