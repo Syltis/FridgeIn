@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <div id="header">
-            <navigation-bar></navigation-bar>
+            <NavigationBar></NavigationBar>
         </div>
         <v-content>
             <v-container fluid>
