@@ -16,10 +16,10 @@ public class FoodItem {
 
     @Id
     @Column(name = "fooditem_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodItem_id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "foodItem")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "foodItem")
     @JsonManagedReference
     private List<StockItem> stockItems;
 
@@ -38,8 +38,13 @@ public class FoodItem {
         return stockItems;
     }
 
-    public void setStockItems(List<StockItem> stockItems) {
+    private void setStockItems(List<StockItem> stockItems) {
         this.stockItems = stockItems;
+    }
+
+    public void addStockItem(StockItem stockItem) {
+        stockItems.add(stockItem);
+        stockItem.setFoodItem(this);
     }
 
     public String getName() {
