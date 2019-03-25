@@ -14,10 +14,10 @@
 		<!-- Content -->
 		<v-layout row wrap justify-center>
 
-			<v-flex xs6 class="flexBox ma-3">
+			<v-flex xs5 class="flexBox ma-3">
 				<stock-item-list/>
 			</v-flex>
-			<v-flex xs5 class="flexBox ma-3">
+			<v-flex xs6 class="flexBox ma-3">
 				<add-stock-item-form></add-stock-item-form>
 			</v-flex>
 		</v-layout>

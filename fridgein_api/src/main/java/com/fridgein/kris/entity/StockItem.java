@@ -11,7 +11,7 @@ public class StockItem {
 
     @Id
     @Column(name = "stockitem_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long stockItem_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
