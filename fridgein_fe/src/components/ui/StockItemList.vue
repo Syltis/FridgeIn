@@ -20,6 +20,12 @@
 							class="listTile"
 					>
 						<v-list-tile-content>
+							<v-list-tile-title>
+								<h4 class="subheading">
+									<span class="left">{{stockItem.foodItem.name}}</span>
+									<span class="right">{{stockItem.foodItem.type}}</span>
+								</h4>
+							</v-list-tile-title>
 							<v-list-tile-action-text>
 								<span class="left">Bought at {{stockItem.purchaseDate}} &nbsp;</span>
 								<span class="right" v-if="stockItem.expirationDate !== null"> Expires at {{stockItem.expirationDate}} </span>

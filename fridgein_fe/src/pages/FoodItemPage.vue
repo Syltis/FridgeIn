@@ -41,7 +41,7 @@
 	}
 
 	.subHeader {
-		margin-top: -1.4%;
+		margin-top: -2%;
 		margin-bottom: 1%;
 	}
 
