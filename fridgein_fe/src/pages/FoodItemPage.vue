@@ -41,13 +41,13 @@
 	}
 
 	.subHeader {
-		margin-top: -1.4%;
+		margin-top: -2%;
 		margin-bottom: 1%;
 	}
 
 	.flexBox {
 		margin-top: 1%;
-		x: 1%;
+
 	}
 
 </style>
