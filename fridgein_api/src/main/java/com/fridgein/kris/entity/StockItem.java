@@ -1,9 +1,7 @@
 package com.fridgein.kris.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import io.micrometer.core.lang.Nullable;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -19,7 +17,8 @@ public class StockItem {
 
     @ManyToOne()
     @JoinColumn(name = "fooditem_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="foodItem_id")
+    /*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="foodItem_id")*/
+    @JsonBackReference
     private FoodItem foodItem;
 
     @Column(name = "purchase_date")

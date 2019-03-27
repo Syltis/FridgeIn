@@ -38,4 +38,5 @@
 	#bottomIcon {
 		margin: auto;
 	}
+
 </style>
