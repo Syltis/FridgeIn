@@ -89,7 +89,7 @@
 
 			<!-- Row four -->
 			<v-flex xs12>
-				<v-btn @click="submitStockItem2"
+				<v-btn @click="submitStockItem"
 					   :disabled="!valid"
 					   color="success"
 				>
@@ -108,6 +108,9 @@
 <script>
     import axios from 'axios'
     import FoodItemSelect from "./FoodItemSelect";
+    import {RepositoryFactory} from '../../api/RepositoryFactory.js'
+
+    const foodItemRepository = RepositoryFactory.get('foodItem');
 
     export default {
         name: "AddStockItemForm",
@@ -123,19 +126,15 @@
                 newFoodItem: null,
                 modal: false,
                 modal2: false,
-                foodItemSuccess: false,
-                foodItemError: false,
                 stockItemSuccess: false,
-                stockItemError: false
             }
         },
         methods: {
             atChecked() {
                 this.expirationCheckBox = !this.expirationCheckBox;
             },
-
-            async submitStockItem2() {
-                axios.post('http://localhost:8080/api/fooditem/post', {
+            async submitStockItem() {
+                await foodItemRepository.post({
                     stockItems: [
                         {
                             purchaseDate: this.purchaseDate,
@@ -144,17 +143,11 @@
                     ],
                     name: this.stockItemName.toLowerCase(),
                     type: this.stockItemType.toLowerCase()
-                }).then(response => {
-                    this.stockItemSuccess = true;
-                }).catch(error => {
-                    console.log(error);
-                })
+                }).then(this.stockItemSuccess = true);
             },
-
             valid() {
                 return true;
             },
-
             reset() {
                 this.$refs.form.reset();
             }
