@@ -15,7 +15,7 @@ public class StockItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long stockItem_id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fooditem_id")
     /*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="foodItem_id")*/
     @JsonBackReference
@@ -33,9 +33,11 @@ public class StockItem {
         this.stockItem_id = stockItem_id;
     }
 
+    @JsonIgnore
     public FoodItem getFoodItem() {
         return foodItem;
     }
+    @JsonIgnore
     public void setFoodItem(FoodItem foodItem) {
         this.foodItem = foodItem;
     }
@@ -50,12 +52,15 @@ public class StockItem {
     public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;
     }
 
-    /**
-     * Get the FoodItem's ID
-     * @return the Long (ID) of the FoodItem
-     */
-    @JsonIgnore
     public long getFoodItemId() {
         return foodItem.getFoodItem_id();
+    }
+
+    public String getFoodItemName() {
+        return foodItem.getName();
+    }
+
+    public String getFoodItemType() {
+        return foodItem.getType();
     }
 }
