@@ -3,6 +3,7 @@ F18-03-1.iml
 target/
 */target/*
 */target/**
+application.properties
 
 # Vue.js elements------
 .DS_Store

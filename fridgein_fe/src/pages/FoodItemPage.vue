@@ -47,7 +47,7 @@
 
 	.flexBox {
 		margin-top: 1%;
-		x: 1%;
+
 	}
 
 </style>

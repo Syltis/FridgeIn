@@ -1,5 +1,6 @@
 package com.fridgein.kris.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -22,7 +23,8 @@ public class FoodItem {
     private long foodItem_id;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "foodItem")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="stockItem_id")
+    /*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="stockItem_id")*/
+    @JsonManagedReference
     private List<StockItem> stockItems;
 
     private String name;
