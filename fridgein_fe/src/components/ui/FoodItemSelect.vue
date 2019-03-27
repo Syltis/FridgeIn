@@ -11,7 +11,9 @@
 </template>
 
 <script>
-    import axios from "axios";
+    import {RepositoryFactory} from "../../api/RepositoryFactory";
+
+    const foodItemRepository = RepositoryFactory.get('foodItem');
 
     export default {
         name: "FoodItemSelect",
@@ -24,11 +26,9 @@
             this.fetchFoodItems();
         },
         methods: {
-            fetchFoodItems() {
-                axios.get('http://localhost:8080/api/fooditem/readall')
-                    .then(response => {
-                        this.foodItems = response.data;
-                })
+            async fetchFoodItems() {
+                const { data } = await foodItemRepository.readAll();
+                this.foodItems = data;
             }
         }
     }
