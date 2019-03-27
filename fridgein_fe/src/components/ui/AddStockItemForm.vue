@@ -106,7 +106,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
     import FoodItemSelect from "./FoodItemSelect";
     import {RepositoryFactory} from '../../api/RepositoryFactory.js'
 

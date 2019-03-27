@@ -1,6 +1,8 @@
 package com.fridgein.kris.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,8 +21,8 @@ public class FoodItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long foodItem_id;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "foodItem")
-    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "foodItem")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="stockItem_id")
     private List<StockItem> stockItems;
 
     private String name;
