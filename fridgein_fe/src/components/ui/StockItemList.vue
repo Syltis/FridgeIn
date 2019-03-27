@@ -5,12 +5,11 @@
         <v-form>
             <v-text-field
                     label="Search stock">
-
             </v-text-field>
         </v-form>
         <div id="list">
             <v-list
-                    one-line
+                    two-line
                     style="max-height: 400px"
                     class="scroll-y"
             >
@@ -22,14 +21,15 @@
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 <h4 class="subheading">
-                                    <span class="left">{{stockItem.foodItem.name}}</span>
-                                    <!--<span class="left" v-if="isAboveOne(countItemAmount(stockItem))">{{countItemAmount(stockItem)}}</span>-->
-                                    <span class="right">{{stockItem.foodItem.type}}</span>
+                                    <span class="left name">{{stockItem.foodItemName}}</span>
+                                    <span class="left type"><i>&nbsp;&nbsp;{{stockItem.foodItemType}}</i></span>
+                                    <span class="right" v-if="isAbove(countStockItem(stockItem.foodItemId))">{{countStockItem(stockItem.foodItemId)}}</span>
                                 </h4>
                             </v-list-tile-title>
                             <v-list-tile-action-text>
-                                <span class="left">Bought at {{stockItem.purchaseDate}} &nbsp;</span>
-                                <span class="right" v-if="stockItem.expirationDate !== null"> Expires at {{stockItem.expirationDate}} </span>
+                                <span class="left">Bought {{stockItem.purchaseDate}} &nbsp;</span>
+                            </v-list-tile-action-text>
+                            <v-list-tile-action-text><span class="right" v-if="stockItem.expirationDate !== null"> Expires {{stockItem.expirationDate}} </span>
                             </v-list-tile-action-text>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -51,27 +51,49 @@
         data() {
             return {
                 stockItems: [],
-                foodItems: []
+                foodItems: [],
+                listedStockItems: []
             }
         },
         mounted() {
             this.fetchStockItems();
+            this.fetchFoodItems();
+            this.setListedStockItems();
         },
         methods: {
             async fetchStockItems() {
                 const {data} = await stockItemRepository.readAll();
-                console.log(data[0].foodItem.stockItems.length);
+                /*console.log(data);*/
                 this.stockItems = data;
             },
             async fetchFoodItems() {
-              const {data} = await stockItemRepository.readAll();
-              this.foodItems = data;
+                const {data} = await foodItemRepository.readAll();
+                this.foodItems = data;
             },
-            countItemAmount(stockItem) {
-                return stockItem.foodItem.stockItems.length;
+            isAbove(item) {
+                return item > 1;
             },
-            isAboveOne(count) {
-                return count > 1;
+            countStockItem(id) {
+                const foodItem = this.foodItems.find(item => {
+                    return item.foodItem_id === id;
+                });
+                return foodItem.stockItems.length;
+            },
+            setListedStockItems() {
+                this.listedStockItems = this.getUnique(this.stockItems, "foodItemId")
+            },
+            getUnique(arr, comp) {
+                return arr
+                    .map(e => e[comp])
+                    // store the keys of the unique objects
+                    .map((e, i, final) => final.indexOf(e) === i && i)
+                    // eliminate the dead keys & store unique objects
+                    .filter(e => arr[e]).map(e => arr[e]);
+            },
+            removeDuplicates(array, prop) {
+                return array.filter((obj, pos, arr) => {
+                    return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+                })
             }
         }
     }
@@ -89,6 +111,14 @@
         padding: 30px;
         min-width: 350px;
         margin-bottom: 3%;
+    }
+
+    .type {
+        opacity: 0.5;
+    }
+
+    .name {
+        text-transform: capitalize;
     }
 
 </style>

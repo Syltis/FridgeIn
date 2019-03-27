@@ -176,7 +176,7 @@
     .formCard {
         padding: 40px;
         min-width: 350px;
-
+        margin-bottom: 3%;
     }
 
     .formFlex {
