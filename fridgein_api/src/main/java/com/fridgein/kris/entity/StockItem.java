@@ -1,6 +1,7 @@
 package com.fridgein.kris.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
+import io.micrometer.core.lang.Nullable;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,8 +15,9 @@ public class StockItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long stockItem_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "fooditem_id")
+    /*@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="foodItem_id")*/
     @JsonBackReference
     private FoodItem foodItem;
 
@@ -46,5 +48,14 @@ public class StockItem {
     public Date getExpirationDate() { return expirationDate;
     }
     public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate;
+    }
+
+    /**
+     * Get the FoodItem's ID
+     * @return the Long (ID) of the FoodItem
+     */
+    @JsonIgnore
+    public long getFoodItemId() {
+        return foodItem.getFoodItem_id();
     }
 }
