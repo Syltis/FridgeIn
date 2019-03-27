@@ -96,17 +96,18 @@
                     submit
                 </v-btn>
                 <v-btn @click="reset" color="error">clear</v-btn>
-                <span class="font-weight-bold" v-if="stockItemSuccess">
-                        Food added to stock!
-                    </span>
             </v-flex>
-            <v-flex xs12>
-                <p v-if="errors.length">
-                    <b>Please correct the following errors</b>
+            <v-flex xs4>
+                <v-card class="errorCard" color="error" v-if="errors.length">
+                    <b class="subheading responseText">Please correct the following errors</b>
                     <ul>
-                        <li v-for="error in errors" v-bind:key="error">{{error}}</li>
+                        <li class="responseText" v-for="error in errors" v-bind:key="error">{{error}}</li>
                     </ul>
-                </p>
+                </v-card>
+                <v-card class="successCard" color="success" v-if="stockItemSuccess">
+                    <b class="subheading responseText">{{this.stockItemName}} added to stock</b>
+                </v-card>
+
             </v-flex>
         </v-layout>
     </v-card>
@@ -151,7 +152,7 @@
                     ],
                     name: this.stockItemName.toLowerCase(),
                     type: this.stockItemType.toLowerCase()
-                }).then(this.errors.push("Food added to stock"));
+                }).then(this.stockItemSuccess = true);
             },
             valid() {
                 return true;
@@ -181,6 +182,20 @@
 
     .formFlex {
         margin: 3% 2% 2%;
+    }
+
+    .responseText {
+        color: white;
+    }
+
+    .errorCard {
+        padding: 10px;
+        margin: 8px;
+    }
+
+    .successCard {
+        padding: 10px;
+        margin: 8px;
     }
 
 </style>
