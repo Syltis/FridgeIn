@@ -32,6 +32,11 @@ public class FoodItemService {
         return foodItemJPARepository.findAll();
     }
 
+    /**
+     * Attempt to add a FoodItem
+     *
+     * @param foodItem
+     */
     public void create(FoodItem foodItem) {
         try {
             foodItemJPARepository.save(foodItem);
