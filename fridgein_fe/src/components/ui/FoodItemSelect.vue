@@ -29,7 +29,9 @@
             async fetchFoodItems() {
                 const { data } = await foodItemRepository.readAll();
                 this.foodItems = data;
-            }
+            },
+            // Try to add the 'topping' to the name in the v-elect item-text
+            name: item => item.name + ' ' + item.type
         }
     }
 </script>

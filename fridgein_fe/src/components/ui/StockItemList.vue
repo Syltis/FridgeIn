@@ -13,7 +13,7 @@
                     style="max-height: 400px"
                     class="scroll-y"
             >
-                <template v-for="stockItem in stockItems">
+                <template v-for="stockItem in getUnique(stockItems, 'foodItemId')">
                     <v-list-tile
                             :key="stockItem.name"
                             class="listTile"
@@ -51,14 +51,12 @@
         data() {
             return {
                 stockItems: [],
-                foodItems: [],
-                listedStockItems: []
+                foodItems: []
             }
         },
         mounted() {
             this.fetchStockItems();
             this.fetchFoodItems();
-            this.setListedStockItems();
         },
         methods: {
             async fetchStockItems() {
@@ -79,9 +77,6 @@
                 });
                 return foodItem.stockItems.length;
             },
-            setListedStockItems() {
-                this.listedStockItems = this.getUnique(this.stockItems, "foodItemId")
-            },
             getUnique(arr, comp) {
                 return arr
                     .map(e => e[comp])
@@ -89,11 +84,6 @@
                     .map((e, i, final) => final.indexOf(e) === i && i)
                     // eliminate the dead keys & store unique objects
                     .filter(e => arr[e]).map(e => arr[e]);
-            },
-            removeDuplicates(array, prop) {
-                return array.filter((obj, pos, arr) => {
-                    return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
-                })
             }
         }
     }
