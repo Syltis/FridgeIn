@@ -97,9 +97,11 @@
                 </v-btn>
                 <v-btn @click="reset" color="error">clear</v-btn>
             </v-flex>
+
+            <!-- Flex for the response-messages -->
             <v-flex xs4>
                 <v-card class="errorCard" color="error" v-if="errors.length">
-                    <b class="subheading responseText">Please correct the following errors</b>
+                    <b class="subheading responseText">Please correct the following </b>
                     <ul>
                         <li class="responseText" v-for="error in errors" v-bind:key="error">{{error}}</li>
                     </ul>
@@ -107,7 +109,6 @@
                 <v-card class="successCard" color="success" v-if="stockItemSuccess">
                     <b class="subheading responseText">{{this.stockItemName}} added to stock</b>
                 </v-card>
-
             </v-flex>
         </v-layout>
     </v-card>
@@ -166,7 +167,11 @@
                 e.preventDefault()
             },
             reset() {
+                // Reset the form
                 this.$refs.form.reset();
+                console.dir(this.errors);
+                // Reset the error messages
+                this.errors.length = 0;
             }
         }
     }
@@ -186,6 +191,7 @@
 
     .responseText {
         color: white;
+        font-size: 110%;
     }
 
     .errorCard {
