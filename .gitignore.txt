@@ -112,6 +112,8 @@ fabric.properties
 
 # VS19  -  from here https://gist.github.com/kmorcinek/2710267#file-gitignore
 
+appsettings.json
+
 # The following command works for downloading when using Git for Windows:
 # curl -LOf http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
 #
