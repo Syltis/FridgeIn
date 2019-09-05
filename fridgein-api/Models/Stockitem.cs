@@ -10,6 +10,6 @@ namespace fridgein_api.Models
         public DateTime BoughtAt { get; set; }
         public DateTime? ExpirationDate { get; set; }
 
-        public virtual Food Food { get; set; }
+        public Food Food { get; set; }
     }
 }
