@@ -23,6 +23,8 @@ namespace fridgein_api
             
         }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -36,16 +38,13 @@ namespace fridgein_api
 
             services.AddCors(options =>
             {
-                options.AddPolicy(
-                    "AllowAny",
-                    x =>
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
                     {
-                        x.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .SetIsOriginAllowed(isOriginAllowed: _ => true);
-                       
+                        builder.WithOrigins("http://localhost:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                     });
-                // https://github.com/aspnet/AspNetCore/issues/4483
             });
         }
 
@@ -62,10 +61,12 @@ namespace fridgein_api
                 app.UseHsts();
             }
 
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            app.UseCors("AllowAny");
+            
         }
     }
 }
