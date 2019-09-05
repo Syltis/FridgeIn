@@ -13,7 +13,7 @@
                     style="max-height: 400px"
                     class="scroll-y"
             >
-                <template v-for="stockItem in getUnique(stockItems, 'foodItemId')">
+                <template v-for="stockItem in getUnique(stockItems, 'food_id')">
                     <v-list-tile
                             :key="stockItem.name"
                             class="listTile"
@@ -21,15 +21,15 @@
                         <v-list-tile-content>
                             <v-list-tile-title>
                                 <h4 class="subheading">
-                                    <span class="left name">{{stockItem.foodItemName}}</span>
-                                    <span class="left type"><i>&nbsp;&nbsp;{{stockItem.foodItemType}}</i></span>
-                                    <span class="right" v-if="isAbove(countStockItem(stockItem.foodItemId))">{{countStockItem(stockItem.foodItemId)}}</span>
+                                    <span class="left name">{{stockItem.name}}</span>
+                                    <span class="left type"><i>&nbsp;&nbsp;{{stockItem.type}}</i></span>
+                                    <span class="right" v-if="isAbove(countStockItem(stockItem.food_id))">{{countStockItem(stockItem.food_id)}}</span>
                                 </h4>
                             </v-list-tile-title>
                             <v-list-tile-action-text>
-                                <span class="left">Bought {{stockItem.purchaseDate}} &nbsp;</span>
+                                <span class="left">Bought {{stockItem.bought_at}} &nbsp;</span>
                             </v-list-tile-action-text>
-                            <v-list-tile-action-text><span class="right" v-if="stockItem.expirationDate !== null"> Expires {{stockItem.expirationDate}} </span>
+                            <v-list-tile-action-text><span class="right" v-if="stockItem.expiration_date !== null"> Expires {{stockItem.expiration_date}} </span>
                             </v-list-tile-action-text>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -61,7 +61,7 @@
         methods: {
             async fetchStockItems() {
                 const {data} = await stockItemRepository.readAll();
-                /*console.log(data);*/
+                console.log(data);
                 this.stockItems = data;
             },
             async fetchFoodItems() {
@@ -73,7 +73,7 @@
             },
             countStockItem(id) {
                 const foodItem = this.foodItems.find(item => {
-                    return item.foodItem_id === id;
+                    return item.food_id === id;
                 });
                 return foodItem.stockItems.length;
             },

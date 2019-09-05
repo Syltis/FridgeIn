@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using fridgein_api.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace fridgein_api.Controllers
 {
     [Route("api/food")]
     [ApiController]
+    
     public class FoodsController : ControllerBase
     {
         private readonly FridgeInDbContext _context;
