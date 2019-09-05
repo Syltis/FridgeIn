@@ -9,7 +9,7 @@ using fridgein_api.Models;
 
 namespace fridgein_api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/stockitem")]
     [ApiController]
     public class StockitemsController : ControllerBase
     {
@@ -22,13 +22,14 @@ namespace fridgein_api.Controllers
 
         // GET: api/Stockitems
         [HttpGet]
+        [Route("readall")]
         public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem()
         {
             return await _context.Stockitem.ToListAsync();
         }
 
         // GET: api/Stockitems/5
-        [HttpGet("{id}")]
+        [HttpGet("get/{id}")]
         public async Task<ActionResult<Stockitem>> GetStockitem(int id)
         {
             var stockitem = await _context.Stockitem.FindAsync(id);
