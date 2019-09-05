@@ -33,6 +33,20 @@ namespace fridgein_api
 
             //services.AddDbContext<FridgeInDbContext>(b => b.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("Development")));
             services.AddDbContext<FridgeInDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "AllowAny",
+                    x =>
+                    {
+                        x.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .SetIsOriginAllowed(isOriginAllowed: _ => true);
+                       
+                    });
+                // https://github.com/aspnet/AspNetCore/issues/4483
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +64,8 @@ namespace fridgein_api
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseCors("AllowAny");
         }
     }
 }
