@@ -1,7 +1,9 @@
 # FridgeIn
 Site for keeping track of fridge items, using them in recipes and tracking expiration-dates. 
 
-### Built with a Java Spring API using a Hibernate and a MySQL-database hosted on Google Cloud, and Vue.js as frontend using Vuetify for style.
+### Currently running a .NET Core REST API with EF6, Azure SQL Server database and Vue.js and Vuetify front-end.
+
+#### A previous Java Spring & Hibernate API (fridgein_api) is also included but this is not in use. 
 
 #### Trello: https://trello.com/b/HmgAibgp/fridgein
 
@@ -19,3 +21,5 @@ Site for keeping track of fridge items, using them in recipes and tracking expir
 - [ ] ***
 - [ ] ***
 - [ ] Android App?
+
+#### *A previous Java Spring & Hibernate API (fridgein_api) is also included but this is not in use. 
