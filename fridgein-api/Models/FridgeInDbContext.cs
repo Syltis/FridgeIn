@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace fridgein_api.Models
+
 {
     public partial class FridgeInDbContext : DbContext
     {
@@ -20,17 +21,14 @@ namespace fridgein_api.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //    optionsBuilder.UseSqlServer("Server=tcp:fridgein-server.database.windows.net,1433;Initial Catalog=fridgein-db;Persist Security Info=False;User ID=kakemann;Password=Sygebane2;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            //}
+          
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
-            modelBuilder.Entity<Food>(entity =>
+             modelBuilder.Entity<Food>(entity =>
             {
                 entity.ToTable("food");
 
@@ -48,15 +46,12 @@ namespace fridgein_api.Models
                     .IsUnicode(false);
             });
 
+
             modelBuilder.Entity<Stockitem>(entity =>
             {
                 entity.ToTable("stockitem");
 
                 entity.Property(e => e.StockitemId).HasColumnName("stockitem_id");
-
-                entity.Property(e => e.BoughtAt)
-                    .HasColumnName("bought_at")
-                    .HasColumnType("date");
 
                 entity.Property(e => e.ExpirationDate)
                     .HasColumnName("expiration_date")
@@ -64,11 +59,9 @@ namespace fridgein_api.Models
 
                 entity.Property(e => e.FoodId).HasColumnName("food_id");
 
-                entity.HasOne(d => d.Food)
-                    .WithMany(p => p.Stockitem)
-                    .HasForeignKey(d => d.FoodId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("Fk_FoodStock");
+                entity.Property(e => e.PurchaseDate)
+                    .HasColumnName("purchase_date")
+                    .HasColumnType("date");
             });
         }
     }

@@ -1,9 +1,14 @@
 import Repository from './Repository';
 
-const resource = '/fooditem';
+const resource = '/food';
 export default {
     readAll() {
+        try {
         return Repository.get(`${resource}` + '/readall');
+        }
+        catch(err) {
+            console.log(err);
+        }
     },
     readById(id) {
         return Repository.get(`${resource}` + '/readbyid?id=' + id)
