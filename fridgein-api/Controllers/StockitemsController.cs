@@ -25,7 +25,7 @@ namespace fridgein_api.Controllers
         [Route("readall")]
         public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem()
         {
-            return await _context.Stockitem.ToListAsync();
+            return await _context.Stockitem.Include(s => s.Food).ToListAsync();
         }
 
         // GET: api/Stockitems/5
