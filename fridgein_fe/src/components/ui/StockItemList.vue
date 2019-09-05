@@ -60,14 +60,9 @@
         },
         methods: {
             async fetchStockItems() {
-                try {
                 const {data} = await stockItemRepository.readAll();
                 console.log(data);
                 this.stockitems = data;
-                }
-                catch(err) {
-                    console.log(err.message);
-                }
             },
             async fetchFoodItems() {
                 const {data} = await foodItemRepository.readAll();
