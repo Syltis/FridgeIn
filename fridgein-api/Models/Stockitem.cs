@@ -10,6 +10,7 @@ namespace fridgein_api.Models
         public DateTime PurchaseDate { get; set; }
         public DateTime? ExpirationDate { get; set; }
 
+
         public Food Food { get; set; }
     }
 }
