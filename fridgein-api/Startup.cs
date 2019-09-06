@@ -48,7 +48,7 @@ namespace fridgein_api
                     });
             });
 
-            services.AddScoped<FoodsController>();
+            services.AddScoped<StockitemsController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
