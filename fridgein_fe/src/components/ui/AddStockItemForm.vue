@@ -134,6 +134,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+
     }
   }
 };
@@ -163,4 +164,5 @@ export default {
   padding: 10px;
   margin: 8px;
 }
+
 </style>
