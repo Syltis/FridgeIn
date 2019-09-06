@@ -1,8 +1,8 @@
-import FoodItemRepository from './FoodItemRepository';
+import FoodRepository from './FoodRepository';
 import StockItemRepository from './StockItemRepository';
 
 const repositories = {
-    foodItem: FoodItemRepository,
+    food: FoodRepository,
     stockItem: StockItemRepository
 };
 

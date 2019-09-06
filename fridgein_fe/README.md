@@ -1,5 +1,4 @@
-# fridgein_fe
-
+# fridgein_fe (Frontend)
 
 ## Project setup
 ```
