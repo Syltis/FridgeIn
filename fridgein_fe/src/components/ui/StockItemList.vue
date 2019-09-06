@@ -27,9 +27,9 @@
                                 </h4>
                             </v-list-tile-title>
                             <v-list-tile-action-text>
-                                <span class="left">Bought {{stockItem.purchaseDate}} &nbsp;</span>
+                                <span class="left">Bought {{stockItem.purchaseDate.substring(0,10)}} &nbsp;</span>
                             </v-list-tile-action-text>
-                            <v-list-tile-action-text><span class="right" v-if="stockItem.expirationDate !== null"> Expires {{stockItem.expirationDate}} </span>
+                            <v-list-tile-action-text><span class="right" v-if="stockItem.expirationDate !== null"> Expires {{stockItem.expirationDate.substring(0,10)}} </span>
                             </v-list-tile-action-text>
                         </v-list-tile-content>
                     </v-list-tile>
