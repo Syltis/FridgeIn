@@ -6,7 +6,7 @@ import VueRouter from 'vue-router';
 
 import NavigationBar from "./components/layout/NavigationBar";
 import BottomBar from "./components/layout/BottomBar";
-import FoodItemPage from "./pages/FoodItemPage";
+import FoodPage from "./pages/FoodPage";
 import ContactPage from "./pages/ContactPage";
 import RecipePage from "./pages/RecipePage";
 import StartPage from "./pages/StartPage";
@@ -20,7 +20,7 @@ Vue.component('bottomBar', BottomBar);
 
 const routes = [
   {path: '/', component: StartPage},
-  {path: '/foodItems', component: FoodItemPage},
+  {path: '/food', component: FoodPage},
   {path: '/contact', component: ContactPage},
   {path: '/recipes', component: RecipePage}
 ];
