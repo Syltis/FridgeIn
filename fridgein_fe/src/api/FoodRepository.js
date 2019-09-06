@@ -13,8 +13,8 @@ export default {
     readById(id) {
         return Repository.get(`${resource}` + '/readbyid?id=' + id)
     },
-    post(fooditem) {
-        return Repository.post(`${resource}` + '/post', fooditem);
+    post(food) {
+        return Repository.post(`${resource}` + '/post', food);
     }
 
 
