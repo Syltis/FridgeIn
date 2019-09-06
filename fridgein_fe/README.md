@@ -1,4 +1,4 @@
-# fridgein_fe (Front End)
+# fridgein_fe 
 
 ## Project setup
 ```
@@ -15,7 +15,7 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Run your testss
 ```
 npm run test
 ```
