@@ -16,12 +16,10 @@ namespace fridgein_api.Controllers
     public class StockitemsController : ControllerBase
     {
         private readonly FridgeInDbContext _context;
-        private readonly FoodsController _foodsController;
 
-        public StockitemsController(FridgeInDbContext context, FoodsController foodsController)
+        public StockitemsController(FridgeInDbContext context)
         {
             _context = context;
-            _foodsController = foodsController;
         }
 
         // GET: api/stockitem/readall

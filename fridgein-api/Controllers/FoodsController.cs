@@ -15,10 +15,12 @@ namespace fridgein_api.Controllers
     public class FoodsController : ControllerBase
     {
         private readonly FridgeInDbContext _context;
+        private readonly StockitemsController _stockitemsController;
 
-        public FoodsController(FridgeInDbContext context)
+        public FoodsController(FridgeInDbContext context, StockitemsController stockitemsController)
         {
             _context = context;
+            _stockitemsController = stockitemsController;
         }
 
         // GET: api/food/readall
@@ -74,14 +76,38 @@ namespace fridgein_api.Controllers
         }
 
         // POST: api/food/post
+        // This cannot allow duplicates, food should be unique
         [HttpPost]
         [Route("post")]
         public async Task<ActionResult<Food>> PostFood(Food food)
         {
-            _context.Food.Add(food);
-            await _context.SaveChangesAsync();
+            if (_context.Food.Any(f => f.Name == food.Name))
+            {
+                ICollection<Food> foodList = await _context.Food.Include(f => f.Stockitem).ToListAsync();
+                Food duplicate = null;
+                foreach (var foodItem in foodList)
+                {
+                    if (foodItem.Name.Equals(food.Name))
+                    {
+                        duplicate = foodItem;
+                        foreach (var item in food.Stockitem)
+                        {
+                            item.FoodId = duplicate.FoodId;
+                            _context.Stockitem.Add(item);
+                        }
+                        await _context.SaveChangesAsync();
+                        return Ok();
+                    }
+                }
+                return Ok(); // Fix this
+            }
+            else
+            {
+                _context.Food.Add(food);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+                return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+            }
         }
 
         // DELETE: api/food/5
