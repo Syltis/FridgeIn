@@ -16,13 +16,15 @@ namespace fridgein_api.Controllers
     public class StockitemsController : ControllerBase
     {
         private readonly FridgeInDbContext _context;
+        private readonly FoodsController _foodsController;
 
-        public StockitemsController(FridgeInDbContext context)
+        public StockitemsController(FridgeInDbContext context, FoodsController foodsController)
         {
             _context = context;
+            _foodsController = foodsController;
         }
 
-        // GET: api/Stockitems
+        // GET: api/stockitem/readall
         [HttpGet]
         [Route("readall")]
         public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem()
@@ -30,7 +32,7 @@ namespace fridgein_api.Controllers
             return await _context.Stockitem.Include(s => s.Food).ToListAsync();
         }
 
-        // GET: api/Stockitems/5
+        // GET: api/stockitem/get/5
         [HttpGet("get/{id}")]
         public async Task<ActionResult<Stockitem>> GetStockitem(int id)
         {
@@ -44,7 +46,7 @@ namespace fridgein_api.Controllers
             return stockitem;
         }
 
-        // PUT: api/Stockitems/5
+        // PUT: api/stockitem/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStockitem(int id, Stockitem stockitem)
         {
@@ -74,8 +76,9 @@ namespace fridgein_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Stockitems
+        // POST: api/stockitem/post
         [HttpPost]
+        [Route("post")]
         public async Task<ActionResult<Stockitem>> PostStockitem(Stockitem stockitem)
         {
             _context.Stockitem.Add(stockitem);
@@ -84,7 +87,7 @@ namespace fridgein_api.Controllers
             return CreatedAtAction("GetStockitem", new { id = stockitem.StockitemId }, stockitem);
         }
 
-        // DELETE: api/Stockitems/5
+        // DELETE: api/stockitem/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Stockitem>> DeleteStockitem(int id)
         {

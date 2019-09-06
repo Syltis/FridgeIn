@@ -12,7 +12,6 @@ namespace fridgein_api.Controllers
 {
     [Route("api/food")]
     [ApiController]
-    
     public class FoodsController : ControllerBase
     {
         private readonly FridgeInDbContext _context;
@@ -22,7 +21,7 @@ namespace fridgein_api.Controllers
             _context = context;
         }
 
-        // GET: api/Foods
+        // GET: api/food/readall
         [HttpGet]
         [Route("readall")]
         public async Task<ActionResult<IEnumerable<Food>>> GetFood()
@@ -30,7 +29,7 @@ namespace fridgein_api.Controllers
             return await _context.Food.Include(f => f.Stockitem).ToListAsync();
         }
 
-        // GET: api/Foods/5
+        // GET: api/food/5
         [HttpGet("get/{id}")]
         public async Task<ActionResult<Food>> GetFood(int id)
         {
@@ -44,7 +43,7 @@ namespace fridgein_api.Controllers
             return food;
         }
 
-        // PUT: api/Foods/5
+        // PUT: api/food/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFood(int id, Food food)
         {
@@ -74,8 +73,9 @@ namespace fridgein_api.Controllers
             return NoContent();
         }
 
-        // POST: api/Foods
+        // POST: api/food/post
         [HttpPost]
+        [Route("post")]
         public async Task<ActionResult<Food>> PostFood(Food food)
         {
             _context.Food.Add(food);
@@ -84,7 +84,7 @@ namespace fridgein_api.Controllers
             return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
         }
 
-        // DELETE: api/Foods/5
+        // DELETE: api/food/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Food>> DeleteFood(int id)
         {

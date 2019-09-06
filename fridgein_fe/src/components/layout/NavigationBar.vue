@@ -14,7 +14,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items >
-            <v-btn flat to="/foodItems" class="btnlink">Stocks</v-btn>
+            <v-btn flat to="/food" class="btnlink">Stocks</v-btn>
             <v-btn flat to="/recipes" class="btnlink">Recipes</v-btn>
             <v-btn flat to="contact" class="btnlink">Contact</v-btn>
             <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>

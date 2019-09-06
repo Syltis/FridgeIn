@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using fridgein_api.Controllers;
 using fridgein_api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,8 @@ namespace fridgein_api
                         .AllowAnyMethod();
                     });
             });
+
+            services.AddScoped<FoodsController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
