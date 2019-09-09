@@ -30,6 +30,26 @@ namespace fridgein_api.Controllers
             return await _context.Stockitem.Include(s => s.Food).ToListAsync();
         }
 
+        // GET: api/stockitem/readunique
+        [HttpGet]
+        [Route("readunique")]
+        public async Task<ActionResult<IEnumerable<Stockitem>>> GetUniqueStockitem()
+        {
+            // Get list of all stockitems
+            ICollection<Stockitem> allItems = await _context.Stockitem.Include(s => s.Food).ToListAsync();
+
+            List<Stockitem> distinctItems = allItems
+                .GroupBy(s => new { s.FoodId, s.PurchaseDate, s.ExpirationDate })
+                .Select(g => g.First())
+                .ToList();
+
+            // Group by chosen fiels
+            var grouped = allItems.GroupBy(x => new { x.FoodId, x.PurchaseDate, x.ExpirationDate });
+           
+
+            return Ok(grouped);
+        }
+
         // GET: api/stockitem/get/5
         [HttpGet("get/{id}")]
         public async Task<ActionResult<Stockitem>> GetStockitem(int id)
