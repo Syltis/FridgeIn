@@ -78,9 +78,9 @@ export default {
     countStockItem(stockItem) {
         let count = 0;
         this.uniqueStockitemsGrouped.forEach(element => {
-            if (stockItem.foodId == element[0].foodId &&
-            stockItem.purchaseDate == element[0].purchaseDate &&
-            stockItem.expirationDate == element[0].expirationDate) {
+            if (stockItem.foodId == element[0].foodId 
+            && stockItem.purchaseDate == element[0].purchaseDate 
+            && stockItem.expirationDate == element[0].expirationDate) {
                 count = element.length;
             }
       })
