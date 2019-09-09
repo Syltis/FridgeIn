@@ -5,8 +5,8 @@
     </v-form>
     <div id="list">
       <v-list two-line style="max-height: 400px" class="scroll-y">
-        <template v-for="stockItem in getUnique(stockitems, 'foodId')">
-          <v-list-tile :key="stockItem.food.name" class="listTile">
+        <template v-for="stockItem in uniqueStockitems">
+          <v-list-tile :key="stockItem.stockitemId" class="listTile">
             <v-list-tile-content>
               <v-list-tile-title>
                 <h4 class="subheading">
@@ -16,8 +16,8 @@
                   </span>
                   <span
                     class="right"
-                    v-if="isAbove(countStockItem(stockItem.foodId))"
-                  >{{countStockItem(stockItem.foodId)}}</span>
+                    v-if="isAbove(countStockItem(stockItem))"
+                  >{{countStockItem(stockItem)}}</span>
                 </h4>
               </v-list-tile-title>
               <v-list-tile-action-text>
@@ -48,50 +48,49 @@ export default {
   name: "StockItemList",
   data() {
     return {
-      stockitems: [],
+      uniqueStockitemsGrouped: [],
+      uniqueStockitems: [],
       food: []
     };
   },
   mounted() {
-    this.fetchStockItems();
+    this.fetchUniqueStockitemsGrouped();
     this.fetchFoods();
   },
   methods: {
-    async fetchStockItems() {
-      const { data } = await stockItemRepository.readAll();
-      console.log(data);
-      this.stockitems = data;
+    async fetchUniqueStockitemsGrouped() {
+      const { data } = await stockItemRepository.readUnique();
+      this.uniqueStockitemsGrouped = data;
+      this.listUniqueStockitems();
     },
     async fetchFoods() {
       const { data } = await foodRepository.readAll();
-      console.log(data);
       this.food = data;
+    },
+    listUniqueStockitems() {
+        this.uniqueStockitemsGrouped.forEach(element => {
+            this.uniqueStockitems.push(element[0]);
+        });
     },
     isAbove(item) {
       return item > 1;
     },
-    countStockItem(id) {
-      const food = this.food.find(item => {
-        return item.foodId === id;
-      });
-      return food.stockitem.length;
-    },
-    getUnique(arr, comp) {
-      return (
-        arr
-          .map(e => e[comp])
-          // store the keys of the unique objects
-          .map((e, i, final) => final.indexOf(e) === i && i)
-          // eliminate the dead keys & store unique objects
-          .filter(e => arr[e])
-          .map(e => arr[e])
-      );
+    countStockItem(stockItem) {
+        let count = 0;
+        this.uniqueStockitemsGrouped.forEach(element => {
+            if (stockItem.foodId == element[0].foodId &&
+            stockItem.purchaseDate == element[0].purchaseDate &&
+            stockItem.expirationDate == element[0].expirationDate) {
+                count = element.length;
+            }
+      })
+      return count;
     }
   }
 };
 </script>
 
-<style scoped>
+ <style scoped>
 #stockItemList {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
