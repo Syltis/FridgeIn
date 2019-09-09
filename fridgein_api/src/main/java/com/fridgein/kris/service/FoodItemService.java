@@ -33,9 +33,9 @@ public class FoodItemService {
     }
 
     /**
-     * Attempt to add a FoodItem
+     * Attempt to add a FoodItem with StockItems. If the FoodItem already exists, the StockItems are added with the FoodItem as a parent.
      *
-     * @param foodItem
+     * @param foodItem  the FoodItem to add
      */
     public void create(FoodItem foodItem) {
         try {
