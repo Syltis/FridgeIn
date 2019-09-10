@@ -12,7 +12,7 @@
     <!-- Content -->
     <v-layout row wrap justify-center>
       <v-flex xs5 class="flexBox ma-3">
-        <StockItemList></StockItemList>
+        <StockItemList :key="componentKey"></StockItemList>
       </v-flex>
       <v-flex xs6 class="flexBox ma-3">
         <AddStockItemForm></AddStockItemForm>
@@ -22,12 +22,23 @@
 </template>
 
 <script>
+import 'es6-promise/auto';
 import StockItemList from "../components/ui/StockItemList";
 import AddStockItemForm from "../components/ui/AddStockItemForm";
 
 export default {
   name: "FoodPage",
-  components: { AddStockItemForm, StockItemList }
+	components: { AddStockItemForm, StockItemList },
+	computed: {
+		componentKey() {
+			return this.$store.getters.STOCKCOMPONENTKEY;
+		}
+	},
+	watch: {
+		componentKey() {
+			console.log("Watch set");
+		}
+	}
 };
 </script>
 

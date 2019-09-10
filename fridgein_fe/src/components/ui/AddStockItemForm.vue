@@ -83,7 +83,7 @@
             </ul>
           </v-card>
           <v-card class="successCard" color="success" v-if="stockItemSuccess">
-            <b class="subheading responseText">{{this.stockItemName}} added to stock</b>
+            <b class="subheading responseText">{{this.amountSaved}} {{this.stockItemName}} added to stock</b>
           </v-card>
         </v-flex>
       </v-layout>
@@ -92,6 +92,7 @@
 </template>
 
 <script>
+import 'es6-promise/auto';
 import FoodSelect from "./FoodSelect";
 import { RepositoryFactory } from "../../api/RepositoryFactory.js";
 
@@ -105,6 +106,7 @@ export default {
       max: 10,
       min: 1,
       slider: 1,
+      amountSaved: 0,
       stockItemName: null,
       stockItemType: null,
       purchaseDate: new Date().toISOString().substr(0, 10),
@@ -135,9 +137,11 @@ export default {
       };
       for (let step = 0; step < this.slider; step++) {
         await foodRepository
-          .post(foodToPost)
-          .then((this.stockItemSuccess = true));
+          .post(foodToPost);
       }
+      this.amountSaved = this.slider;
+      this.stockItemSuccess = true;
+      this.$store.dispatch('RERENDER_STOCKLISCOMPONENT');
     },
     valid() {
       return true;
