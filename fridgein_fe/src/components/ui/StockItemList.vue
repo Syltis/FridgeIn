@@ -6,7 +6,7 @@
     <div id="list">
       <v-list two-line style="max-height: 400px" class="scroll-y">
         <template v-for="stockItem in uniqueStockitems">
-          <v-list-tile :key="stockItem.stockitemId" class="listTile">
+          <v-list-tile v-bind:key="stockItem.stockitemId" class="listTile">
             <v-list-tile-content>
               <v-list-tile-title>
                 <h4 class="subheading">
@@ -31,7 +31,7 @@
               </v-list-tile-action-text>
             </v-list-tile-content>
           </v-list-tile>
-          <v-divider></v-divider>
+          <v-divider :key="stockItem.food.foodId + stockItem.stockitemId"></v-divider>
         </template>
       </v-list>
     </div>
