@@ -3,6 +3,7 @@ import './plugins/vuetify'
 import App from './App.vue'
 import './../node_modules/jquery/dist/jquery.min.js';
 import VueRouter from 'vue-router';
+import store from './store';
 
 import NavigationBar from "./components/layout/NavigationBar";
 import BottomBar from "./components/layout/BottomBar";
@@ -10,7 +11,6 @@ import FoodPage from "./pages/FoodPage";
 import ContactPage from "./pages/ContactPage";
 import RecipePage from "./pages/RecipePage";
 import StartPage from "./pages/StartPage";
-
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -31,5 +31,6 @@ const router = new VueRouter({
 
 new Vue({
   render: h => h(App),
-  router
+  store,
+  router,
 }).$mount('#app');
