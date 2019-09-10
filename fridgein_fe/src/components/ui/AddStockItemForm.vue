@@ -2,13 +2,14 @@
   <v-card class="formCard">
     <v-form ref="form">
       <v-layout row wrap>
+
         <!-- Row one -->
         <v-flex xs6 class="formFlex">
           <h1 class="display-1 font-weight-thin">Add food to your stock</h1>
           <v-spacer></v-spacer>
         </v-flex>
         <v-flex x4 class="formFlex">
-          <FoodSelect></FoodSelect>
+          <FoodSelect v-on:foodSelected="onFoodSelected"></FoodSelect>
         </v-flex>
 
         <!-- Row two -->
@@ -156,6 +157,11 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+    },
+    onFoodSelected(value) {
+        console.log(value);
+        this.stockItemName = value.name;
+        this.stockItemType = value.type;
     }
   }
 };
