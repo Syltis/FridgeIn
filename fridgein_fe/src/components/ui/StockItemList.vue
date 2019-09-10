@@ -33,7 +33,7 @@
                   </v-list-tile-action>
                   <span
                     class="right count"
-                    v-if="isAbove(countStockItem(stockItem))"
+                    v-if="countStockItem(stockItem)"
                   >{{countStockItem(stockItem)}}</span>
                 </h4>
               </v-list-tile-title>

@@ -2,7 +2,10 @@
   <v-select
     :items="food"
     item-text="name"
+    v-model="selectedFood"
+    @change = onSelected($event)
     return-object
+    clearable
     :menu-props="{ maxHeight: '400' }"
     label="Pick item from saved foods"
     hint="Creating a new one will save it to this list."
@@ -19,7 +22,8 @@ export default {
   name: "FoodSelect",
   data() {
     return {
-      food: []
+      food: [],
+      selectedFood: null
     };
   },
   mounted() {
@@ -30,8 +34,9 @@ export default {
       const { data } = await foodRepository.readAll();
       this.food = data;
     },
-    // Try to add the 'topping' to the name in the v-elect item-text
-    name: item => item.name + " " + item.type
+    onSelected() {
+      this.$emit('foodSelected', this.selectedFood);
+    }
   }
 };
 </script>
