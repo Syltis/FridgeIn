@@ -111,7 +111,7 @@ namespace fridgein_api.Controllers
         }
 
         // DELETE: api/food/5
-        [HttpDelete("{id}")]
+        [HttpDelete("del/{id}")]
         public async Task<ActionResult<Food>> DeleteFood(int id)
         {
             var food = await _context.Food.FindAsync(id);

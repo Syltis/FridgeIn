@@ -9,6 +9,9 @@ export default {
         return Repository.get(`${resource}` + '/readunique');
     },
     post(stockitem) {
-        return Repository.post(`${resource}` + '/post', stockitem)
+        return Repository.post(`${resource}` + '/post', stockitem);
+    },
+    delete(id) {
+        return Repository.delete(`${resource}` + '/' + id);
     }
 }

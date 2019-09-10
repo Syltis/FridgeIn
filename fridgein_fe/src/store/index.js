@@ -18,7 +18,7 @@ export default new Vuex.Store({
         }
     },
     actions: {
-        RERENDER_STOCKLISCOMPONENT (context) {
+        RERENDER_STOCKLISTCOMPONENT (context) {
             context.commit('UPDATE_STOCKCOMPONENTKEY');
         }
     }
