@@ -105,8 +105,8 @@ namespace fridgein_api.Controllers
             return CreatedAtAction("GetStockitem", new { id = stockitem.StockitemId }, stockitem);
         }
 
-        // DELETE: api/stockitem/5
-        [HttpDelete("{id}")]
+        // DELETE: api/stockitem/del/5
+        [HttpDelete("del/{id}")]
         public async Task<ActionResult<Stockitem>> DeleteStockitem(int id)
         {
             var stockitem = await _context.Stockitem.FindAsync(id);
@@ -119,6 +119,15 @@ namespace fridgein_api.Controllers
             await _context.SaveChangesAsync();
 
             return stockitem;
+        }
+
+        // DELETE: api/stockitem/delall/5
+        [HttpDelete("delall/{id}")]
+        public async Task<ActionResult<Stockitem>> DeleteAllStockitems(int id)
+        {
+             _context.Stockitem.RemoveRange(_context.Stockitem.Where(s => s.Food.FoodId == id));
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         private bool StockitemExists(int id)
