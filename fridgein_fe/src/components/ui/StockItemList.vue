@@ -1,11 +1,33 @@
 <template id="stockItemList">
   <v-card class="formCard">
-    <v-form>
-      <v-text-field label="Search stock"></v-text-field>
-    </v-form>
+    <!--
+    <v-container>
+      <v-layout row>
+        <v-flex md3>
+          <label>Food Name &amp; Type</label>
+        </v-flex>
+        <v-flex md5>
+          <label class="top-row-label center">Amount</label>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    -->
     <div id="list">
       <v-list two-line style="max-height: 400px" class="scroll-y">
-        <template v-for="stockItem in uniqueStockitems">
+        <v-list-tile class="top-tile">
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <h4 class="subheading top">
+                <label>Name &amp; Type</label>
+                <v-list-tile-action class="right">
+                  <v-icon small class="delete-icon" @click="deleteItems()">delete</v-icon>
+                </v-list-tile-action>
+                <span class="right">Amount</span>
+              </h4>
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <template v-for="(stockItem, index) in uniqueStockitems">
           <v-list-tile v-bind:key="stockItem.stockitemId" class="listTile">
             <v-list-tile-content>
               <v-list-tile-title>
@@ -14,12 +36,20 @@
                   <span class="left type">
                     <i>&nbsp;&nbsp;{{stockItem.food.type.toLowerCase()}}</i>
                   </span>
+                  <v-list-tile-action class="right">
+                    <v-checkbox
+                      :key="stockItem.stockitemId"
+                      :value="stockItem.stockitemId"
+                      v-model="selected"
+                    ></v-checkbox>
+                  </v-list-tile-action>
                   <span
-                    class="right"
+                    class="right count"
                     v-if="isAbove(countStockItem(stockItem))"
                   >{{countStockItem(stockItem)}}</span>
                 </h4>
               </v-list-tile-title>
+
               <v-list-tile-action-text>
                 <span class="left">Bought {{stockItem.purchaseDate.substring(0,10)}} &nbsp;</span>
               </v-list-tile-action-text>
@@ -39,7 +69,9 @@
 </template>
 
 <script>
+import 'es6-promise/auto';
 import { RepositoryFactory } from "../../api/RepositoryFactory";
+import { setTimeout } from 'timers';
 
 const stockItemRepository = RepositoryFactory.get("stockItem");
 const foodRepository = RepositoryFactory.get("food");
@@ -48,6 +80,7 @@ export default {
   name: "StockItemList",
   data() {
     return {
+      selected: [],
       uniqueStockitemsGrouped: [],
       uniqueStockitems: [],
       food: []
@@ -68,23 +101,38 @@ export default {
       this.food = data;
     },
     listUniqueStockitems() {
-        this.uniqueStockitemsGrouped.forEach(element => {
-            this.uniqueStockitems.push(element[0]);
-        });
+      this.uniqueStockitemsGrouped.forEach(element => {
+        this.uniqueStockitems.push(element[0]);
+      });
     },
     isAbove(item) {
       return item > 1;
     },
     countStockItem(stockItem) {
-        let count = 0;
-        this.uniqueStockitemsGrouped.forEach(element => {
-            if (stockItem.foodId == element[0].foodId 
-            && stockItem.purchaseDate == element[0].purchaseDate 
-            && stockItem.expirationDate == element[0].expirationDate) {
-                count = element.length;
-            }
-      })
+      let count = 0;
+      this.uniqueStockitemsGrouped.forEach(element => {
+        if (
+          stockItem.foodId == element[0].foodId &&
+          stockItem.purchaseDate == element[0].purchaseDate &&
+          stockItem.expirationDate == element[0].expirationDate
+        ) {
+          count = element.length;
+        }
+      });
       return count;
+    },
+    async deleteItems() {
+      // get ids and count the items
+      let self = this;
+      if (confirm("Are you sure you want to delete this item?")) {
+        await this.selected.forEach(element => {
+            console.log(element);
+        stockItemRepository.delete(element);
+        });
+        setTimeout(function() { 
+          self.$store.dispatch('RERENDER_STOCKLISTCOMPONENT'); 
+          }, 1000);
+      }
     }
   }
 };
@@ -104,11 +152,27 @@ export default {
   margin-bottom: 3%;
 }
 
+.top-tile {
+  margin: -2% 0%;
+}
+
+.subheading.top {
+  color: #bfbfbf;
+  font-size: 2%;
+}
+
+.delete-icon {
+  margin: 10% 7%;
+}
 .type {
   opacity: 0.5;
 }
 
 .name {
   text-transform: capitalize;
+}
+
+.count {
+  padding: 0% 5%;
 }
 </style>

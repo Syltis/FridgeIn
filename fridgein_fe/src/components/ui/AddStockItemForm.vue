@@ -141,7 +141,7 @@ export default {
       }
       this.amountSaved = this.slider;
       this.stockItemSuccess = true;
-      this.$store.dispatch('RERENDER_STOCKLISCOMPONENT');
+      this.$store.dispatch('RERENDER_STOCKLISTCOMPONENT');
     },
     valid() {
       return true;
