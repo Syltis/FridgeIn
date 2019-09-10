@@ -76,14 +76,14 @@
           <v-btn @click="reset" color="error">clear</v-btn>
         </v-flex>
         <v-flex xs4>
-          <v-card class="errorCard" color="error" v-if="errors.length">
+          <v-card class="response-card" color="error" v-if="errors.length">
             <b class="subheading responseText">Please correct the following errors</b>
             <ul>
               <li class="responseText" v-for="error in errors" v-bind:key="error">{{error}}</li>
             </ul>
           </v-card>
-          <v-card class="successCard" color="success" v-if="stockItemSuccess">
-            <b class="subheading responseText">{{this.amountSaved}} {{this.stockItemName}} added to stock</b>
+          <v-card class="response-card" color="success" v-if="stockItemSuccess">
+            <b class="subheading responseText">{{this.amountSaved}} <b>{{this.stockItemName}}</b> added</b>
           </v-card>
         </v-flex>
       </v-layout>
@@ -176,13 +176,9 @@ export default {
   color: white;
 }
 
-.errorCard {
-  padding: 10px;
-  margin: 8px;
+.response-card {
+    padding: 2%;
+    margin: 5% 10% 0% 3%;
 }
 
-.successCard {
-  padding: 10px;
-  margin: 8px;
-}
 </style>
