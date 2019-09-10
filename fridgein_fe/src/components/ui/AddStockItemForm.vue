@@ -57,7 +57,20 @@
           </div>
         </v-flex>
 
-        <!-- Row four -->
+        <!-- Row four-->
+        <v-flex xs6 class="formFlex">
+          <v-slider
+            v-model="slider"
+            label="Amount"
+            class="align-center"
+            thumb-label="always"
+            :max="max"
+            :min="min"
+            hide-details
+          ></v-slider>
+        </v-flex>
+
+        <!-- Row five -->
         <v-flex xs12>
           <v-btn @click="checkForm" :disabled="!valid" color="success">submit</v-btn>
           <v-btn @click="reset" color="error">clear</v-btn>
@@ -70,7 +83,7 @@
             </ul>
           </v-card>
           <v-card class="successCard" color="success" v-if="stockItemSuccess">
-            <b class="subheading responseText">{{this.stockItemName}} added to stock</b>
+            <b class="subheading responseText">{{this.amountSaved}} {{this.stockItemName}} added to stock</b>
           </v-card>
         </v-flex>
       </v-layout>
@@ -79,6 +92,7 @@
 </template>
 
 <script>
+import 'es6-promise/auto';
 import FoodSelect from "./FoodSelect";
 import { RepositoryFactory } from "../../api/RepositoryFactory.js";
 
@@ -89,6 +103,10 @@ export default {
   components: { FoodSelect },
   data() {
     return {
+      max: 10,
+      min: 1,
+      slider: 1,
+      amountSaved: 0,
       stockItemName: null,
       stockItemType: null,
       purchaseDate: new Date().toISOString().substr(0, 10),
@@ -117,9 +135,13 @@ export default {
           }
         ]
       };
-      await foodRepository
-        .post(foodToPost)
-        .then((this.stockItemSuccess = true));
+      for (let step = 0; step < this.slider; step++) {
+        await foodRepository
+          .post(foodToPost);
+      }
+      this.amountSaved = this.slider;
+      this.stockItemSuccess = true;
+      this.$store.dispatch('RERENDER_STOCKLISTCOMPONENT');
     },
     valid() {
       return true;
@@ -134,7 +156,6 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
-
     }
   }
 };
@@ -148,7 +169,7 @@ export default {
 }
 
 .formFlex {
-  margin: 3% 2% 2%;
+  margin: 2% 1%;
 }
 
 .responseText {
@@ -164,5 +185,4 @@ export default {
   padding: 10px;
   margin: 8px;
 }
-
 </style>
