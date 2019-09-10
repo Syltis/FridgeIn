@@ -44,6 +44,7 @@ export default {
 
 <style scoped>
 .title {
+	margin-top: 1%;
   color: white;
 }
 
