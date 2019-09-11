@@ -110,6 +110,7 @@ namespace fridgein_api.Controllers
             }
         }
 
+        // Delete on Id
         // DELETE: api/food/5
         [HttpDelete("del/{id}")]
         public async Task<ActionResult<Food>> DeleteFood(int id)
@@ -126,9 +127,20 @@ namespace fridgein_api.Controllers
             return food;
         }
 
+        // Delete all on food name 
+        // DELETE api/food/delallname/eple
+        [HttpDelete("delallname/{name}")]
+        public async Task<ActionResult<Food>> DeleteAllFoodName(string name)
+        {
+            _context.Food.RemoveRange(_context.Food.Where(s => s.Name == name));
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
         private bool FoodExists(int id)
         {
             return _context.Food.Any(e => e.FoodId == id);
         }
+
     }
 }
