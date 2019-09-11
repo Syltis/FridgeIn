@@ -88,7 +88,7 @@
           <!-- Row six -->
           <v-flex xs12 md12>
             <v-btn @click="validate" :disabled="!valid" color="success">submit</v-btn>
-            <v-btn @click="reset" color="error">clear</v-btn>
+            <v-btn @click="reset" color="warning">clear</v-btn>
             <v-btn @click="deleteType" color="error">delete type</v-btn>
           </v-flex>
           <v-flex xs12 md4>
@@ -178,13 +178,19 @@ export default {
       this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     },
     async deleteType() {
-        if (confirm("Deleting " + this.stockItemName + " will delete all associated stock!")) {
-            await stockItemRepository.deleteAllName(this.stockItemName);
-            await foodRepository.deleteAllName(this.stockItemName);
-            this.errors.push(this.stockItemName + ' has been deleted.');
-            this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
-            this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
-        }
+      if (
+        confirm(
+          "Deleting " +
+            this.stockItemName +
+            " will delete all associated stock!"
+        )
+      ) {
+        await stockItemRepository.deleteAllName(this.stockItemName);
+        await foodRepository.deleteAllName(this.stockItemName);
+        this.errors.push(this.stockItemName + " has been deleted.");
+        this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
+        this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
+      }
     },
     valid() {
       return true;
@@ -199,7 +205,7 @@ export default {
       }
     },
     reset() {
-        this.errors = [];
+      this.errors = [];
       this.$refs.form.reset();
     },
     onFoodSelected(value) {
@@ -213,7 +219,7 @@ export default {
 <style scoped>
 .formCard {
   padding: 3%;
-  
+
   margin-bottom: 3%;
 }
 
