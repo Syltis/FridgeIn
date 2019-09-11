@@ -11,10 +11,10 @@
 
     <!-- Content -->
     <v-layout row wrap justify-center>
-      <v-flex xs5 class="flexBox ma-3">
+      <v-flex xs6 class="flexBox ma-3">
         <StockItemList :key="stockComponentKey"></StockItemList>
       </v-flex>
-      <v-flex xs6 class="flexBox ma-3">
+      <v-flex xs5 class="flexBox ma-3">
         <AddStockItemForm></AddStockItemForm>
       </v-flex>
     </v-layout>
