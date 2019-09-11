@@ -8,20 +8,34 @@
             <h1 class="display-1 font-weight-thin">Add food to your stock</h1>
             <v-spacer></v-spacer>
           </v-flex>
+
+          <!-- Row two -->
           <v-flex xs12 md8 class="formFlex">
             <FoodSelect v-on:foodSelected="onFoodSelected" :key="foodComponentKey"></FoodSelect>
           </v-flex>
 
-          <!-- Row two -->
+          <!-- Row three -->
           <v-flex xs12 md5 class="formFlex">
-            <v-text-field v-model="stockItemName" label="Food Name" :rules="nameTypeRules" :counter="25" required></v-text-field>
-          </v-flex>
-          
-          <v-flex xs12 md5 class="formFlex">
-            <v-text-field v-model="stockItemType" label="Type" :rules="nameTypeRules" :counter="25" required></v-text-field>
+            <v-text-field
+              v-model="stockItemName"
+              label="Food Name"
+              :rules="nameTypeRules"
+              :counter="25"
+              required
+            ></v-text-field>
           </v-flex>
 
-          <!-- Row three -->
+          <v-flex xs12 md5 class="formFlex">
+            <v-text-field
+              v-model="stockItemType"
+              label="Type"
+              :rules="nameTypeRules"
+              :counter="25"
+              required
+            ></v-text-field>
+          </v-flex>
+
+          <!-- Row four -->
           <v-flex xs12 md4 class="formFlex">
             <v-dialog v-model="modal" ref="dialog" lazy full-width width="290px">
               <template v-slot:activator="{ on }">
@@ -58,7 +72,7 @@
             </div>
           </v-flex>
 
-          <!-- Row four-->
+          <!-- Row five -->
           <v-flex xs12 md6 class="formFlex">
             <v-slider
               v-model="slider"
@@ -71,12 +85,12 @@
             ></v-slider>
           </v-flex>
 
-          <!-- Row five -->
+          <!-- Row six -->
           <v-flex xs12 md12>
             <v-btn @click="validate" :disabled="!valid" color="success">submit</v-btn>
             <v-btn @click="reset" color="error">clear</v-btn>
           </v-flex>
-          <v-flex xs12 md4 >
+          <v-flex xs12 md4>
             <v-card class="response-card" color="error" v-if="errors.length">
               <ul>
                 <li class="responseText" v-for="error in errors" v-bind:key="error">{{error}}</li>
@@ -123,9 +137,11 @@ export default {
       stockItemSuccess: false,
       errors: [],
       nameTypeRules: [
-          v => !!v || 'Field is required',
-          v => /^[a-zæøåA-ZÆØÅ]+$/i.test(v) || 'Field can only contain alphabetical characters',
-          v => (v && v.length <= 25) || 'Field must be less than 25 characters'
+        v => !!v || "Field is required",
+        v =>
+          /^[ a-zæøåA-Zæøå\s]+$/.test(v) ||
+          "Field can only contain alphabetical characters",
+        v => (v && v.length <= 25) || "Field must be less than 25 characters"
       ]
     };
   },
@@ -163,13 +179,13 @@ export default {
       return true;
     },
     validate() {
-        if (this.stockItemName == "Nugatti") {
+      if (this.stockItemName == "Nugatti") {
         this.errors.push("Nugatti skal ikke i kjøleskapet.");
         return;
       }
-        if ( this.$refs.form.validate()) {
-            this.submitStockItem();
-        }
+      if (this.$refs.form.validate()) {
+        this.submitStockItem();
+      }
     },
     reset() {
       this.$refs.form.reset();
