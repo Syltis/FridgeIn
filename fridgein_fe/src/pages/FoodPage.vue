@@ -12,7 +12,7 @@
     <!-- Content -->
     <v-layout row wrap justify-center>
       <v-flex xs5 class="flexBox ma-3">
-        <StockItemList :key="componentKey"></StockItemList>
+        <StockItemList :key="stockComponentKey"></StockItemList>
       </v-flex>
       <v-flex xs6 class="flexBox ma-3">
         <AddStockItemForm></AddStockItemForm>
@@ -30,7 +30,7 @@ export default {
   name: "FoodPage",
 	components: { AddStockItemForm, StockItemList },
 	computed: {
-		componentKey() {
+		stockComponentKey() {
 			return this.$store.getters.STOCKCOMPONENTKEY;
 		}
 	},
