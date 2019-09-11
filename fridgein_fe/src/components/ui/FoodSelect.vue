@@ -33,6 +33,7 @@ export default {
     async fetchFoods() {
       const { data } = await foodRepository.readAll();
       this.food = data;
+      this.food.sort((a, b) => (a.name > b.name) ? 1 : -1);
     },
     onSelected() {
       this.$emit('foodSelected', this.selectedFood);

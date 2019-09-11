@@ -92,6 +92,8 @@ export default {
       this.uniqueStockitemsGrouped.forEach(element => {
         this.uniqueStockitems.push(element[0]);
       });
+      this.uniqueStockitems.sort((a, b) => (a.food.name > b.food.name) ? 1 : -1);
+      
     },
     isAbove(item) {
       return item > 1;
