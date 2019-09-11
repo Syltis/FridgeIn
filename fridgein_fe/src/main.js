@@ -11,6 +11,7 @@ import FoodPage from "./pages/FoodPage";
 import ContactPage from "./pages/ContactPage";
 import RecipePage from "./pages/RecipePage";
 import StartPage from "./pages/StartPage";
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
@@ -26,6 +27,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 
