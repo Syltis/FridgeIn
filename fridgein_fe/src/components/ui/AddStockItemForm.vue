@@ -89,6 +89,7 @@
           <v-flex xs12 md12>
             <v-btn @click="validate" :disabled="!valid" color="success">submit</v-btn>
             <v-btn @click="reset" color="error">clear</v-btn>
+            <v-btn @click="deleteType" color="error">delete type</v-btn>
           </v-flex>
           <v-flex xs12 md4>
             <v-card class="response-card" color="error" v-if="errors.length">
@@ -115,6 +116,7 @@ import FoodSelect from "./FoodSelect";
 import { RepositoryFactory } from "../../api/RepositoryFactory.js";
 
 const foodRepository = RepositoryFactory.get("food");
+const stockItemRepository = RepositoryFactory.get("stockItem");
 
 export default {
   name: "AddStockItemForm",
@@ -139,7 +141,7 @@ export default {
       nameTypeRules: [
         v => !!v || "Field is required",
         v =>
-          /^[ a-zæøåA-Zæøå\s]+$/.test(v) ||
+          /^[ a-zæøåA-ZÆØÅ0-9\s]+$/.test(v) ||
           "Field can only contain alphabetical characters",
         v => (v && v.length <= 25) || "Field must be less than 25 characters"
       ]
@@ -175,6 +177,15 @@ export default {
       this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
       this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     },
+    async deleteType() {
+        if (confirm("Deleting " + this.stockItemName + " will delete all associated stock!")) {
+            await stockItemRepository.deleteAllName(this.stockItemName);
+            await foodRepository.deleteAllName(this.stockItemName);
+            this.errors.push(this.stockItemName + ' has been deleted.');
+            this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
+            this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
+        }
+    },
     valid() {
       return true;
     },
@@ -188,10 +199,10 @@ export default {
       }
     },
     reset() {
+        this.errors = [];
       this.$refs.form.reset();
     },
     onFoodSelected(value) {
-      console.log(value);
       this.stockItemName = value.name;
       this.stockItemType = value.type;
     }
@@ -201,8 +212,8 @@ export default {
 
 <style scoped>
 .formCard {
-  padding: 40px;
-  min-width: 350px;
+  padding: 3%;
+  
   margin-bottom: 3%;
 }
 
