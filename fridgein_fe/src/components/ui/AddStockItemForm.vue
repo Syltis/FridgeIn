@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <!-- Row one -->
           <v-flex xs12 class="formFlex">
-            <h1 class="display-1 font-weight-thin">Add food to your stock</h1>
+            <h1 class="display-1 font-weight-thin">Add to your stock</h1>
             <v-spacer></v-spacer>
           </v-flex>
 
@@ -190,7 +190,7 @@ export default {
       return true;
     },
     validate() {
-      if (this.stockItemName == "Nugatti") {
+      if (this.stockItemName == "Nugatti" || this.stockItemName == "nugatti") {
         this.errors.push("Nugatti skal ikke i kjøleskapet.");
         return;
       }
