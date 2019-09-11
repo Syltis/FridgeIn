@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- SubHeader -->
-    <v-card color="#90CCF4" class="subHeader">
+    <v-card color="#90CCF4" class="subheader">
       <v-card-title>
         <h3 class="title">Your stock</h3>
       </v-card-title>
@@ -11,10 +11,10 @@
 
     <!-- Content -->
     <v-layout row wrap justify-center>
-      <v-flex xs6 class="flexBox ma-3">
+      <v-flex xs12 md6 class="flexBox">
         <StockItemList :key="stockComponentKey"></StockItemList>
       </v-flex>
-      <v-flex xs5 class="flexBox ma-3">
+      <v-flex xs12 md5 class="flexBox">
         <AddStockItemForm></AddStockItemForm>
       </v-flex>
     </v-layout>
@@ -43,17 +43,14 @@ export default {
 </script>
 
 <style scoped>
+.subheader {
+	margin-top: -1.2%;
+}
 .title {
-	margin-top: 1%;
   color: white;
 }
 
-.subHeader {
-  margin-top: -2%;
-  margin-bottom: 1%;
-}
-
 .flexBox {
-  margin-top: 1%;
+  margin: 2% 0.5% 5% 0.5%;
 }
 </style>

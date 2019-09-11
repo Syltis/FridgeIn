@@ -15,4 +15,12 @@
 </template>
 
 <script>
+
 </script>
+
+<style scoped>
+
+#footer {
+    margin-top: 5%;
+}
+</style>

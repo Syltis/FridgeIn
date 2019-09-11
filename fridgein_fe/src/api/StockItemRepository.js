@@ -16,5 +16,8 @@ export default {
     },
     deleteAll(id) {
         return Repository.delete(`${resource}` + '/delall/' + id);
+    },
+    deleteAllName(name) {
+        return Repository.delete(`${resource}` + '/delallname/' + name);
     }
 }

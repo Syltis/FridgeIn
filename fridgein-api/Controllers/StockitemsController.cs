@@ -121,11 +121,22 @@ namespace fridgein_api.Controllers
             return stockitem;
         }
 
+        // Delete on FoodId
         // DELETE: api/stockitem/delall/5
         [HttpDelete("delall/{id}")]
         public async Task<ActionResult<Stockitem>> DeleteAllStockitems(int id)
         {
              _context.Stockitem.RemoveRange(_context.Stockitem.Where(s => s.Food.FoodId == id));
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // Delete all on food name 
+        // DELETE api/stockitem/delallname/eple
+        [HttpDelete("delallname/{name}")]
+        public async Task<ActionResult<Stockitem>> DeleteAllStockitemsName(string name)
+        {
+            _context.Stockitem.RemoveRange(_context.Stockitem.Where(s => s.Food.Name == name));
             await _context.SaveChangesAsync();
             return Ok();
         }
