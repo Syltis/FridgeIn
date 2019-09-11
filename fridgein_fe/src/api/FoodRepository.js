@@ -15,6 +15,10 @@ export default {
     },
     post(food) {
         return Repository.post(`${resource}` + '/post', food);
+    },
+    deleteAllName(name) {
+        return Repository.delete(`${resource}` + '/delallname/' + name);
+
     }
 
 

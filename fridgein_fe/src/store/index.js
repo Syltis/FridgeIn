@@ -5,21 +5,32 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        stockComponentKey: 0
+        stockListComponentKey: 0,
+        foodSelectComponentKey: 0,
     },
     getters: {
         STOCKCOMPONENTKEY (state) {
-            return state.stockComponentKey;
-        }
+            return state.stockListComponentKey;
+            
+        },
+        FOODCOMPONENTKEY (state) {
+            return state.foodSelectComponentKey;
+        },
     },
     mutations: {
         UPDATE_STOCKCOMPONENTKEY (state) {
-            state.stockComponentKey++;
+            state.stockListComponentKey++;
+        },
+        UPDATE_FOODSELECTCOMPONENTKEY (state) {
+            state.foodSelectComponentKey++;
         }
     },
     actions: {
         RERENDER_STOCKLISTCOMPONENT (context) {
             context.commit('UPDATE_STOCKCOMPONENTKEY');
+        },
+        RERENDER_FOODSELECTCOMPONENT (context) {
+            context.commit('UPDATE_FOODSELECTCOMPONENTKEY');
         }
     }
 })
