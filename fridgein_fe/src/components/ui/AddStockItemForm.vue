@@ -2,14 +2,13 @@
   <v-card class="formCard">
     <v-form ref="form">
       <v-layout row wrap>
-
         <!-- Row one -->
         <v-flex xs6 class="formFlex">
           <h1 class="display-1 font-weight-thin">Add food to your stock</h1>
           <v-spacer></v-spacer>
         </v-flex>
         <v-flex x4 class="formFlex">
-          <FoodSelect v-on:foodSelected="onFoodSelected"></FoodSelect>
+          <FoodSelect v-on:foodSelected="onFoodSelected" :key="foodComponentKey"></FoodSelect>
         </v-flex>
 
         <!-- Row two -->
@@ -84,7 +83,10 @@
             </ul>
           </v-card>
           <v-card class="response-card" color="success" v-if="stockItemSuccess">
-            <b class="subheading responseText">{{this.amountSaved}} <b>{{this.stockItemName}}</b> added</b>
+            <b class="subheading responseText">
+              {{this.amountSaved}}
+              <b>{{this.itemSaved}}</b> added
+            </b>
           </v-card>
         </v-flex>
       </v-layout>
@@ -93,7 +95,7 @@
 </template>
 
 <script>
-import 'es6-promise/auto';
+import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
 import { RepositoryFactory } from "../../api/RepositoryFactory.js";
 
@@ -108,6 +110,7 @@ export default {
       min: 1,
       slider: 1,
       amountSaved: 0,
+      itemSaved: "",
       stockItemName: null,
       stockItemType: null,
       purchaseDate: new Date().toISOString().substr(0, 10),
@@ -119,6 +122,11 @@ export default {
       stockItemSuccess: false,
       errors: []
     };
+  },
+  computed: {
+    foodComponentKey() {
+      return this.$store.getters.FOODCOMPONENTKEY;
+    }
   },
   methods: {
     atChecked() {
@@ -137,12 +145,13 @@ export default {
         ]
       };
       for (let step = 0; step < this.slider; step++) {
-        await foodRepository
-          .post(foodToPost);
+        await foodRepository.post(foodToPost);
       }
       this.amountSaved = this.slider;
+      this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
-      this.$store.dispatch('RERENDER_STOCKLISTCOMPONENT');
+      this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
+      this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     },
     valid() {
       return true;
@@ -150,6 +159,12 @@ export default {
     checkForm(e) {
       this.stockItemSuccess = false;
       this.errors = [];
+
+      if (this.stockItemName == "Nugatti") {
+        this.errors.push("Nugatti skal ikke i kjøleskapet.");
+        return;
+      }
+
       if (this.stockItemName && this.stockItemType) this.submitStockItem();
       if (!this.stockItemName) this.errors.push("Name required");
       if (!this.stockItemType) this.errors.push("Type required");
@@ -159,9 +174,9 @@ export default {
       this.$refs.form.reset();
     },
     onFoodSelected(value) {
-        console.log(value);
-        this.stockItemName = value.name;
-        this.stockItemType = value.type;
+      console.log(value);
+      this.stockItemName = value.name;
+      this.stockItemType = value.type;
     }
   }
 };
@@ -183,8 +198,7 @@ export default {
 }
 
 .response-card {
-    padding: 2%;
-    margin: 5% 10% 0% 3%;
+  padding: 2%;
+  margin: 5% 10% 0% 3%;
 }
-
 </style>
