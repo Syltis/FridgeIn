@@ -6,7 +6,7 @@ export default {
         return Repository.get(`${resource}` + '/readall');
     },
     readUnique() {
-        return Repository.get(`${resource}` + '/readunique');
+        return Repository.get('https://fridgein-api.azurewebsites.net/api/stockitem/readunique');
     },
     post(stockitem) {
         return Repository.post(`${resource}` + '/post', stockitem);
@@ -15,7 +15,7 @@ export default {
         return Repository.delete(`${resource}` + '/del/' + id);
     },
     deleteAll(id) {
-        return Repository.delete(`${resource}` + '/delall/' + id);
+        return Repository.delete('https://fridgein-api.azurewebsites.net/api/stockitem/delall/' + id);
     },
     deleteAllName(name) {
         return Repository.delete(`${resource}` + '/delallname/' + name);
