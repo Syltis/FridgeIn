@@ -206,6 +206,7 @@ export default {
     },
     reset() {
       this.errors = [];
+      this.stockItemSuccess = false;
       this.$refs.form.reset();
     },
     onFoodSelected(value) {
