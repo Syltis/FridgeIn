@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar>
+    <v-toolbar class="top-toolbar">
       <v-toolbar-title class="headline text-uppercase">
         <router-link class="btnlink" to="/">
           <v-img :src="logo" height="40%" width="120px"></v-img>
