@@ -174,6 +174,7 @@ export default {
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
+      this.$refs.form.reset();
       this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
       this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     },
@@ -188,6 +189,7 @@ export default {
         await stockItemRepository.deleteAllName(this.stockItemName);
         await foodRepository.deleteAllName(this.stockItemName);
         this.errors.push(this.stockItemName + " has been deleted.");
+        this.$refs.form.reset();
         this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
         this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
       }
