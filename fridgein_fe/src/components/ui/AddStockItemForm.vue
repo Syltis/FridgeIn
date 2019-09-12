@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <!-- Row one -->
           <v-flex xs12 class="formFlex">
-            <h1 class="display-1 font-weight-thin">Add food to your stock</h1>
+            <h1 class="display-1 font-weight-thin">Add to your stock</h1>
             <v-spacer></v-spacer>
           </v-flex>
 
@@ -88,7 +88,7 @@
           <!-- Row six -->
           <v-flex xs12 md12>
             <v-btn @click="validate" :disabled="!valid" color="success">submit</v-btn>
-            <v-btn @click="reset" color="error">clear</v-btn>
+            <v-btn @click="reset" color="warning">clear</v-btn>
             <v-btn @click="deleteType" color="error">delete type</v-btn>
           </v-flex>
           <v-flex xs12 md4>
@@ -174,23 +174,31 @@ export default {
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
+      this.$refs.form.reset();
       this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
       this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     },
     async deleteType() {
-        if (confirm("Deleting " + this.stockItemName + " will delete all associated stock!")) {
-            await stockItemRepository.deleteAllName(this.stockItemName);
-            await foodRepository.deleteAllName(this.stockItemName);
-            this.errors.push(this.stockItemName + ' has been deleted.');
-            this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
-            this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
-        }
+      if (
+        confirm(
+          "Deleting " +
+            this.stockItemName +
+            " will delete all associated stock!"
+        )
+      ) {
+        await stockItemRepository.deleteAllName(this.stockItemName);
+        await foodRepository.deleteAllName(this.stockItemName);
+        this.errors.push(this.stockItemName + " has been deleted.");
+        this.$refs.form.reset();
+        this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
+        this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
+      }
     },
     valid() {
       return true;
     },
     validate() {
-      if (this.stockItemName == "Nugatti") {
+      if (this.stockItemName == "Nugatti" || this.stockItemName == "nugatti") {
         this.errors.push("Nugatti skal ikke i kjøleskapet.");
         return;
       }
@@ -199,7 +207,8 @@ export default {
       }
     },
     reset() {
-        this.errors = [];
+      this.errors = [];
+      this.stockItemSuccess = false;
       this.$refs.form.reset();
     },
     onFoodSelected(value) {
@@ -213,7 +222,7 @@ export default {
 <style scoped>
 .formCard {
   padding: 3%;
-  
+
   margin-bottom: 3%;
 }
 
