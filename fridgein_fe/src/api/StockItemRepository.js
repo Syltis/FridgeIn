@@ -18,6 +18,6 @@ export default {
         return Repository.delete('https://fridgein-api.azurewebsites.net/api/stockitem/delall/' + id);
     },
     deleteAllName(name) {
-        return Repository.delete(`${resource}` + '/delallname/' + name);
+        return Repository.delete('https://fridgein-api.azurewebsites.net/api/stockitem/delallname/' + name);
     }
 }
