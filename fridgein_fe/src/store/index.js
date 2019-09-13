@@ -7,6 +7,8 @@ export default new Vuex.Store({
     state: {
         stockListComponentKey: 0,
         foodSelectComponentKey: 0,
+        token: localStorage.getItem('user-token') || '',
+        status: ''
     },
     getters: {
         STOCKCOMPONENTKEY (state) {
