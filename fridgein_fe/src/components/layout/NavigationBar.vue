@@ -7,10 +7,11 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
+      <font-awesome-icon icon="vuejs" />
       <v-btn flat to="/food" class="btnlink">Stock</v-btn>
       <v-btn flat to="/recipes" class="btnlink">Recipes</v-btn>
       <v-btn flat to="contact" class="btnlink">Contact</v-btn>
-      <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>
+      <v-btn flat id="loginBtn" class="btnlink" @click="logInClick">Log in</v-btn>
     </v-toolbar-items>
 
     <v-menu
@@ -36,6 +37,8 @@
 </template>
 
 <script>
+import AuthService from '../../auth/authService.js';
+
 export default {
   name: "Top",
   data() {
@@ -48,6 +51,11 @@ export default {
       ],
       offset: true
     };
+  },
+  methods: {
+    logInClick() {
+      AuthService.login();
+    }
   }
 };
 </script>
