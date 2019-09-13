@@ -7,8 +7,6 @@
       </v-card-title>
     </v-card>
 
-    <v-spacer></v-spacer>
-
     <!-- Content -->
     <v-layout row wrap justify-center>
       <v-flex xs12 md6 class="flexBox">
@@ -44,7 +42,7 @@ export default {
 
 <style scoped>
 .subheader {
-	margin-top: -1.2%;
+	margin-top: -0.5%;
 }
 .title {
   color: white;
