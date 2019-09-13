@@ -222,12 +222,11 @@ export default {
 <style scoped>
 .formCard {
   padding: 3%;
-
-  margin-bottom: 3%;
+  margin-bottom: 5%;
 }
 
 .formFlex {
-  margin: 2% 1%;
+  margin: 1% 1%;
 }
 
 .responseText {

@@ -1,40 +1,38 @@
 <template>
-  <div>
-    <v-toolbar class="top-toolbar">
-      <v-toolbar-title class="headline text-uppercase">
-        <router-link class="btnlink" to="/">
-          <v-img :src="logo" height="40%" width="120px"></v-img>
-        </router-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat to="/food" class="btnlink">Stock</v-btn>
-        <v-btn flat to="/recipes" class="btnlink">Recipes</v-btn>
-        <v-btn flat to="contact" class="btnlink">Contact</v-btn>
-        <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>
-      </v-toolbar-items>
+  <v-toolbar>
+    <v-toolbar-title class="headline text-uppercase">
+      <router-link class="btnlink" to="/">
+        <v-img :src="logo" height="40%" width="120px"></v-img>
+      </router-link>
+    </v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-items class="hidden-sm-and-down">
+      <v-btn flat to="/food" class="btnlink">Stock</v-btn>
+      <v-btn flat to="/recipes" class="btnlink">Recipes</v-btn>
+      <v-btn flat to="contact" class="btnlink">Contact</v-btn>
+      <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>
+    </v-toolbar-items>
 
-      <v-menu
-        id="burger-menu"
-        class="hidden-md-and-up"
-        :offset-x="offset"
-        transition="slide-x-transition"
-        right
-      >
-        <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
-        <v-list>
-          <v-list-tile v-for="item in menu" :key="item.text" :to="item.to">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </v-toolbar>
-  </div>
+    <v-menu
+      id="burger-menu"
+      class="hidden-md-and-up"
+      :offset-x="offset"
+      transition="slide-x-transition"
+      right
+    >
+      <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+      <v-list>
+        <v-list-tile v-for="item in menu" :key="item.text" :to="item.to">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-btn flat id="loginBtn" class="btnlink">Log in</v-btn>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+  </v-toolbar>
 </template>
 
 <script>
