@@ -8,6 +8,7 @@
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
       <font-awesome-icon icon="vuejs" />
+      <v-btn flat to="/" class="btnlink">Home</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/food" class="btnlink">Stock</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/recipes" class="btnlink">Recipes</v-btn>
       <v-btn flat v-if="!this.isAuthenticated" id="loginBtn" class="btnlink" @click.prevent="login">Log in</v-btn>
@@ -23,6 +24,11 @@
     >
       <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
       <v-list>
+        <v-list-tile to="/">
+          <v-list-tile-content>
+            <v-list-tile-title>Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile to="/food" v-if="this.isAuthenticated">
           <v-list-tile-content>
             <v-list-tile-title>Stock</v-list-tile-title>
