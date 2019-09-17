@@ -7,7 +7,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <font-awesome-icon icon="vuejs" />
+      <label id="loggedin-toolbar-label"  class="logged-in-common" v-if="this.isAuthenticated">Logged in as {{ profile.email }}</label>
       <v-btn flat to="/" class="btnlink">Home</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/food" class="btnlink">Stock</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/recipes" class="btnlink">Recipes</v-btn>
@@ -21,6 +21,7 @@
       :offset-x="offset"
       transition="slide-x-transition"
       right
+      max-width="50%"
     >
       <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
       <v-list>
@@ -37,6 +38,11 @@
         <v-list-tile  to="/recipes" v-if="this.isAuthenticated">
           <v-list-tile-content >
             <v-list-tile-title>Recipes</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-if="this.isAuthenticated">
+          <v-list-tile-content >
+            <Label class="logged-in-common" id="loggedin-menu-label">Logged in as {{ profile.email }}</Label>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if="!isAuthenticated">
@@ -61,7 +67,8 @@ export default {
         { to: "/recipes", text: "Recipes" }
       ],
       offset: true,
-      isAuthenticated: false
+      isAuthenticated: false,
+      profile: this.$auth.profile
     };
   },
   async created() {
@@ -91,6 +98,18 @@ export default {
 .btnlink {
   text-decoration: none;
   color: inherit;
+}
+
+.logged-in-common {
+  color: #A9A9A9;
+}
+
+#loggedin-menu-label {
+  font-size: 80%;
+}
+
+#loggedin-toolbar-label {
+  margin: 2% 1% 0% 0%;
 }
 
 #loginBtn {
