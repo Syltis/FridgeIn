@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using fridgein_api.Models;
 using Microsoft.AspNetCore.Cors;
+using System.Diagnostics;
 
 namespace fridgein_api.Controllers
 {
@@ -80,6 +81,42 @@ namespace fridgein_api.Controllers
         [HttpPost]
         [Route("post")]
         public async Task<ActionResult<Food>> PostFood(Food food)
+        {
+            if (_context.Food.Any(f => f.Name == food.Name))
+            {
+                ICollection<Food> foodList = await _context.Food.Include(f => f.Stockitem).ToListAsync();
+                Food duplicate = null;
+                foreach (var foodItem in foodList)
+                {
+                    if (foodItem.Name.Equals(food.Name))
+                    {
+                        duplicate = foodItem;
+                        foreach (var item in food.Stockitem)
+                        {
+                            item.FoodId = duplicate.FoodId;
+                            _context.Stockitem.Add(item);
+                        }
+                        await _context.SaveChangesAsync();
+                        return Ok();
+                    }
+                }
+                Debug.WriteLine("------- OH BOI -----");
+                return Ok(); // Fix this
+            }
+            else
+            {
+                _context.Food.Add(food);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+            }
+        }
+
+        // POST: api/food/postonuser
+        // This cannot allow duplicates, food should be unique
+        [HttpPost]
+        [Route("post/{email}")]
+        public async Task<ActionResult<Food>> PostFoodOnUser(string email, Food food)
         {
             if (_context.Food.Any(f => f.Name == food.Name))
             {

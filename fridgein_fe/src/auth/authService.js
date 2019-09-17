@@ -1,6 +1,11 @@
 import auth0 from 'auth0-js';
 import EventEmitter from 'events';
 import authConfig from '../../auth_config.json';
+import "es6-promise/auto";
+import store from './../store/index';
+
+import { RepositoryFactory } from '../api/RepositoryFactory';
+const userRepository = RepositoryFactory.get('user');
 
 const localStorageKey = 'loggedIn';
 const loginEvent = 'loginEvent';
@@ -43,6 +48,8 @@ class AuthService extends EventEmitter {
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
 
+    this.postNewUser();
+
     // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
 
@@ -60,7 +67,7 @@ class AuthService extends EventEmitter {
       if (localStorage.getItem(localStorageKey) !== "true") {
         return reject("Not logged in");
       }
-      
+
       webAuth.checkSession({}, (err, authResult) => {
         if (err) {
           reject(err);
@@ -91,6 +98,26 @@ class AuthService extends EventEmitter {
       Date.now() < this.tokenExpiry &&
       localStorage.getItem(localStorageKey) === 'true'
     );
+  }
+
+  async postNewUser() {
+
+    let responseObject = null;
+
+    // Code written not by Auth0 -
+    console.log("kjører localLogin()");
+    const userToPost = {
+      name: '',
+      email: this.profile.email
+    }
+
+    await userRepository.postNewUser(userToPost)
+    .then(result => {
+      responseObject = result.data;
+    });
+
+    store.dispatch('SET_USER', responseObject);
+    
   }
 }
 
