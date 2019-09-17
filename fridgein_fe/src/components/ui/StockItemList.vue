@@ -34,7 +34,7 @@
                     v-if="countStockItem(stockItem)"
                   >{{countStockItem(stockItem)}}</span>
                 </h4>
-              </v-list-tile-title>
+              </v-list-tile-title> 
 
               <v-list-tile-action-text>
                 <span class="left">Bought {{stockItem.purchaseDate.substring(0,10)}} &nbsp;</span>

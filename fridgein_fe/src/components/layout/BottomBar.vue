@@ -1,6 +1,6 @@
 <template>
   <v-footer dark>
-    <v-card class="flex" color="#5DA2D5">
+    <v-card class="flex" color="#90ccf4">
       <v-card-title class="justify-center" align="center">Made by Kristoffer Sylte Dahl</v-card-title>
       <v-card-text class="grey darken-2 justify-center text-truncate" align="right">
         <v-layout row wrap>
@@ -18,7 +18,14 @@
 export default {
   data() {
     return {
-      logo: require("@/assets/images/LogoIcon.png")
+	  logo: require("@/assets/images/LogoIcon.png"),
+	  icons: [
+        'fab fa-facebook',
+        'fab fa-twitter',
+        'fab fa-google-plus',
+        'fab fa-linkedin',
+        'fab fa-instagram',
+      ],
     };
   }
 };
