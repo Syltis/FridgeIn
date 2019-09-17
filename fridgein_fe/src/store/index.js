@@ -8,7 +8,12 @@ export default new Vuex.Store({
         stockListComponentKey: 0,
         foodSelectComponentKey: 0,
         token: localStorage.getItem('user-token') || '',
-        status: ''
+        status: '',
+        user: {
+            id: null,
+            email: null,
+            name: null
+        }
     },
     getters: {
         STOCKCOMPONENTKEY (state) {
@@ -18,6 +23,11 @@ export default new Vuex.Store({
         FOODCOMPONENTKEY (state) {
             return state.foodSelectComponentKey;
         },
+        USER (state) {
+            console.log("state user: ")
+            console.log(state.user);
+            return state.user;
+        }
     },
     mutations: {
         UPDATE_STOCKCOMPONENTKEY (state) {
@@ -25,6 +35,12 @@ export default new Vuex.Store({
         },
         UPDATE_FOODSELECTCOMPONENTKEY (state) {
             state.foodSelectComponentKey++;
+        },
+        SET_USER (state, user) {
+            
+            state.user.id = user.userId;
+            state.user.email = user.email;
+            state.user.name = user.name;
         }
     },
     actions: {
@@ -33,6 +49,9 @@ export default new Vuex.Store({
         },
         RERENDER_FOODSELECTCOMPONENT (context) {
             context.commit('UPDATE_FOODSELECTCOMPONENTKEY');
+        },
+        SET_USER (context, user) {
+            context.commit('SET_USER', user);
         }
     }
 })

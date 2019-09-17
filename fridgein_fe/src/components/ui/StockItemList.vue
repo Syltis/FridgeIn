@@ -69,7 +69,8 @@ export default {
       selected: [],
       uniqueStockitemsGrouped: [],
       uniqueStockitems: [],
-      food: []
+      food: [],
+      profile: this.$auth.profile
     };
   },
   mounted() {
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     async fetchUniqueStockitemsGrouped() {
-      const { data } = await stockItemRepository.readUnique();
+      const { data } = await stockItemRepository.readUniqueOnUser(this.$auth.profile.email);
       this.uniqueStockitemsGrouped = data;
       this.listUniqueStockitems();
     },
@@ -115,7 +116,7 @@ export default {
       if (confirm("Are you sure you want to delete this item?")) {
         await this.selected.forEach(element => {
           console.log(element);
-          stockItemRepository.deleteAll(element.foodId);
+          stockItemRepository.deleteAll(element.foodId, this.$store.getters.USER.id);
         });
         setTimeout(function() {
           self.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");

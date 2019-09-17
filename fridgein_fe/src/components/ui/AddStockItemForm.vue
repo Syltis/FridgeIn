@@ -89,7 +89,7 @@
           <v-flex xs12 md12>
             <v-btn @click="validate" :disabled="!valid" color="success">submit</v-btn>
             <v-btn @click="reset" color="warning">clear</v-btn>
-            <v-btn @click="deleteType" color="error">delete type</v-btn>
+            <!-- <v-btn @click="deleteType" color="error">delete type</v-btn> -->
           </v-flex>
           <v-flex xs12 md4>
             <v-card class="response-card" color="error" v-if="errors.length">
@@ -163,13 +163,16 @@ export default {
         type: this.stockItemType.toLowerCase(),
         stockitem: [
           {
+            userid : this.$store.getters.USER.id,
             purchaseDate: this.purchaseDate,
             expirationDate: this.expirationDate
           }
         ]
       };
       for (let step = 0; step < this.slider; step++) {
-        await foodRepository.post(foodToPost);
+        await foodRepository.post(foodToPost).then( result => {
+          console.log(result.data);
+        });
       }
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
