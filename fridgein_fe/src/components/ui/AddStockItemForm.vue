@@ -82,6 +82,7 @@
               :max="max"
               :min="min"
               hide-details
+              :rules="amountSliderRules"
             ></v-slider>
           </v-flex>
 
@@ -144,7 +145,8 @@ export default {
           /^[ a-zæøåA-ZÆØÅ0-9\s]+$/.test(v) ||
           "Field can only contain alphabetical characters",
         v => (v && v.length <= 25) || "Field must be less than 25 characters"
-      ]
+      ],
+      amountSliderRules: [v => !isNaN(v) || "The amount has to be from 1-10"]
     };
   },
   computed: {
@@ -163,7 +165,7 @@ export default {
         type: this.stockItemType.toLowerCase(),
         stockitem: [
           {
-            userid : this.$store.getters.USER.id,
+            userid: this.$store.getters.USER.id,
             purchaseDate: this.purchaseDate,
             expirationDate: this.expirationDate
           }
@@ -172,16 +174,13 @@ export default {
       console.log("USER ID");
       console.log(this.$store.getters.USER.id);
       for (let step = 0; step < this.slider; step++) {
-        await foodRepository.post(foodToPost).then( result => {
-          console.log(result.data);
-        });
+        await foodRepository.post(foodToPost);
       }
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
       this.$refs.form.reset();
-      this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
-      this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
+      this.reRenderComponents();
     },
     async deleteType() {
       if (
@@ -195,8 +194,7 @@ export default {
         await foodRepository.deleteAllName(this.stockItemName);
         this.errors.push(this.stockItemName + " has been deleted.");
         this.$refs.form.reset();
-        this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
-        this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
+        this.reRenderComponents();
       }
     },
     valid() {
@@ -215,10 +213,16 @@ export default {
       this.errors = [];
       this.stockItemSuccess = false;
       this.$refs.form.reset();
+      this.slider = 1;
+      this.purchaseDate = new Date().toISOString().substr(0, 10);
     },
     onFoodSelected(value) {
       this.stockItemName = value.name;
       this.stockItemType = value.type;
+    },
+    reRenderComponents() {
+      this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
+      this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     }
   }
 };
