@@ -9,6 +9,6 @@ export default {
         return Repository.post('https://fridgein-api.azurewebsites.net/api/user/post', user);
     },
     postNewUser(user) {
-        return Repository.post('https://localhost:44316/api/user/postnewuser', user);
+        return Repository.post('https://fridgein-api.azurewebsites.net/api/user/postnewuser', user);
     }
 }
