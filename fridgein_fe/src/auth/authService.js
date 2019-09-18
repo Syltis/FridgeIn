@@ -105,9 +105,6 @@ class AuthService extends EventEmitter {
   async postNewUser() {
 
     let responseObject = null;
-
-    // Code written not by Auth0 -
-    console.log("kjører localLogin()");
     const userToPost = {
       name: '',
       email: this.profile.email
