@@ -2,7 +2,7 @@
   <v-toolbar>
     <v-toolbar-title class="headline text-uppercase">
       <router-link class="btnlink" to="/">
-        <v-img :src="logo" height="40%" width="120px"></v-img>
+        <v-img :src="logo" height="40%" width="120px" alt="Fridgein Logo"></v-img>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
@@ -46,10 +46,10 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if="!isAuthenticated">
-          <v-btn flat id="loginBtn" @click.prevent="login" class="btnlink">Log in</v-btn>
+          <v-btn flat id="loginBtn" @click.prevent="login" value="Log out button" class="btnlink">Log in</v-btn>
         </v-list-tile>
         <v-list-tile v-if="isAuthenticated">
-          <v-btn flat id="loginBtn" @click.prevent="logout" class="btnlink">Log out</v-btn>
+          <v-btn flat id="loginBtn" @click.prevent="logout" value="Log out button" class="btnlink">Log out</v-btn>
         </v-list-tile>
       </v-list>
     </v-menu>

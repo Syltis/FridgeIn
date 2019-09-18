@@ -23,6 +23,8 @@ namespace fridgein_api.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:fridgein-server.database.windows.net,1433;Initial Catalog=fridgein-db;Persist Security Info=False;User ID=kakemann;Password=Daddy199;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
@@ -46,6 +48,14 @@ namespace fridgein_api.Models
                     .HasColumnName("type")
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Food)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_food_user");
             });
 
             modelBuilder.Entity<Stockitem>(entity =>
