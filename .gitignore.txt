@@ -3,6 +3,8 @@ F18-03-1.iml
 target/
 */target/*
 */target/**
+
+scaffoldcontext.txt
 application.properties
 
 # Vue.js elements------

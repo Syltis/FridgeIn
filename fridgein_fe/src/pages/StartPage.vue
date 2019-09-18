@@ -3,7 +3,7 @@
     <main>
       <section>
         <v-parallax dark :src="header1" class="parallax" style="margin-top: -1%">
-          <v-layout column justify center>
+          <v-layout column >
             <v-card id="titleCard">
               <v-card-text class="text-xs-center">
                 <h1 class="display-3 font-weight-thin mb-3">FridgeIn</h1>
@@ -12,7 +12,7 @@
                   Giving you the tools you need to optimize your kitchen
                   stores.
                 </h4>
-                <v-btn color="#82b9dd" class="white--text" large round>Sign Up</v-btn>
+                <v-btn color="#82b9dd" class="white--text" @click="login" large round>Sign Up / In</v-btn>
               </v-card-text>
             </v-card>
           </v-layout>
@@ -112,20 +112,32 @@ export default {
       header2: require("@/assets/images/foodtable.jpg"),
       logo: require("@/assets/images/LogoBluer.png")
     };
+  },
+  methods: {
+    login() {
+      console.log("login attempt");
+      this.$auth.login();
+    },
+    handleLoginEvent(data) {
+      this.isAuthenticated = data.loggedIn;
+      this.profile = data.profile;
+    }
   }
 };
 </script>
 
 <style scoped>
 #titleCard {
-  margin-top: 11%;
+  margin-top: 180px;
   background-color: rgba(255, 255, 255, 0.75);
   border-color: transparent !important;
+  position: static;
 }
 
 #titleCard,
 h4 {
   color: black;
+ 
 }
 
 @media (min-width: 800px) {
