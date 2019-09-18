@@ -5,6 +5,9 @@ export default {
     readAll() {
         return Repository.get(`${resource}` + '/readall');
     },
+    readAllOnUser(userId) {
+        return Repository.get(`${resource}` + '/readallonuser/' + userId);
+    },
     readById(id) {
         return Repository.get(`${resource}` + '/readbyid?id=' + id);
     },

@@ -32,6 +32,14 @@ namespace fridgein_api.Controllers
             return await _context.Food.Include(f => f.Stockitem).ToListAsync();
         }
 
+        // GET: api/food/readall
+        [HttpGet]
+        [Route("readallonuser/{userId}")]
+        public async Task<ActionResult<IEnumerable<Food>>> GetFoodOnUser(int userId)
+        {
+            return await _context.Food.Where(f => f.UserId == userId).Include(f => f.Stockitem).ToListAsync();
+        }
+
         // GET: api/food/5
         [HttpGet("get/{id}")]
         public async Task<ActionResult<Food>> GetFood(int id)
@@ -101,41 +109,6 @@ namespace fridgein_api.Controllers
                     }
                 }
                 Debug.WriteLine("------- OH BOI -----");
-                return Ok(); // Fix this
-            }
-            else
-            {
-                _context.Food.Add(food);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
-            }
-        }
-
-        // POST: api/food/postonuser
-        // This cannot allow duplicates, food should be unique
-        [HttpPost]
-        [Route("post/{email}")]
-        public async Task<ActionResult<Food>> PostFoodOnUser(string email, Food food)
-        {
-            if (_context.Food.Any(f => f.Name == food.Name))
-            {
-                ICollection<Food> foodList = await _context.Food.Include(f => f.Stockitem).ToListAsync();
-                Food duplicate = null;
-                foreach (var foodItem in foodList)
-                {
-                    if (foodItem.Name.Equals(food.Name))
-                    {
-                        duplicate = foodItem;
-                        foreach (var item in food.Stockitem)
-                        {
-                            item.FoodId = duplicate.FoodId;
-                            _context.Stockitem.Add(item);
-                        }
-                        await _context.SaveChangesAsync();
-                        return Ok();
-                    }
-                }
                 return Ok(); // Fix this
             }
             else

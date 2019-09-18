@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import "es6-promise/auto";
 import { RepositoryFactory } from "../../api/RepositoryFactory";
 
 const foodRepository = RepositoryFactory.get("food");
@@ -31,7 +32,7 @@ export default {
   },
   methods: {
     async fetchFoods() {
-      const { data } = await foodRepository.readAll();
+      const { data } = await foodRepository.readAllOnUser(this.$store.getters.USER.id);
       this.food = data;
       this.food.sort((a, b) => (a.name > b.name) ? 1 : -1);
     },

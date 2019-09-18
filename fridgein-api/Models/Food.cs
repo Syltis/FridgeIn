@@ -11,9 +11,11 @@ namespace fridgein_api.Models
         }
 
         public int FoodId { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
 
+        public virtual User User { get; set; }
         public virtual ICollection<Stockitem> Stockitem { get; set; }
     }
 }

@@ -161,6 +161,7 @@ export default {
     async submitStockItem() {
       this.errors = [];
       const foodToPost = {
+        userid: this.$store.getters.USER.id,
         name: this.stockItemName.toLowerCase(),
         type: this.stockItemType.toLowerCase(),
         stockitem: [
