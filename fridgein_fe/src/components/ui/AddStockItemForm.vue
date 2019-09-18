@@ -169,6 +169,8 @@ export default {
           }
         ]
       };
+      console.log("USER ID");
+      console.log(this.$store.getters.USER.id);
       for (let step = 0; step < this.slider; step++) {
         await foodRepository.post(foodToPost).then( result => {
           console.log(result.data);
