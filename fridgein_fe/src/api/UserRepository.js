@@ -6,9 +6,9 @@ export default {
         return Repository.get(`${resource}` + '/readall');
     },
     post(user) {
-        return Repository.post('https://fridgein-api.azurewebsites.net/api/user/post', user);
+        return Repository.post(`${resource}` + '/post', user);
     },
     postNewUser(user) {
-        return Repository.post('https://fridgein-api.azurewebsites.net/api/user/postnewuser', user);
+        return Repository.post(`${resource}` + '/postnewuser', user);
     }
 }

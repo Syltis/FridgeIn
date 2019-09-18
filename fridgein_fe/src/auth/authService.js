@@ -1,3 +1,5 @@
+// The code here that is only specific to the authorization towards Auth0's API is taken from they're quickstart-guide.
+
 import auth0 from 'auth0-js';
 import EventEmitter from 'events';
 import authConfig from '../../auth_config.json';

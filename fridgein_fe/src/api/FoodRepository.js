@@ -4,7 +4,7 @@ const resource = '/food';
 export default {
     readAll() {
         try {
-            return Repository.get('https://fridgein-api.azurewebsites.net/api/food/readall');
+            return Repository.get(`${resource}` + '/readall');
         }
         catch (err) {
             console.log(err);
@@ -14,10 +14,10 @@ export default {
         return Repository.get(`${resource}` + '/readbyid?id=' + id)
     },
     post(food) {
-        return Repository.post('https://fridgein-api.azurewebsites.net/api/food/post', food);
+        return Repository.post(`${resource}` + '/post', food);
     },
     deleteAllName(name) {
-        return Repository.delete('https://fridgein-api.azurewebsites.net/api/food/delallname/' + name);
+        return Repository.delete(`${resource}` + '/delallname/' + name);
 
     }
 
