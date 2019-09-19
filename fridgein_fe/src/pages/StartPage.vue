@@ -3,7 +3,7 @@
     <main>
       <section>
         <v-parallax dark :src="header1" class="parallax" style="margin-top: -1%">
-          <v-layout column >
+          <v-layout column>
             <v-card id="titleCard">
               <v-card-text class="text-xs-center">
                 <h1 class="display-3 font-weight-thin mb-3">FridgeIn</h1>
@@ -12,7 +12,14 @@
                   Giving you the tools you need to optimize your kitchen
                   stores.
                 </h4>
-                <v-btn color="#82b9dd" class="white--text" @click="login" large round>Sign Up / In</v-btn>
+                <v-btn
+                  color="#82b9dd"
+                  v-if="!this.isLoggedIn"
+                  class="white--text"
+                  @click="login"
+                  large
+                  round
+                >Sign Up / In</v-btn>
               </v-card-text>
             </v-card>
           </v-layout>
@@ -104,6 +111,8 @@
 </template>
 
 <script>
+import "es6-promise/auto";
+
 export default {
   name: "StartPage",
   data() {
@@ -122,13 +131,18 @@ export default {
       this.isAuthenticated = data.loggedIn;
       this.profile = data.profile;
     }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.USER.id != null;
+    }
   }
 };
 </script>
 
 <style scoped>
 #titleCard {
-  margin-top: 180px;
+  margin-top: 140px;
   background-color: rgba(255, 255, 255, 0.75);
   border-color: transparent !important;
   position: static;
@@ -137,13 +151,15 @@ export default {
 #titleCard,
 h4 {
   color: black;
- 
 }
 
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
   .content {
-    width: 70%;
+    width: 75%;
     margin: auto;
+  }
+  #titleCard {
+    margin-top: 180px;
   }
 }
 

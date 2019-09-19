@@ -24,8 +24,6 @@ export default new Vuex.Store({
             return state.foodSelectComponentKey;
         },
         USER (state) {
-            console.log("state user: ")
-            console.log(state.user);
             return state.user;
         }
     },

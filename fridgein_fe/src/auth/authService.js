@@ -49,6 +49,7 @@ class AuthService extends EventEmitter {
   localLogin(authResult) {
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
+    this.profile.name = this.profile.email.substring(0, this.profile.email.indexOf("@"));
 
     this.postNewUser();
 
@@ -105,11 +106,8 @@ class AuthService extends EventEmitter {
   async postNewUser() {
 
     let responseObject = null;
-
-    // Code written not by Auth0 -
-    console.log("kjører localLogin()");
     const userToPost = {
-      name: '',
+      name: this.profile.email.substring(0, this.profile.email.indexOf("@")),
       email: this.profile.email
     }
 

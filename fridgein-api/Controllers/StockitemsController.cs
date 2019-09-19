@@ -134,7 +134,7 @@ namespace fridgein_api.Controllers
         [HttpDelete("del/{id}/{userid}")]
         public async Task<ActionResult<Stockitem>> DeleteStockitem(int id, int userid)
         {
-            var stockitem = await _context.Stockitem.Where(s => s.FoodId == id && s.UserId == userid).FirstAsync();
+            var stockitem = await _context.Stockitem.Where(s => s.StockitemId == id && s.UserId == userid).FirstAsync();
             if (stockitem == null)
             {
                 return NotFound();

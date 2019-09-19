@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>Loading</p>
+        <h1 class="display-3 font-weight-thin mb-3">FridgeIn</h1>
     </div>
 </template>
 
