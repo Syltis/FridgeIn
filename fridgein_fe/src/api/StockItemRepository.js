@@ -14,11 +14,11 @@ export default {
     post(stockitem) {
         return Repository.post(`${resource}` + '/post', stockitem);
     },
-    delete(id) {
-        return Repository.delete(`${resource}` + '/del/' + id);
+    delete(id, userId) {
+        return Repository.delete(`${resource}` + '/del/' + id + '/' + userId);
     },
     deleteAll(id, userId) {
-        return Repository.delete(`${resource}` + '/delall/' + id +'/' + userId);
+        return Repository.delete(`${resource}` + '/delall/' + id + '/' + userId);
     },
     deleteAllName(name) {
         return Repository.delete(`${resource}` + '/delallname/' + name);

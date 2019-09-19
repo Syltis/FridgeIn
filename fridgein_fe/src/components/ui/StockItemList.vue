@@ -34,7 +34,7 @@
                     v-if="countStockItem(stockItem)"
                   >{{countStockItem(stockItem)}}</span>
                 </h4>
-              </v-list-tile-title> 
+              </v-list-tile-title>
 
               <v-list-tile-action-text>
                 <span class="left">Bought {{stockItem.purchaseDate.substring(0,10)}} &nbsp;</span>
@@ -60,7 +60,6 @@ import { RepositoryFactory } from "../../api/RepositoryFactory";
 import { setTimeout } from "timers";
 
 const stockItemRepository = RepositoryFactory.get("stockItem");
-const foodRepository = RepositoryFactory.get("food");
 
 export default {
   name: "StockItemList",
@@ -69,23 +68,19 @@ export default {
       selected: [],
       uniqueStockitemsGrouped: [],
       uniqueStockitems: [],
-      food: [],
       profile: this.$auth.profile
     };
   },
   mounted() {
     this.fetchUniqueStockitemsGrouped();
-    this.fetchFoods();
   },
   methods: {
     async fetchUniqueStockitemsGrouped() {
-      const { data } = await stockItemRepository.readUniqueOnUser(this.$auth.profile.email);
+      const { data } = await stockItemRepository.readUniqueOnUser(
+        this.$auth.profile.email
+      );
       this.uniqueStockitemsGrouped = data;
       this.listUniqueStockitems();
-    },
-    async fetchFoods() {
-      const { data } = await foodRepository.readAll();
-      this.food = data;
     },
     listUniqueStockitems() {
       this.uniqueStockitemsGrouped.forEach(element => {
@@ -111,12 +106,27 @@ export default {
       });
       return count;
     },
+
+    // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them. 
     async deleteItems() {
-      let self = this; // Because setTimeout cant handle 'this.'
+      const self = this; // Because setTimeout cant handle 'this.' ;) ;
+      var idsToDelete = [];
+      console.log(this.selected);
       if (confirm("Are you sure you want to delete this item?")) {
-        await this.selected.forEach(element => {
-          console.log(element);
-          stockItemRepository.deleteAll(element.foodId, this.$store.getters.USER.id);
+        this.uniqueStockitemsGrouped.forEach(stockItemArray => {
+          this.selected.forEach(selectedItem => {
+            if (stockItemArray.some(x => x.stockitemId == selectedItem.stockitemId)) {
+              let newArr = stockItemArray.map(s => s.stockitemId);
+              newArr.forEach(id => {
+                idsToDelete.push(id);
+              })
+            }
+          });
+        });
+        console.log("Ids to delete final:");
+        console.log(idsToDelete);
+        await idsToDelete.forEach(id => {
+          stockItemRepository.delete(id, this.$store.getters.USER.id);
         });
         setTimeout(function() {
           self.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
@@ -132,7 +142,6 @@ export default {
   padding: 1%;
   margin-bottom: 0%;
 }
-
 
 #list-div {
   max-height: 600px;
