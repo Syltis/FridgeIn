@@ -108,10 +108,10 @@ export default {
     },
 
     // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them. 
+    // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
       const self = this; // Because setTimeout cant handle 'this.' ;) ;
       var idsToDelete = [];
-      console.log(this.selected);
       if (confirm("Are you sure you want to delete this item?")) {
         this.uniqueStockitemsGrouped.forEach(stockItemArray => {
           this.selected.forEach(selectedItem => {
@@ -123,8 +123,6 @@ export default {
             }
           });
         });
-        console.log("Ids to delete final:");
-        console.log(idsToDelete);
         await idsToDelete.forEach(id => {
           stockItemRepository.delete(id, this.$store.getters.USER.id);
         });

@@ -3,7 +3,7 @@
     :items="food"
     item-text="name"
     v-model="selectedFood"
-    @change = onSelected($event)
+    @change="onSelected($event)"
     return-object
     clearable
     :menu-props="{ maxHeight: '400' }"
@@ -32,12 +32,19 @@ export default {
   },
   methods: {
     async fetchFoods() {
-      const { data } = await foodRepository.readAllOnUser(this.$store.getters.USER.id);
+
+      // Wait until state has ben set after refresh
+      await new Promise(resolve => {
+        setTimeout(resolve, 200);
+      });
+      const { data } = await foodRepository.readAllOnUser(
+        this.$store.getters.USER.id
+      );
       this.food = data;
-      this.food.sort((a, b) => (a.name > b.name) ? 1 : -1);
+      this.food.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     onSelected() {
-      this.$emit('foodSelected', this.selectedFood);
+      this.$emit("foodSelected", this.selectedFood);
     }
   }
 };

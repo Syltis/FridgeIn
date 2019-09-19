@@ -1,5 +1,6 @@
 {
   "name": "FridgeIn",
+  "short_name": "FridgeIn",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

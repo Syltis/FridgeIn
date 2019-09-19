@@ -115,7 +115,7 @@ class AuthService extends EventEmitter {
     .then(result => {
       responseObject = result.data;
     });
-
+    console.log(responseObject);
     store.dispatch('SET_USER', responseObject);
     
   }
