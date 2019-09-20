@@ -53,7 +53,7 @@ class AuthService extends EventEmitter {
     this.profile = authResult.idTokenPayload;
 
     this.postNewUser();
-    restService.updateData();
+    
 
 
     // Convert the JWT expiry time from seconds to milliseconds
@@ -120,6 +120,7 @@ class AuthService extends EventEmitter {
     });
 
     store.dispatch('app/updateUser', responseObject);
+    restService.updateData();
   }
 }
 

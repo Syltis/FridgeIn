@@ -16,9 +16,7 @@
 
 <script>
 import "es6-promise/auto";
-import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
-import { mapState, mapActions } from 'vuex';
-const foodRepository = repositoryFactory.get("food");
+import { mapState } from 'vuex';
 
 export default {
   name: "FoodSelect",
@@ -27,9 +25,7 @@ export default {
       selectedFood: null
     };
   },
-  mounted() {
-    this.fetchFoods();
-  },
+  
   computed: {
     ...mapState({
       food: state => state.fridge.food,
@@ -37,24 +33,9 @@ export default {
     })
   },
   methods: {
-    async fetchFoods() {
-
-      // Wait until state has ben set after refresh
-      await new Promise(resolve => {
-        setTimeout(resolve, 200);
-      });
-      const { data } = await foodRepository.readAllOnUser(
-        this.userId
-      );
-      this.updateFood(data)
-      // this.food.sort((a, b) => (a.name > b.name ? 1 : -1));
-    },
     onSelected() {
       this.$emit("foodSelected", this.selectedFood);
-    },
-    ...mapActions({
-      updateFood: 'fridge/updateFood'
-    })
+    }
   }
 };
 </script>
