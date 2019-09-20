@@ -1,5 +1,6 @@
 <template>
   <v-select
+    v-if="food"
     :items="food"
     item-text="name"
     v-model="selectedFood"
@@ -15,20 +16,25 @@
 
 <script>
 import "es6-promise/auto";
-import { RepositoryFactory } from "../../api/RepositoryFactory";
-
-const foodRepository = RepositoryFactory.get("food");
+import { repositoryFactory } from "../../services/api/repositoryFactory";
+import { mapState, mapActions } from 'vuex'
+const foodRepository = repositoryFactory.get("food");
 
 export default {
   name: "FoodSelect",
   data() {
     return {
-      food: [],
       selectedFood: null
     };
   },
   mounted() {
     this.fetchFoods();
+  },
+  computed: {
+    ...mapState({
+      food: state => state.fridge.food,
+      userId: state => state.app.userId
+    })
   },
   methods: {
     async fetchFoods() {
@@ -38,14 +44,17 @@ export default {
         setTimeout(resolve, 200);
       });
       const { data } = await foodRepository.readAllOnUser(
-        this.$store.getters.USER.id
+        this.userId
       );
-      this.food = data;
-      this.food.sort((a, b) => (a.name > b.name ? 1 : -1));
+      this.updateFood(data)
+      // this.food.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     onSelected() {
       this.$emit("foodSelected", this.selectedFood);
-    }
+    },
+    ...mapActions({
+      updateFood: 'fridge/updateFood'
+    })
   }
 };
 </script>

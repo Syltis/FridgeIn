@@ -1,6 +1,6 @@
 // Plugin to inject authentication service
 
-import authService from '../auth/authService';
+import authService from './authService';
 
 export default {
   install(Vue) {

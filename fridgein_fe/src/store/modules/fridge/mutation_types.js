@@ -1,0 +1,1 @@
+export const FRIDGE_UPDATE_FOOD = 'FRIDGE_UPDATE_FOOD'

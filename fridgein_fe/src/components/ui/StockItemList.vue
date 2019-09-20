@@ -56,10 +56,10 @@
 
 <script>
 import "es6-promise/auto";
-import { RepositoryFactory } from "../../api/RepositoryFactory";
+import { repositoryFactory } from "../../services/api/repositoryFactory";
 import { setTimeout } from "timers";
 
-const stockItemRepository = RepositoryFactory.get("stockItem");
+const stockItemRepository = repositoryFactory.get("stockItem");
 
 export default {
   name: "StockItemList",

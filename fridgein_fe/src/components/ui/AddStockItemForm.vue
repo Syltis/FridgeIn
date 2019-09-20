@@ -114,10 +114,10 @@
 <script>
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
-import { RepositoryFactory } from "../../api/RepositoryFactory.js";
+import { repositoryFactory } from "../../services/api/repositoryFactory";
 
-const foodRepository = RepositoryFactory.get("food");
-const stockItemRepository = RepositoryFactory.get("stockItem");
+const foodRepository = repositoryFactory.get("food");
+const stockItemRepository = repositoryFactory.get("stockItem");
 
 export default {
   name: "AddStockItemForm",

@@ -112,6 +112,7 @@
 
 <script>
 import "es6-promise/auto";
+import { mapState } from 'vuex'
 
 export default {
   name: "StartPage",
@@ -133,8 +134,11 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      userId: state => state.app.userId
+    }),
     isLoggedIn() {
-      return this.$store.getters.USER.id != null;
+      return this.userId !== ''
     }
   }
 };
@@ -164,7 +168,7 @@ h4 {
 }
 
 .parallax {
-  min-height: 680px;
+  min-height: 780px;
 }
 
 .parallax2 {

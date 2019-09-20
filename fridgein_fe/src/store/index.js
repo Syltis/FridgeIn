@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import appModule from '@/store/modules/app'
+import fridgeModule from '@/store/modules/fridge'
 
 Vue.use(Vuex);
 
@@ -8,12 +10,7 @@ export default new Vuex.Store({
         stockListComponentKey: 0,
         foodSelectComponentKey: 0,
         token: localStorage.getItem('user-token') || '',
-        status: '',
-        user: {
-            id: null,
-            email: null,
-            name: null
-        }
+        status: ''
     },
     getters: {
         STOCKCOMPONENTKEY (state) {
@@ -51,5 +48,9 @@ export default new Vuex.Store({
         SET_USER (context, user) {
             context.commit('SET_USER', user);
         }
+    },
+    modules: {
+        app: appModule,
+        fridge: fridgeModule
     }
 })

@@ -1,0 +1,1 @@
+export const APP_UPDATE_USER = 'APP_UPDATE_USER'

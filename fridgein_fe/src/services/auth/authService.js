@@ -2,12 +2,12 @@
 
 import auth0 from 'auth0-js';
 import EventEmitter from 'events';
-import authConfig from '../../auth_config.json';
+import authConfig from '../../../auth_config.json';
 import "es6-promise/auto";
-import store from './../store/index';
+import store from '../../store/index';
 
-import { RepositoryFactory } from '../api/RepositoryFactory';
-const userRepository = RepositoryFactory.get('user');
+import { repositoryFactory } from '../api/repositoryFactory';
+const userRepository = repositoryFactory.get('user');
 
 const localStorageKey = 'loggedIn';
 const loginEvent = 'loginEvent';
@@ -116,8 +116,8 @@ class AuthService extends EventEmitter {
       responseObject = result.data;
     });
     console.log(responseObject);
-    store.dispatch('SET_USER', responseObject);
-    
+    console.log(119)
+    store.dispatch('app/updateUser', responseObject);
   }
 }
 
