@@ -7,7 +7,7 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <label id="loggedin-toolbar-label"  class="logged-in-common" v-if="this.isAuthenticated">Logged in as <b>{{ profile.name }}</b></label>
+      <label id="loggedin-toolbar-label"  class="logged-in-common" v-if="this.isAuthenticated">Logged in as <b>{{ profile.nickname }}</b></label>
       <v-btn flat to="/" class="btnlink">Home</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/food" class="btnlink">Stock</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/recipes" class="btnlink">Recipes</v-btn>
@@ -42,7 +42,7 @@
         </v-list-tile>
         <v-list-tile v-if="this.isAuthenticated">
           <v-list-tile-content >
-            <Label class="logged-in-common" id="loggedin-menu-label">Logged in as {{ profile.email }}</Label>
+            <Label class="logged-in-common" id="loggedin-menu-label">Logged in as {{ profile.nickname }}</Label>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if="!isAuthenticated">

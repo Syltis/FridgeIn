@@ -1,9 +1,10 @@
 <template>
   <v-select
+    v-if="food"
     :items="food"
     item-text="name"
     v-model="selectedFood"
-    @change = onSelected($event)
+    @change="onSelected($event)"
     return-object
     clearable
     :menu-props="{ maxHeight: '400' }"
@@ -15,30 +16,45 @@
 
 <script>
 import "es6-promise/auto";
-import { RepositoryFactory } from "../../api/RepositoryFactory";
-
-const foodRepository = RepositoryFactory.get("food");
+import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
+import { mapState, mapActions } from 'vuex';
+const foodRepository = repositoryFactory.get("food");
 
 export default {
   name: "FoodSelect",
   data() {
     return {
-      food: [],
       selectedFood: null
     };
   },
   mounted() {
     this.fetchFoods();
   },
+  computed: {
+    ...mapState({
+      food: state => state.fridge.food,
+      userId: state => state.app.userId
+    })
+  },
   methods: {
     async fetchFoods() {
-      const { data } = await foodRepository.readAllOnUser(this.$store.getters.USER.id);
-      this.food = data;
-      this.food.sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+      // Wait until state has ben set after refresh
+      await new Promise(resolve => {
+        setTimeout(resolve, 200);
+      });
+      const { data } = await foodRepository.readAllOnUser(
+        this.userId
+      );
+      this.updateFood(data)
+      // this.food.sort((a, b) => (a.name > b.name ? 1 : -1));
     },
     onSelected() {
-      this.$emit('foodSelected', this.selectedFood);
-    }
+      this.$emit("foodSelected", this.selectedFood);
+    },
+    ...mapActions({
+      updateFood: 'fridge/updateFood'
+    })
   }
 };
 </script>

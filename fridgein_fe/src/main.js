@@ -4,7 +4,7 @@ import App from './App.vue'
 import './../node_modules/jquery/dist/jquery.min.js';
 import router from './router/index';
 import store from './store';
-import AuthPlugin from './auth/auth.js';
+import AuthPlugin from './services/auth/auth';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
