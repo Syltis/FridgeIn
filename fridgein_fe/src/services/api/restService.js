@@ -23,7 +23,7 @@ export default {
         store.dispatch('fridge/updateFood', payload);
     },
     updateStock(payload) {
-        store.dispatch('fridge/updateFood', payload);
+        store.dispatch('fridge/updateStock', payload);
 
     }
 }

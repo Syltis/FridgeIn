@@ -18,7 +18,7 @@
       <!-- List -->
       <div id="list-div" class="scroll-y">
         <template v-for="stockItem in uniqueStockitems">
-          <v-list-tile v-bind:key="stockItem.stockitemId" class="listTile">
+          <v-list-tile v-bind:key="stockItem.stockItemId" class="listTile">
             <v-list-tile-content>
               <v-list-tile-title>
                 <h4 class="subheading">
@@ -27,7 +27,7 @@
                     <i>&nbsp;&nbsp;{{stockItem.food.type.toLowerCase()}}</i>
                   </span>
                   <v-list-tile-action class="right">
-                    <v-checkbox :key="stockItem.stockitemId" :value="stockItem" v-model="selected"></v-checkbox>
+                    <v-checkbox :key="stockItem.stockItemId" value="stockItem" v-model="selected"></v-checkbox>
                   </v-list-tile-action>
                   <span
                     class="right count"
@@ -58,7 +58,8 @@
 import "es6-promise/auto";
 import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
 import { setTimeout } from "timers";
-import store from '../../store/index';
+import { mapState } from "vuex";
+import store from "../../store/index";
 
 const stockItemRepository = repositoryFactory.get("stockItem");
 
@@ -67,24 +68,29 @@ export default {
   data() {
     return {
       selected: [],
-      uniqueStockitemsGrouped: [],
-      uniqueStockitems: [],
       profile: this.$auth.profile
     };
   },
   mounted() {
-    this.fetchUniqueStockitemsGrouped();
+    this.listUniqueStockitems();
+  },
+  computed: {
+    ...mapState({
+      stockItemsUniqueGrouped: state => state.fridge.stock
+    }),
+    uniqueStockitems() {
+      var uniqueStockitems = [];
+      this.stockItemsUniqueGrouped.forEach(element => {
+        uniqueStockitems.push(element[0]);
+      });
+      return uniqueStockitems.sort((a, b) =>
+        a.food.name > b.food.name ? 1 : -1
+      );
+    }
   },
   methods: {
-    async fetchUniqueStockitemsGrouped() {
-      const { data } = await stockItemRepository.readUniqueOnUser(
-        this.$auth.profile.email
-      );
-      this.uniqueStockitemsGrouped = data;
-      this.listUniqueStockitems();
-    },
     listUniqueStockitems() {
-      this.uniqueStockitemsGrouped.forEach(element => {
+      this.stockItemsUniqueGrouped.forEach(element => {
         this.uniqueStockitems.push(element[0]);
       });
       this.uniqueStockitems.sort((a, b) =>
@@ -96,7 +102,7 @@ export default {
     },
     countStockItem(stockItem) {
       let count = 0;
-      this.uniqueStockitemsGrouped.forEach(element => {
+      this.stockItemsUniqueGrouped.forEach(element => {
         if (
           stockItem.foodId == element[0].foodId &&
           stockItem.purchaseDate == element[0].purchaseDate &&
@@ -108,24 +114,28 @@ export default {
       return count;
     },
 
-    // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them. 
+    // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them.
     // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
       const self = this; // Because setTimeout cant handle 'this.' ;) ;
       var idsToDelete = [];
       if (confirm("Are you sure you want to delete this item?")) {
-        this.uniqueStockitemsGrouped.forEach(stockItemArray => {
+        this.stockItemsUniqueGrouped.forEach(stockItemArray => {
           this.selected.forEach(selectedItem => {
-            if (stockItemArray.some(x => x.stockitemId == selectedItem.stockitemId)) {
+            if (
+              stockItemArray.some(
+                x => x.stockitemId == selectedItem.stockitemId
+              )
+            ) {
               let newArr = stockItemArray.map(s => s.stockitemId);
               newArr.forEach(id => {
                 idsToDelete.push(id);
-              })
+              });
             }
           });
         });
         await idsToDelete.forEach(id => {
-          stockItemRepository.delete(id, store.getters['app/userId']);
+          stockItemRepository.delete(id, store.getters["app/userId"]);
         });
         setTimeout(function() {
           self.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
