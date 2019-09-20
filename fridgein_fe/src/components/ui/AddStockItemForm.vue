@@ -114,7 +114,8 @@
 <script>
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
-import { repositoryFactory } from "../../services/api/repositoryFactory";
+import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
+import { mapState } from 'vuex';
 
 const foodRepository = repositoryFactory.get("food");
 const stockItemRepository = repositoryFactory.get("stockItem");
@@ -152,7 +153,10 @@ export default {
   computed: {
     foodComponentKey() {
       return this.$store.getters.FOODCOMPONENTKEY;
-    }
+    },
+    ...mapState({
+      userId: state => state.app.userId
+    })
   },
   methods: {
     atChecked() {
@@ -161,19 +165,18 @@ export default {
     async submitStockItem() {
       this.errors = [];
       const foodToPost = {
-        userid: this.$store.getters.USER.id,
+        userid: this.userId,
         name: this.stockItemName.toLowerCase(),
         type: this.stockItemType.toLowerCase(),
         stockitem: [
           {
-            userid: this.$store.getters.USER.id,
+            userid: this.userId,
             purchaseDate: this.purchaseDate,
             expirationDate: this.expirationDate
           }
         ]
       };
-      console.log("USER ID");
-      console.log(this.$store.getters.USER.id);
+      
       for (let step = 0; step < this.slider; step++) {
         await foodRepository.post(foodToPost);
       }

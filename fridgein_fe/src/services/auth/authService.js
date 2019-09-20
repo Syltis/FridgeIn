@@ -3,10 +3,12 @@
 import auth0 from 'auth0-js';
 import EventEmitter from 'events';
 import authConfig from '../../../auth_config.json';
+
 import "es6-promise/auto";
 import store from '../../store/index';
+import restService from '../api/restService';
 
-import { repositoryFactory } from '../api/repositoryFactory';
+import { repositoryFactory } from '../api/repository/repositoryFactory';
 const userRepository = repositoryFactory.get('user');
 
 const localStorageKey = 'loggedIn';
@@ -49,9 +51,10 @@ class AuthService extends EventEmitter {
   localLogin(authResult) {
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
-    this.profile.name = this.profile.email.substring(0, this.profile.email.indexOf("@"));
 
     this.postNewUser();
+    restService.updateData();
+
 
     // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
@@ -115,8 +118,7 @@ class AuthService extends EventEmitter {
     .then(result => {
       responseObject = result.data;
     });
-    console.log(responseObject);
-    console.log(119)
+
     store.dispatch('app/updateUser', responseObject);
   }
 }

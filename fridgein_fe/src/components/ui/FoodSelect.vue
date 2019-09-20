@@ -16,8 +16,8 @@
 
 <script>
 import "es6-promise/auto";
-import { repositoryFactory } from "../../services/api/repositoryFactory";
-import { mapState, mapActions } from 'vuex'
+import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
+import { mapState, mapActions } from 'vuex';
 const foodRepository = repositoryFactory.get("food");
 
 export default {

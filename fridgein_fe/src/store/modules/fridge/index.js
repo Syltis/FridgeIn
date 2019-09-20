@@ -1,9 +1,10 @@
-import actions from './actions'
-import getters from './getters'
-import mutations from './mutations'
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
 
 const state = {
-    food: []
+    food: [],
+    stock: []
 }
 
 export default {

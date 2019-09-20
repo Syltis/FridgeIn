@@ -56,8 +56,9 @@
 
 <script>
 import "es6-promise/auto";
-import { repositoryFactory } from "../../services/api/repositoryFactory";
+import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
 import { setTimeout } from "timers";
+import store from '../../store/index';
 
 const stockItemRepository = repositoryFactory.get("stockItem");
 
@@ -124,7 +125,7 @@ export default {
           });
         });
         await idsToDelete.forEach(id => {
-          stockItemRepository.delete(id, this.$store.getters.USER.id);
+          stockItemRepository.delete(id, store.getters['app/userId']);
         });
         setTimeout(function() {
           self.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
