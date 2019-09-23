@@ -17,8 +17,8 @@
 
       <!-- List -->
       <div id="list-div" class="scroll-y">
-        <template v-for="stockItem in uniqueStockitems">
-          <v-list-tile v-bind:key="stockItem.stockItemId" class="listTile">
+        <template v-for="( stockItem, i ) in uniqueStockitems">
+          <v-list-tile v-bind:key="stockItem.stockitemId" class="listTile">
             <v-list-tile-content>
               <v-list-tile-title>
                 <h4 class="subheading">
@@ -27,7 +27,11 @@
                     <i>&nbsp;&nbsp;{{stockItem.food.type.toLowerCase()}}</i>
                   </span>
                   <v-list-tile-action class="right">
-                    <v-checkbox :key="stockItem.stockItemId" value="stockItem" v-model="selected"></v-checkbox>
+                    <v-checkbox
+                      :key="stockItem.stockitemId + '2'"
+                      :value="stockItem"
+                      v-model="selected[i]"
+                    ></v-checkbox>
                   </v-list-tile-action>
                   <span
                     class="right count"
@@ -122,15 +126,17 @@ export default {
       if (confirm("Are you sure you want to delete this item?")) {
         this.stockItemsUniqueGrouped.forEach(stockItemArray => {
           this.selected.forEach(selectedItem => {
-            if (
-              stockItemArray.some(
-                x => x.stockitemId == selectedItem.stockitemId
-              )
-            ) {
-              let newArr = stockItemArray.map(s => s.stockitemId);
-              newArr.forEach(id => {
-                idsToDelete.push(id);
-              });
+            if (selectedItem != null) {
+              if (
+                stockItemArray.some(
+                  x => x.stockitemId == selectedItem.stockitemId
+                )
+              ) {
+                let newArr = stockItemArray.map(s => s.stockitemId);
+                newArr.forEach(id => {
+                  idsToDelete.push(id);
+                });
+              }
             }
           });
         });
