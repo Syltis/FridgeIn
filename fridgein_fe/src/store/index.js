@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from "vuex-persistedstate";
-import Cookies from "js-cookie";
 
 import appModule from '@/store/modules/app'
 import fridgeModule from '@/store/modules/fridge'
@@ -17,13 +16,7 @@ export default new Vuex.Store({
     },
     plugins: [
         createPersistedState({
-            paths: ["fridge"],
-            storage: {
-                getItem: key => Cookies.get(key),
-                setItem: (key, value) =>
-                    Cookies.set(key, value, { expires: 3, secure: true }),
-                removeItem: key => Cookies.remove(key)
-            }
+            paths: ["fridge"]
         })
     ],
     getters: {

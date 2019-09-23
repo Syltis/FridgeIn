@@ -5,26 +5,31 @@ const stockItemRepository = repositoryFactory.get("stockItem");
 const foodRepository = repositoryFactory.get("food");
 
 export default {
-    updateData() {
+    updateFridge() {
         this.getFood();
         this.getStock();
-    },
-    async getFood() {
-        console.log(store.getters['app/userId']);
-        const { data } = await foodRepository.readAllOnUser(store.getters['app/userId']);
-        this.updateFood(data);
-    },
-    async getStock() {
-        console.log(store.getters['app/email'])
-        const { data } = await stockItemRepository.readUniqueOnUser(store.getters['app/email']);
-        this.updateStock(data);
     },
     updateFood(payload) {
         store.dispatch('fridge/updateFood', payload);
     },
     updateStock(payload) {
         store.dispatch('fridge/updateStock', payload);
-
+    },
+    async getFood() {
+        await foodRepository.readAllOnUser(store.getters['app/userId']).then(response => {
+            this.updateFood(response.data);
+        });
+    },
+    async getStock() {
+        await stockItemRepository.readUniqueOnUser(store.getters['app/email']).then(response => {
+            this.updateStock(response.data);
+        });
+    },
+    async postFood(food) {
+        await foodRepository.post(food).then(response => {
+            console.log(response)
+            store.dispatch('fridge/addToStock')
+        })
     }
 }
 

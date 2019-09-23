@@ -2,16 +2,25 @@
 Service for keeping track of fridge items, using them in recipes and tracking expiration-dates. 
 
 ### Currently running a .NET Core REST API with EF6, Azure SQL Server database and Vue.js and Vuetify front-end with Auth0-authentication. 
-
-#### Trello: https://trello.com/b/HmgAibgp/fridgein
-
+---
+#### Tech in use
+* Backend
+	* ASP .Net Core
+	* Entity Framework 6 
+	* Azure SQL Server
+* Frontend 
+	* Vue.js
+	* Axios
+	* Vuex 
+	* Vuetify
+	* Auth0-authentication
 ---
 
 #### Functional requirements
 
-- [x] CRUD for items in stock
-- [x] CRUD for saved template-food list for use in stock-form
-- [ ] Add recipies and view them
+- [x] CRUD for items in stock 
+- [x] CRUD for saved template-food list for use in populating stock
+- [ ] CRUD for recipes
 - [x] User profile system with appropriate security
 - [ ] Display calender of expiration-dates and notify user accordingly
 - [ ] Get a shopping list out of any chosen recipies
