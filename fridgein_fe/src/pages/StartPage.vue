@@ -123,6 +123,12 @@ export default {
       logo: require("@/assets/images/LogoBluer.png")
     };
   },
+  created() {
+    console.log('THis is created')
+  },
+  mounted() {
+    console.log('This is mounted')
+  },
   methods: {
     login() {
       console.log("login attempt");

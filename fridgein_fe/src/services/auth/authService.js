@@ -108,7 +108,6 @@ class AuthService extends EventEmitter {
 
   async postNewUser() {
 
-    let responseObject = null;
     const userToPost = {
       name: this.profile.email.substring(0, this.profile.email.indexOf("@")),
       email: this.profile.email
@@ -116,11 +115,9 @@ class AuthService extends EventEmitter {
 
     await userRepository.postNewUser(userToPost)
     .then(result => {
-      responseObject = result.data;
+      store.dispatch('app/updateUser', result.data);
     });
-
-    store.dispatch('app/updateUser', responseObject);
-    restService.updateData();
+    restService.updateFridge();
   }
 }
 

@@ -17,8 +17,8 @@
 
       <!-- List -->
       <div id="list-div" class="scroll-y">
-        <template v-for="( stockItem, i ) in uniqueStockitems">
-          <v-list-tile v-bind:key="stockItem.stockitemId" class="listTile">
+        <template v-for="(stockItem, index) in uniqueStockitems">
+          <v-list-tile :key="index" class="listTile">
             <v-list-tile-content>
               <v-list-tile-title>
                 <h4 class="subheading">
@@ -28,9 +28,9 @@
                   </span>
                   <v-list-tile-action class="right">
                     <v-checkbox
-                      :key="stockItem.stockitemId + '2'"
+                      :key="index"
                       :value="stockItem"
-                      v-model="selected[i]"
+                      v-model="selected[index]"
                     ></v-checkbox>
                   </v-list-tile-action>
                   <span
@@ -51,7 +51,7 @@
               </v-list-tile-action-text>
             </v-list-tile-content>
           </v-list-tile>
-          <v-divider :key="stockItem.food.foodId + stockItem.stockitemId"></v-divider>
+          <v-divider :key="index + '999'"></v-divider>
         </template>
       </div>
     </v-list>
@@ -75,32 +75,21 @@ export default {
       profile: this.$auth.profile
     };
   },
-  mounted() {
-    this.listUniqueStockitems();
-  },
   computed: {
     ...mapState({
       stockItemsUniqueGrouped: state => state.fridge.stock
     }),
     uniqueStockitems() {
-      var uniqueStockitems = [];
+      var stockItems = [];
       this.stockItemsUniqueGrouped.forEach(element => {
-        uniqueStockitems.push(element[0]);
+        stockItems.push(element[0]);
       });
-      return uniqueStockitems.sort((a, b) =>
+      return stockItems.sort((a, b) =>
         a.food.name > b.food.name ? 1 : -1
       );
     }
   },
   methods: {
-    listUniqueStockitems() {
-      this.stockItemsUniqueGrouped.forEach(element => {
-        this.uniqueStockitems.push(element[0]);
-      });
-      this.uniqueStockitems.sort((a, b) =>
-        a.food.name > b.food.name ? 1 : -1
-      );
-    },
     isAbove(item) {
       return item > 1;
     },
@@ -127,11 +116,7 @@ export default {
         this.stockItemsUniqueGrouped.forEach(stockItemArray => {
           this.selected.forEach(selectedItem => {
             if (selectedItem != null) {
-              if (
-                stockItemArray.some(
-                  x => x.stockitemId == selectedItem.stockitemId
-                )
-              ) {
+              if (stockItemArray.some(x => x.stockitemId == selectedItem.stockitemId)) {
                 let newArr = stockItemArray.map(s => s.stockitemId);
                 newArr.forEach(id => {
                   idsToDelete.push(id);
