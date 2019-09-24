@@ -54,8 +54,6 @@ class AuthService extends EventEmitter {
 
     this.postNewUser();
     
-
-
     // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
 
@@ -107,12 +105,10 @@ class AuthService extends EventEmitter {
   }
 
   async postNewUser() {
-
     const userToPost = {
       name: this.profile.email.substring(0, this.profile.email.indexOf("@")),
       email: this.profile.email
     }
-
     await userRepository.postNewUser(userToPost)
     .then(result => {
       store.dispatch('app/updateUser', result.data);

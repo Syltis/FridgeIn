@@ -28,7 +28,7 @@
                   </span>
                   <v-list-tile-action class="right">
                     <v-checkbox
-                      :key="index"
+                      :key="stockItem.stockitemId + index"
                       :value="stockItem"
                       v-model="selected[index]"
                     ></v-checkbox>
@@ -60,12 +60,9 @@
 
 <script>
 import "es6-promise/auto";
-import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
-import { setTimeout } from "timers";
 import { mapState } from "vuex";
 import store from "../../store/index";
-
-const stockItemRepository = repositoryFactory.get("stockItem");
+import restService from "../../services/api/restService";
 
 export default {
   name: "StockItemList",
@@ -82,11 +79,11 @@ export default {
     uniqueStockitems() {
       var stockItems = [];
       this.stockItemsUniqueGrouped.forEach(element => {
-        stockItems.push(element[0]);
+        if (element[0]) {
+          stockItems.push(element[0]);
+        }
       });
-      return stockItems.sort((a, b) =>
-        a.food.name > b.food.name ? 1 : -1
-      );
+      return stockItems.sort((a, b) => (a.food.name > b.food.name ? 1 : -1));
     }
   },
   methods: {
@@ -96,12 +93,14 @@ export default {
     countStockItem(stockItem) {
       let count = 0;
       this.stockItemsUniqueGrouped.forEach(element => {
-        if (
-          stockItem.foodId == element[0].foodId &&
-          stockItem.purchaseDate == element[0].purchaseDate &&
-          stockItem.expirationDate == element[0].expirationDate
-        ) {
-          count = element.length;
+        if (element[0]) {
+          if (
+            stockItem.foodId == element[0].foodId &&
+            stockItem.purchaseDate == element[0].purchaseDate &&
+            stockItem.expirationDate == element[0].expirationDate
+          ) {
+            count = element.length;
+          }
         }
       });
       return count;
@@ -110,13 +109,16 @@ export default {
     // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them.
     // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
-      const self = this; // Because setTimeout cant handle 'this.' ;) ;
       var idsToDelete = [];
       if (confirm("Are you sure you want to delete this item?")) {
         this.stockItemsUniqueGrouped.forEach(stockItemArray => {
           this.selected.forEach(selectedItem => {
             if (selectedItem != null) {
-              if (stockItemArray.some(x => x.stockitemId == selectedItem.stockitemId)) {
+              if (
+                stockItemArray.some(
+                  x => x.stockitemId == selectedItem.stockitemId
+                )
+              ) {
                 let newArr = stockItemArray.map(s => s.stockitemId);
                 newArr.forEach(id => {
                   idsToDelete.push(id);
@@ -125,12 +127,7 @@ export default {
             }
           });
         });
-        await idsToDelete.forEach(id => {
-          stockItemRepository.delete(id, store.getters["app/userId"]);
-        });
-        setTimeout(function() {
-          self.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
-        }, 1000);
+        restService.deleteStock(idsToDelete, store.getters["app/userId"]);
       }
     }
   }
