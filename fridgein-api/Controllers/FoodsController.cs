@@ -105,7 +105,7 @@ namespace fridgein_api.Controllers
                             _context.Stockitem.Add(item);
                         }
                         await _context.SaveChangesAsync();
-                        return Ok();
+                        return Ok(food);
                     }
                 }
                 Debug.WriteLine("------- OH BOI -----");

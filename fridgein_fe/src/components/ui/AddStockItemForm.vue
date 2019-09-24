@@ -11,7 +11,7 @@
 
           <!-- Row two -->
           <v-flex xs12 md8 class="formFlex">
-            <FoodSelect v-on:foodSelected="onFoodSelected" :key="foodComponentKey"></FoodSelect>
+            <FoodSelect v-on:foodSelected="onFoodSelected"></FoodSelect>
           </v-flex>
 
           <!-- Row three -->
@@ -115,7 +115,8 @@
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
 import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
-import { mapState } from 'vuex';
+import { mapState } from "vuex";
+import restService from "../../services/api/restService";
 
 const foodRepository = repositoryFactory.get("food");
 const stockItemRepository = repositoryFactory.get("stockItem");
@@ -151,9 +152,6 @@ export default {
     };
   },
   computed: {
-    foodComponentKey() {
-      return this.$store.getters.FOODCOMPONENTKEY;
-    },
     ...mapState({
       userId: state => state.app.userId
     })
@@ -162,29 +160,26 @@ export default {
     atChecked() {
       this.expirationCheckBox = !this.expirationCheckBox;
     },
-    async submitStockItem() {
+    submitStockItem() {
       this.errors = [];
       const foodToPost = {
         userid: this.userId,
         name: this.stockItemName.toLowerCase(),
         type: this.stockItemType.toLowerCase(),
-        stockitem: [
-          {
-            userid: this.userId,
-            purchaseDate: this.purchaseDate,
-            expirationDate: this.expirationDate
-          }
-        ]
+        stockitem: []
       };
-      
       for (let step = 0; step < this.slider; step++) {
-        await foodRepository.post(foodToPost);
+        foodToPost.stockitem.push({
+          userid: this.userId,
+          purchaseDate: this.purchaseDate,
+          expirationDate: this.expirationDate
+        });
       }
+      restService.postFood(foodToPost);
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
       this.$refs.form.reset();
-      this.reRenderComponents();
     },
     async deleteType() {
       if (
@@ -198,7 +193,6 @@ export default {
         await foodRepository.deleteAllName(this.stockItemName);
         this.errors.push(this.stockItemName + " has been deleted.");
         this.$refs.form.reset();
-        this.reRenderComponents();
       }
     },
     valid() {
@@ -223,10 +217,6 @@ export default {
     onFoodSelected(value) {
       this.stockItemName = value.name;
       this.stockItemType = value.type;
-    },
-    reRenderComponents() {
-      this.$store.dispatch("RERENDER_STOCKLISTCOMPONENT");
-      this.$store.dispatch("RERENDER_FOODSELECTCOMPONENT");
     }
   }
 };

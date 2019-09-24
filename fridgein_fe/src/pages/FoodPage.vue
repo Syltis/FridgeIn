@@ -10,7 +10,7 @@
     <!-- Content -->
     <v-layout row wrap justify-center>
       <v-flex xs12 md6 class="flexBox">
-        <StockItemList :key="stockComponentKey"></StockItemList>
+        <StockItemList ></StockItemList>
       </v-flex>
       <v-flex xs12 md5 class="flexBox">
         <AddStockItemForm></AddStockItemForm>
@@ -27,16 +27,6 @@ import AddStockItemForm from "../components/ui/AddStockItemForm";
 export default {
   name: "FoodPage",
 	components: { AddStockItemForm, StockItemList },
-	computed: {
-		stockComponentKey() {
-			return this.$store.getters.STOCKCOMPONENTKEY;
-		}
-	},
-	watch: {
-		componentKey() {
-			console.log("Watch set");
-		}
-	}
 };
 </script>
 
