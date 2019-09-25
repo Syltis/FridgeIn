@@ -33,10 +33,7 @@
                       v-model="selected[index]"
                     ></v-checkbox>
                   </v-list-tile-action>
-                  <span
-                    class="right count"
-                    v-if="countStockItem(stockItem)"
-                  >{{countStockItem(stockItem)}}</span>
+                  <span class="right count">{{ stockItem.amount }}</span>
                 </h4>
               </v-list-tile-title>
 
@@ -60,66 +57,44 @@
 
 <script>
 import "es6-promise/auto";
-import { mapState } from "vuex";
-import store from "../../store/index";
+import { mapGetters } from "vuex";
 import restService from "../../services/api/restService";
 
 export default {
   name: "StockItemList",
   data() {
     return {
-      selected: [],
-      profile: this.$auth.profile
+      selected: []
     };
   },
   computed: {
-    ...mapState({
-      stockItemsUniqueGrouped: state => state.fridge.stock
+    ...mapGetters({
+      stockItemsUniqueGrouped: 'fridge/getStock',
+      userId: 'app/getUserId'
     }),
     uniqueStockitems() {
       var stockItems = [];
-      this.stockItemsUniqueGrouped.forEach(element => {
-        if (element[0]) {
-          stockItems.push(element[0]);
+      this.stockItemsUniqueGrouped.forEach(s => {
+        if (s[0]) {
+          var newObj = s[0];
+          newObj.amount = s.length;
+          stockItems.push(newObj);
         }
       });
       return stockItems.sort((a, b) => (a.food.name > b.food.name ? 1 : -1));
     }
   },
   methods: {
-    isAbove(item) {
-      return item > 1;
-    },
-    countStockItem(stockItem) {
-      let count = 0;
-      this.stockItemsUniqueGrouped.forEach(element => {
-        if (element[0]) {
-          if (
-            stockItem.foodId == element[0].foodId &&
-            stockItem.purchaseDate == element[0].purchaseDate &&
-            stockItem.expirationDate == element[0].expirationDate
-          ) {
-            count = element.length;
-          }
-        }
-      });
-      return count;
-    },
-
     // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them.
     // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
       var idsToDelete = [];
       if (confirm("Are you sure you want to delete this item?")) {
-        this.stockItemsUniqueGrouped.forEach(stockItemArray => {
-          this.selected.forEach(selectedItem => {
-            if (selectedItem != null) {
-              if (
-                stockItemArray.some(
-                  x => x.stockitemId == selectedItem.stockitemId
-                )
-              ) {
-                let newArr = stockItemArray.map(s => s.stockitemId);
+        this.stockItemsUniqueGrouped.forEach(array => {
+          this.selected.forEach(s => {
+            if (s != null) {
+              if (array.some(x => x.stockitemId == s.stockitemId)) {
+                let newArr = array.map(s => s.stockitemId);
                 newArr.forEach(id => {
                   idsToDelete.push(id);
                 });
@@ -127,7 +102,7 @@ export default {
             }
           });
         });
-        restService.deleteStock(idsToDelete, store.getters["app/userId"]);
+        restService.deleteStock(idsToDelete, this.userId);
       }
     }
   }

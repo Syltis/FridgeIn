@@ -16,27 +16,27 @@ export default {
         store.dispatch('fridge/updateStock', payload);
     },
     async getFood() {
-        await foodRepository.readAllOnUser(store.getters['app/userId']).then(response => {
+        await foodRepository.readAllOnUser(store.getters['app/getUserId']).then(response => {
             this.updateFood(response.data);
         });
     },
     async getStock() {
-        await stockItemRepository.readUniqueOnUser(store.getters['app/email']).then(response => {
+        await stockItemRepository.readUniqueOnUser(store.getters['app/getEmail']).then(response => {
             this.updateStock(response.data);
         });
     },
     async postFood(food) {
         await foodRepository.post(food).then(response => {
             store.dispatch('fridge/addFood', response.data);
-        })
+        });
     },
     async deleteStock(stockIds, userId) {
         await stockIds.forEach(element => {
             // eslint-disable-next-line
             stockItemRepository.delete(element, userId).then(response => {
                 store.dispatch('fridge/deleteStock', element);
-            })
-        })
+            });
+        });
     }
 }
 

@@ -115,7 +115,7 @@
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
 import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import restService from "../../services/api/restService";
 
 const foodRepository = repositoryFactory.get("food");
@@ -126,7 +126,7 @@ export default {
   components: { FoodSelect },
   data() {
     return {
-      max: 10,
+      max: 30,
       min: 1,
       slider: 1,
       amountSaved: 0,
@@ -136,7 +136,6 @@ export default {
       purchaseDate: new Date().toISOString().substr(0, 10),
       expirationDate: null,
       expirationCheckBox: false,
-      e6: [],
       modal: false,
       modal2: false,
       stockItemSuccess: false,
@@ -152,8 +151,8 @@ export default {
     };
   },
   computed: {
-    ...mapState({
-      userId: state => state.app.userId
+    ...mapGetters({
+      userId: 'app/getUserId'
     })
   },
   methods: {
@@ -162,12 +161,16 @@ export default {
     },
     submitStockItem() {
       this.errors = [];
+
+      // Setup object for post
       const foodToPost = {
         userid: this.userId,
         name: this.stockItemName.toLowerCase(),
         type: this.stockItemType.toLowerCase(),
         stockitem: []
       };
+
+      // Multiply Stockitems on chosen amount
       for (let step = 0; step < this.slider; step++) {
         foodToPost.stockitem.push({
           userid: this.userId,

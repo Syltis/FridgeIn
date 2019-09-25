@@ -1,12 +1,4 @@
-export default {
-    userId,
-    email
-}
-
-function userId({ userId }) {
-    return userId;
-}
-
-function email({ email }) {
-    return email;
-}
+export const getters = {
+    getUserId: state => state.userId,
+    getEmail: state => state.email
+};
