@@ -54,36 +54,6 @@ namespace fridgein_api.Controllers
             return food;
         }
 
-        // PUT: api/food/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFood(int id, Food food)
-        {
-            if (id != food.FoodId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(food).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FoodExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/food/post
         // This cannot allow duplicates, food should be unique
         [HttpPost]

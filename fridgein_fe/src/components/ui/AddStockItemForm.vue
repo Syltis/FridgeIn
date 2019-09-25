@@ -121,15 +121,15 @@
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
 import { mapGetters } from "vuex";
-import restService from "../../services/api/restService";
+import fridgeService from '../../services/fridgeService';
 
 export default {
   name: "AddStockItemForm",
   components: { FoodSelect },
   data() {
     return {
-      max: 30,
       min: 1,
+      max: 10,
       slider: 1,
       amountSaved: 0,
       expiresCheckbox: false,
@@ -148,7 +148,7 @@ export default {
         v =>
           /^[ a-zæøåA-ZÆØÅ0-9\s]+$/.test(v) ||
           "Field can only contain alphabetical characters",
-        v => (v && v.length <= 25) || "Field must be less than 25 characters"
+        v => (v && v.length <= 10) || "Field must be less than 25 characters"
       ],
       amountSliderRules: [
         v => (v && !isNaN(v)) || "The amount has to be from 1-10"
@@ -183,7 +183,7 @@ export default {
           expirationDate: this.expirationDate
         });
       }
-      restService.postFood(foodToPost);
+      fridgeService.postFood(foodToPost);
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;

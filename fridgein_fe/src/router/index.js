@@ -6,7 +6,9 @@ import FoodPage from '../pages/FoodPage';
 import ContactPage from "../pages/ContactPage";
 import RecipePage from "../pages/RecipePage";
 import StartPage from "../pages/StartPage";
+import ProfilePage from '../pages/ProfilePage';
 import CallBack from '../components/CallBack';
+
 
 Vue.use(Router);
 
@@ -15,6 +17,7 @@ const routes = [
     { path: '/food', component: FoodPage },
     { path: '/contact', component: ContactPage },
     { path: '/recipes', component: RecipePage },
+    { path: '/profile', component: ProfilePage },
     { path: '/callback', component: CallBack }
   ];
 

@@ -3,13 +3,9 @@
 import auth0 from 'auth0-js';
 import EventEmitter from 'events';
 import authConfig from '../../../auth_config.json';
-
 import "es6-promise/auto";
-import store from '../../store/index';
-import restService from '../api/restService';
-
-import { repositoryFactory } from '../api/repository/repositoryFactory';
-const userRepository = repositoryFactory.get('user');
+import fridgeService from '../fridgeService';
+import userService from '../userService';
 
 const localStorageKey = 'loggedIn';
 const loginEvent = 'loginEvent';
@@ -53,7 +49,7 @@ class AuthService extends EventEmitter {
     this.profile = authResult.idTokenPayload;
 
     this.postNewUser();
-    
+
     // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
 
@@ -109,11 +105,9 @@ class AuthService extends EventEmitter {
       name: this.profile.email.substring(0, this.profile.email.indexOf("@")),
       email: this.profile.email
     }
-    await userRepository.postNewUser(userToPost)
-    .then(result => {
-      store.dispatch('app/updateUser', result.data);
-    });
-    restService.updateFridge();
+    await userService.updateUser(userToPost);
+    fridgeService.updateFood();
+    fridgeService.updateStock();
   }
 }
 

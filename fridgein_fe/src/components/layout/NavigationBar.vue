@@ -11,6 +11,7 @@
       <v-btn flat to="/" class="btnlink">Home</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/food" class="btnlink">Stock</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/recipes" class="btnlink">Recipes</v-btn>
+      <v-btn flat v-if="this.isAuthenticated" to="/profile" class="btnlink">Profile</v-btn>
       <v-btn flat v-if="!this.isAuthenticated" id="loginBtn" class="btnlink" @click.prevent="login">Log in</v-btn>
       <v-btn flat v-if="this.isAuthenticated" id="loginBtn" class="btnlink" @click.prevent="logout">Log out</v-btn>
     </v-toolbar-items>
@@ -38,6 +39,11 @@
         <v-list-tile  to="/recipes" v-if="this.isAuthenticated">
           <v-list-tile-content >
             <v-list-tile-title>Recipes</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile  to="/profile" v-if="this.isAuthenticated">
+          <v-list-tile-content >
+            <v-list-tile-title>Profile</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if="this.isAuthenticated">

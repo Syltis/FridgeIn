@@ -58,7 +58,7 @@
 <script>
 import "es6-promise/auto";
 import { mapGetters } from "vuex";
-import restService from "../../services/api/restService";
+import fridgeService from '../../services/fridgeService';
 
 export default {
   name: "StockItemList",
@@ -102,7 +102,7 @@ export default {
             }
           });
         });
-        restService.deleteStock(idsToDelete, this.userId);
+        fridgeService.deleteStock(idsToDelete, this.userId);
       }
     }
   }
