@@ -89,36 +89,6 @@ namespace fridgein_api.Controllers
             return stockitem;
         }
 
-        // PUT: api/stockitem/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutStockitem(int id, Stockitem stockitem)
-        {
-            if (id != stockitem.StockitemId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(stockitem).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StockitemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/stockitem/post
         [HttpPost]
         [Route("post")]

@@ -51,11 +51,17 @@
             </v-dialog>
           </v-flex>
           <v-spacer xs1 md1></v-spacer>
-          <v-flex xs12 md2 class="formFlex">
-            <v-checkbox label="Expirable" @click.native="atChecked" id="expirationCheckBox"></v-checkbox>
+          <v-flex xs12 md1 class="formFlex">
+            <v-checkbox
+              hint="Expirable"
+              persistent-hint
+              v-model="expiresCheckbox"
+              @click.native="atChecked"
+              id="expirationCheckBox"
+            ></v-checkbox>
           </v-flex>
           <v-spacer xs1 md1></v-spacer>
-          <v-flex xs12 md4 class="formFlex">
+          <v-flex xs12 md6 class="formFlex">
             <div v-if="expirationCheckBox">
               <v-dialog v-model="modal2" ref="dialog" lazy full-width width="290px">
                 <template v-slot:activator="{ on }">
@@ -114,29 +120,25 @@
 <script>
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
-import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
-import { mapState } from "vuex";
-import restService from "../../services/api/restService";
-
-const foodRepository = repositoryFactory.get("food");
-const stockItemRepository = repositoryFactory.get("stockItem");
+import { mapGetters } from "vuex";
+import fridgeService from '../../services/fridgeService';
 
 export default {
   name: "AddStockItemForm",
   components: { FoodSelect },
   data() {
     return {
-      max: 10,
       min: 1,
+      max: 10,
       slider: 1,
       amountSaved: 0,
+      expiresCheckbox: false,
       itemSaved: "",
       stockItemName: null,
       stockItemType: null,
       purchaseDate: new Date().toISOString().substr(0, 10),
       expirationDate: null,
       expirationCheckBox: false,
-      e6: [],
       modal: false,
       modal2: false,
       stockItemSuccess: false,
@@ -146,14 +148,16 @@ export default {
         v =>
           /^[ a-zæøåA-ZÆØÅ0-9\s]+$/.test(v) ||
           "Field can only contain alphabetical characters",
-        v => (v && v.length <= 25) || "Field must be less than 25 characters"
+        v => (v && v.length <= 10) || "Field must be less than 25 characters"
       ],
-      amountSliderRules: [v => !isNaN(v) || "The amount has to be from 1-10"]
+      amountSliderRules: [
+        v => (v && !isNaN(v)) || "The amount has to be from 1-10"
+      ]
     };
   },
   computed: {
-    ...mapState({
-      userId: state => state.app.userId
+    ...mapGetters({
+      userId: "app/getUserId"
     })
   },
   methods: {
@@ -162,12 +166,16 @@ export default {
     },
     submitStockItem() {
       this.errors = [];
+
+      // Setup object for post
       const foodToPost = {
         userid: this.userId,
         name: this.stockItemName.toLowerCase(),
         type: this.stockItemType.toLowerCase(),
         stockitem: []
       };
+
+      // Multiply Stockitems on chosen amount
       for (let step = 0; step < this.slider; step++) {
         foodToPost.stockitem.push({
           userid: this.userId,
@@ -175,25 +183,11 @@ export default {
           expirationDate: this.expirationDate
         });
       }
-      restService.postFood(foodToPost);
+      fridgeService.postFood(foodToPost);
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
-      this.$refs.form.reset();
-    },
-    async deleteType() {
-      if (
-        confirm(
-          "Deleting " +
-            this.stockItemName +
-            " will delete all associated stock!"
-        )
-      ) {
-        await stockItemRepository.deleteAllName(this.stockItemName);
-        await foodRepository.deleteAllName(this.stockItemName);
-        this.errors.push(this.stockItemName + " has been deleted.");
-        this.$refs.form.reset();
-      }
+      this.reset();
     },
     valid() {
       return true;
@@ -209,8 +203,11 @@ export default {
     },
     reset() {
       this.errors = [];
-      this.stockItemSuccess = false;
-      this.$refs.form.reset();
+      this.stockItemName = "";
+      this.stockItemType = "";
+      this.$refs.form.resetValidation();
+      this.expirationCheckBox = false;
+      this.expiresCheckbox = false;
       this.slider = 1;
       this.purchaseDate = new Date().toISOString().substr(0, 10);
     },

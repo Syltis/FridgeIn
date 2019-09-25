@@ -16,7 +16,7 @@
 
 <script>
 import "es6-promise/auto";
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: "FoodSelect",
@@ -25,11 +25,10 @@ export default {
       selectedFood: null
     };
   },
-  
   computed: {
-    ...mapState({
-      food: state => state.fridge.food,
-      userId: state => state.app.userId
+    ...mapGetters({
+      food: 'fridge/getFood',
+      userId: 'app/getUserId'
     })
   },
   methods: {

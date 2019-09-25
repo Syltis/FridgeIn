@@ -1,12 +1,4 @@
-export default {
-    food,
-    stock
-}
-
-function food({ food }) {
-    return food;
-}
-
-function stock({ stock }) {
-    return stock;
-}
+export const getters = {
+    getFood: state => state.food,
+    getStock: state => state.stock
+};
