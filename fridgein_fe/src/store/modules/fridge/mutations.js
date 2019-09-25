@@ -24,22 +24,29 @@ export const mutations = {
     var newStock = true;
     if (state.stock.length > 0) {
       for (let i = 0; i < state.stock.length; i++) {
-        console.log(state.stock[i][0]);
-        console.log(newArr[0]);
-        if (state.stock[i][0].food.name == newArr[0].food.name
-          && state.stock[i][0].food.type == newArr[0].food.type
-          && state.stock[i][0].purchaseDate == newArr[0].purchaseDate
-          && state.stock[i][0].expirationDate == newArr[0].expirationDate) {
-          const newStateStock = state.stock[i].concat(newArr); 
-          Vue.set(state.stock, i, newStateStock);
-          newStock = false;
-          break;
+        if (state.stock[i].length > 0) {
+          if (state.stock[i][0].food.name == newArr[0].food.name
+            && state.stock[i][0].food.type == newArr[0].food.type
+            && state.stock[i][0].purchaseDate == newArr[0].purchaseDate
+            && state.stock[i][0].expirationDate == newArr[0].expirationDate) {
+            const newStateStock = state.stock[i].concat(newArr);
+            Vue.set(state.stock, i, newStateStock);
+            newStock = false;
+            break;
+          }
         }
+        
       }
     }
     if (newStock) {
       state.stock.push(newArr);
     }
+  },
+  [types.FRIDGE_ADD_STOCK]: (state, payload) => {
+    state.stock.push(payload)
+  },
+  [types.FRIDGE_ADD_STOCK_SET]: (state, payload, i) => {
+    Vue.set(state.stock, i, payload);
   },
   [types.FRIDGE_DELETE_STOCK]: (state, payload) => {
     state.stock.forEach(s => {

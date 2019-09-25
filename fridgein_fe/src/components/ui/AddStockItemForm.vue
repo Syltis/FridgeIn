@@ -51,11 +51,17 @@
             </v-dialog>
           </v-flex>
           <v-spacer xs1 md1></v-spacer>
-          <v-flex xs12 md2 class="formFlex">
-            <v-checkbox label="Expirable" @click.native="atChecked" id="expirationCheckBox"></v-checkbox>
+          <v-flex xs12 md1 class="formFlex">
+            <v-checkbox
+              hint="Expirable"
+              persistent-hint
+              v-model="expiresCheckbox"
+              @click.native="atChecked"
+              id="expirationCheckBox"
+            ></v-checkbox>
           </v-flex>
           <v-spacer xs1 md1></v-spacer>
-          <v-flex xs12 md4 class="formFlex">
+          <v-flex xs12 md6 class="formFlex">
             <div v-if="expirationCheckBox">
               <v-dialog v-model="modal2" ref="dialog" lazy full-width width="290px">
                 <template v-slot:activator="{ on }">
@@ -114,12 +120,8 @@
 <script>
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
-import { repositoryFactory } from "../../services/api/repository/repositoryFactory";
 import { mapGetters } from "vuex";
 import restService from "../../services/api/restService";
-
-const foodRepository = repositoryFactory.get("food");
-const stockItemRepository = repositoryFactory.get("stockItem");
 
 export default {
   name: "AddStockItemForm",
@@ -130,6 +132,7 @@ export default {
       min: 1,
       slider: 1,
       amountSaved: 0,
+      expiresCheckbox: false,
       itemSaved: "",
       stockItemName: null,
       stockItemType: null,
@@ -147,12 +150,14 @@ export default {
           "Field can only contain alphabetical characters",
         v => (v && v.length <= 25) || "Field must be less than 25 characters"
       ],
-      amountSliderRules: [v => !isNaN(v) || "The amount has to be from 1-10"]
+      amountSliderRules: [
+        v => (v && !isNaN(v)) || "The amount has to be from 1-10"
+      ]
     };
   },
   computed: {
     ...mapGetters({
-      userId: 'app/getUserId'
+      userId: "app/getUserId"
     })
   },
   methods: {
@@ -182,21 +187,7 @@ export default {
       this.amountSaved = this.slider;
       this.itemSaved = this.stockItemName;
       this.stockItemSuccess = true;
-      this.$refs.form.reset();
-    },
-    async deleteType() {
-      if (
-        confirm(
-          "Deleting " +
-            this.stockItemName +
-            " will delete all associated stock!"
-        )
-      ) {
-        await stockItemRepository.deleteAllName(this.stockItemName);
-        await foodRepository.deleteAllName(this.stockItemName);
-        this.errors.push(this.stockItemName + " has been deleted.");
-        this.$refs.form.reset();
-      }
+      this.reset();
     },
     valid() {
       return true;
@@ -212,8 +203,11 @@ export default {
     },
     reset() {
       this.errors = [];
-      this.stockItemSuccess = false;
-      this.$refs.form.reset();
+      this.stockItemName = "";
+      this.stockItemType = "";
+      this.$refs.form.resetValidation();
+      this.expirationCheckBox = false;
+      this.expiresCheckbox = false;
       this.slider = 1;
       this.purchaseDate = new Date().toISOString().substr(0, 10);
     },
