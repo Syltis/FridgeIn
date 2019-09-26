@@ -6,20 +6,11 @@ import router from './router/index';
 import store from './store';
 import AuthPlugin from './services/auth/auth';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faFontAwesome } from '@fortawesome/free-brands-svg-icons'
-
 import NavigationBar from "./components/layout/NavigationBar";
 import BottomBar from "./components/layout/BottomBar";
 import './registerServiceWorker'
 
 Vue.config.devtools = true;
-
-library.add(faUserSecret);
-library.add(faFontAwesome);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 

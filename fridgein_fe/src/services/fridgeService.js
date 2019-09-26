@@ -32,6 +32,17 @@ export default {
                 store.dispatch('fridge/deleteStock', element);
             });
         });
+    },
+    getStockAmount() {
+        const stock = store.getters['fridge/getStock'];
+        var count = 0;
+        stock.forEach(arr => {
+            count += arr.length;
+        })
+        return count;
+    },
+    getFoodAmount() {
+        return store.getters['fridge/getFood'].length;
     }
 }
 

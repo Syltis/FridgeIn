@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- SubHeader -->
-    <h1 id="title" class="display-2 font-weight-thin mb-3">Your stock</h1>
+    <h1 id="title" class="display-1 font-weight-thin mb-3">Your stock</h1>
 
     <!-- Content -->
     <v-layout row wrap justify-center>
@@ -46,6 +46,6 @@ export default {
 }
 
 .flexBox {
-  margin: 1% 0.5% 5% 0.5%;
+  margin: 0% 0.5% 5% 0.5%;
 }
 </style>

@@ -1,4 +1,4 @@
-<template id="stockItemList">
+<template>
   <v-card class="formCard">
     <v-list two-line class="main-list">
       <v-list-tile class="top-tile">
@@ -111,8 +111,7 @@ export default {
 
  <style scoped>
 .formCard {
-  padding: 1%;
-  margin-bottom: 0%;
+  padding: 2%;
 }
 
 #list-div {

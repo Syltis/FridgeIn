@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 id="title" class="display-2 font-weight-thin mb-3">Recipes</h1>
+		<h1 id="title" class="display-1 font-weight-thin mb-3">Recipes</h1>
 	</div>
 </template>
 

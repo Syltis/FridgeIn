@@ -1,4 +1,4 @@
-<template id="addStockItemForm" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card class="formCard">
     <v-form ref="form">
       <v-container grid-list-md>
@@ -221,7 +221,7 @@ export default {
 
 <style scoped>
 .formCard {
-  padding: 3%;
+  padding: 2%;
   margin-bottom: 5%;
 }
 

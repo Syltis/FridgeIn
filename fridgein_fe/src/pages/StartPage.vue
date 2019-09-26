@@ -112,7 +112,7 @@
 
 <script>
 import "es6-promise/auto";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "StartPage",
@@ -138,7 +138,7 @@ export default {
       userId: state => state.app.userId
     }),
     isLoggedIn() {
-      return this.userId !== ''
+      return this.userId !== "";
     }
   }
 };
