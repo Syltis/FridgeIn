@@ -1,9 +1,6 @@
 import axios from 'axios';
 
-// TODO: Move to .env-file
-
-const baseURL = 'https://localhost:44316/api/';
-//const baseURL = 'https://fridgein-api.azurewebsites.net/api/';
+const baseURL = process.env.VUE_APP_API;
 
 export default axios.create({
     baseURL

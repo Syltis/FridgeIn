@@ -101,6 +101,7 @@ class AuthService extends EventEmitter {
   }
 
   async postNewUser() {
+    console.log("tried posting new user.")
     const userToPost = {
       name: this.profile.email.substring(0, this.profile.email.indexOf("@")),
       email: this.profile.email
