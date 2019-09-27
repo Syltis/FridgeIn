@@ -8,9 +8,9 @@
       <p>Items in stock: {{ this.stockAmount }}</p>
       <p>Saved foods: {{ this.foodAmount }}</p>
     </v-flex>
-    <v-flex xs12 md12 class="flexBox" id="statistics-flex">
+    <!-- <v-flex xs12 md12 class="flexBox" id="statistics-flex">
       <GChart type="PieChart" :data="pieChartDummyData" :options="chartOptions" id="gchart" />
-    </v-flex>
+    </v-flex> -->
   </v-layout>
 </template>
 
@@ -46,13 +46,8 @@ export default {
       return fridgeService.getFoodAmount();
     }
   },
-  methods: {
-    runChartData() {
-      this.pieChartTestData = fridgeService.getPieChartFridge();
-    }
-  },
   mounted() {
-    this.runChartData();
+   
   }
 };
 </script>

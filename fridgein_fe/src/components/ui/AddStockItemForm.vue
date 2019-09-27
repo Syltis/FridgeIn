@@ -216,7 +216,6 @@ export default {
         this.stockItemName = value.name;
       this.stockItemType = value.type;
       }
-      
     }
   }
 };
