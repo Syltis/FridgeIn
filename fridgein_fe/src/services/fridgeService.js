@@ -34,6 +34,7 @@ export default {
         });
     },
     async deleteStock(stockIds, userId) {
+        console.log(stockIds);
         await stockIds.forEach(element => {
             console.log(userId);
             // eslint-disable-next-line

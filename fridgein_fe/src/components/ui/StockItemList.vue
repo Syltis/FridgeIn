@@ -58,7 +58,7 @@
 <script>
 import "es6-promise/auto";
 import { mapGetters } from "vuex";
-import fridgeService from '../../services/fridgeService';
+import fridgeService from "../../services/fridgeService";
 
 export default {
   name: "StockItemList",
@@ -69,8 +69,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      stockItemsUniqueGrouped: 'fridge/getStock',
-      userId: 'app/getUserId'
+      stockItemsUniqueGrouped: "fridge/getStock",
+      userId: "app/getUserId"
     }),
     uniqueStockitems() {
       var stockItems = [];
@@ -89,20 +89,22 @@ export default {
     // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
       var idsToDelete = [];
-      if (confirm("Are you sure you want to delete this item?")) {
-        this.stockItemsUniqueGrouped.forEach(array => {
-          this.selected.forEach(s => {
-            if (s != null) {
-              if (array.some(x => x.stockitemId == s.stockitemId)) {
-                let newArr = array.map(s => s.stockitemId);
-                newArr.forEach(id => {
-                  idsToDelete.push(id);
-                });
+      if ( this.selected.some(el => { return el !== null;})) {
+        if (confirm("Are you sure you want to delete this item?")) {
+          this.stockItemsUniqueGrouped.forEach(array => {
+            this.selected.forEach(s => {
+              if (s != null) {
+                if (array.some(x => x.stockitemId == s.stockitemId)) {
+                  let newArr = array.map(s => s.stockitemId);
+                  newArr.forEach(id => {
+                    idsToDelete.push(id);
+                  });
+                }
               }
-            }
+            });
           });
-        });
-        fridgeService.deleteStock(idsToDelete, this.userId);
+          fridgeService.deleteStock(idsToDelete, this.userId);
+        }
       }
     }
   }
