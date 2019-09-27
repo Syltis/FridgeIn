@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using fridgein_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using fridgein_api.Models;
-using Microsoft.AspNetCore.Cors;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace fridgein_api.Controllers
 {
@@ -20,34 +18,6 @@ namespace fridgein_api.Controllers
         public StockitemsController(FridgeInDbContext context)
         {
             _context = context;
-        }
-
-        // GET: api/stockitem/readall
-        [HttpGet]
-        [Route("readall")]
-        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem()
-        {
-            return await _context.Stockitem.Include(s => s.Food).ToListAsync();
-        }
-
-        // GET: api/stockitem/readunique
-        [HttpGet]
-        [Route("readunique")]
-        public async Task<ActionResult<IEnumerable<Stockitem>>> GetUniqueStockitem()
-        {
-            // Get list of all stockitems
-            ICollection<Stockitem> allItems = await _context.Stockitem.Include(s => s.Food).ToListAsync();
-
-            List<Stockitem> distinctItems = allItems
-                .GroupBy(s => new { s.FoodId, s.PurchaseDate, s.ExpirationDate })
-                .Select(g => g.First())
-                .ToList();
-
-            // Group by chosen fiels
-            var grouped = allItems.GroupBy(x => new { x.FoodId, x.PurchaseDate, x.ExpirationDate });
-           
-
-            return Ok(grouped);
         }
 
         // GET: api/stockitem/readuniqueonuser
@@ -92,38 +62,14 @@ namespace fridgein_api.Controllers
             return Ok(grouped);
         }
 
-        // GET: api/stockitem/get/5
-        [HttpGet("get/{id}")]
-        public async Task<ActionResult<Stockitem>> GetStockitem(int id)
-        {
-            var stockitem = await _context.Stockitem.FindAsync(id);
-
-            if (stockitem == null)
-            {
-                return NotFound();
-            }
-
-            return stockitem;
-        }
-
-        // POST: api/stockitem/post
-        [HttpPost]
-        [Route("post")]
-        public async Task<ActionResult<Stockitem>> PostStockitem(Stockitem stockitem)
-        {
-            _context.Stockitem.Add(stockitem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetStockitem", new { id = stockitem.StockitemId }, stockitem);
-        }
-
         // DELETE: api/stockitem/del/5
-        [HttpDelete("del/{id}/{userid}")]
+        [HttpDelete("{id}/{userid}")]
         public async Task<ActionResult<Stockitem>> DeleteStockitem(int id, int userid)
         {
             var stockitem = await _context.Stockitem.Where(s => s.StockitemId == id && s.UserId == userid).FirstAsync();
             if (stockitem == null)
             {
+                Debug.WriteLine("not found -------------------");
                 return NotFound();
             }
 
@@ -138,19 +84,17 @@ namespace fridgein_api.Controllers
         [HttpDelete("delall/{id}/{userId}")]
         public async Task<ActionResult<Stockitem>> DeleteAllStockitems(int id, int userId)
         {
-             _context.Stockitem.RemoveRange(_context.Stockitem.Where(s => s.Food.FoodId == id && s.UserId == userId));
-            await _context.SaveChangesAsync();
-            return Ok();
-        }
+            try
+            {
+                 _context.Stockitem.RemoveRange(_context.Stockitem.Where(s => s.Food.FoodId == id && s.UserId == userId).ToList());
+                            await _context.SaveChangesAsync();
+                            return Ok();
+            }
+            catch (System.Exception)
+            {
 
-        // Delete all on food name 
-        // DELETE api/stockitem/delallname/eple
-        [HttpDelete("delallname/{name}")]
-        public async Task<ActionResult<Stockitem>> DeleteAllStockitemsName(string name)
-        {
-            _context.Stockitem.RemoveRange(_context.Stockitem.Where(s => s.Food.Name == name));
-            await _context.SaveChangesAsync();
-            return Ok();
+                throw;
+            } 
         }
 
         private bool StockitemExists(int id)

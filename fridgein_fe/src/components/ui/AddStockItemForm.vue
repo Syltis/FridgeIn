@@ -148,7 +148,7 @@ export default {
         v =>
           /^[ a-zæøåA-ZÆØÅ0-9\s]+$/.test(v) ||
           "Field can only contain alphabetical characters",
-        v => (v && v.length <= 10) || "Field must be less than 25 characters"
+        v => (v && v.length <= 25) || "Field must be less than 25 characters"
       ],
       amountSliderRules: [
         v => (v && !isNaN(v)) || "The amount has to be from 1-10"

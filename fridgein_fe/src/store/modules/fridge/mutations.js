@@ -12,12 +12,16 @@ export const mutations = {
     state.stockByType = payload;
   },
   [types.FRIDGE_ADD_FOOD]: (state, payload) => {
+    var newFood = true;
     state.food.forEach(f => {
-      if (f.name != payload.name
-        && f.type != payload.type) {
-        state.food.push(payload);
+      if (f.name == payload.name
+        && f.type == payload.type) {
+        newFood = false;
       }
     });
+    if (newFood) {
+      state.food.push(payload);
+    }
     let newArr = [];
     payload.stockitem.forEach(s => {
       s.food = payload;
