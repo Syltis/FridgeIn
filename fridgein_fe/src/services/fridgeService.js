@@ -28,12 +28,14 @@ export default {
 
     // Post food with stockItems included
     async postFood(food) {
+        console.log(food);
         await foodRepository.post(food).then(response => {
             store.dispatch('fridge/addFood', response.data);
         });
     },
     async deleteStock(stockIds, userId) {
         await stockIds.forEach(element => {
+            console.log(userId);
             // eslint-disable-next-line
             stockItemRepository.delete(element, userId).then(response => {
                 store.dispatch('fridge/deleteStock', element);

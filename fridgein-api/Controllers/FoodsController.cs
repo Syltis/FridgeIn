@@ -16,12 +16,10 @@ namespace fridgein_api.Controllers
     public class FoodsController : ControllerBase
     {
         private readonly FridgeInDbContext _context;
-        private readonly StockitemsController _stockitemsController;
 
-        public FoodsController(FridgeInDbContext context, StockitemsController stockitemsController)
+        public FoodsController(FridgeInDbContext context)
         {
             _context = context;
-            _stockitemsController = stockitemsController;
         }
 
         // GET: api/food/readall
@@ -40,33 +38,18 @@ namespace fridgein_api.Controllers
             return await _context.Food.Where(f => f.UserId == userId).Include(f => f.Stockitem).ToListAsync();
         }
 
-        // GET: api/food/5
-        [HttpGet("get/{id}")]
-        public async Task<ActionResult<Food>> GetFood(int id)
-        {
-            var food = await _context.Food.FindAsync(id);
-
-            if (food == null)
-            {
-                return NotFound();
-            }
-
-            return food;
-        }
-
         // POST: api/food/post
         // This cannot allow duplicates, food should be unique
         [HttpPost]
-        [Route("post")]
         public async Task<ActionResult<Food>> PostFood(Food food)
         {
-            if (_context.Food.Any(f => f.Name == food.Name))
+            if (_context.Food.Any(f => f.Name == food.Name && f.UserId == food.UserId)) 
             {
                 ICollection<Food> foodList = await _context.Food.Include(f => f.Stockitem).ToListAsync();
                 
                 foreach (var foodItem in foodList)
                 {
-                    if (foodItem.Name.Equals(food.Name))
+                    if (foodItem.Name == food.Name && foodItem.UserId == food.UserId)
                     {
                         
                         foreach (var item in food.Stockitem)
@@ -88,23 +71,6 @@ namespace fridgein_api.Controllers
 
                 return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
             }
-        }
-
-        // Delete on Id
-        // DELETE: api/food/5
-        [HttpDelete("del/{id}")]
-        public async Task<ActionResult<Food>> DeleteFood(int id)
-        {
-            var food = await _context.Food.FindAsync(id);
-            if (food == null)
-            {
-                return NotFound();
-            }
-
-            _context.Food.Remove(food);
-            await _context.SaveChangesAsync();
-
-            return food;
         }
 
         // Delete all on food name 

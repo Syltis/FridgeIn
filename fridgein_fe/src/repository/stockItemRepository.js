@@ -1,20 +1,14 @@
 import Repository from './repository';
 
-const resource = '/stockitem';
+const resource = 'stockitem/';
 export default {
-    getgroupedonuser(email) {
-        return Repository.get(`${resource}` + '/getgroupedonuser/' + email);
+    getGroupedOnUser(email) {
+        return Repository.get(`${resource}` + 'getgroupedonuser/' + email);
     },
     getGroupedByTypeOnUser(email) {
-        return Repository.get(`${resource}` + '/getgroupedbytypeonuser/' + email);
-    },
-    post(stockitem) {
-        return Repository.post(`${resource}` + '/post', stockitem);
+        return Repository.get(`${resource}` + 'getgroupedbytypeonuser/' + email);
     },
     delete(id, userId) {
-        return Repository.delete(`${resource}` + '/del/' + id + '/' + userId);
-    },
-    deleteAllName(name) {
-        return Repository.delete(`${resource}` + '/delallname/' + name);
+        return Repository.delete(`${resource}` + id + '/' + userId);
     }
 }

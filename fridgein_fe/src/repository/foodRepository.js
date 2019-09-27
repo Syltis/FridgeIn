@@ -1,20 +1,14 @@
 import Repository from './repository';
 
-const resource = '/food';
+const resource = 'food/';
 export default {
-    readAll() {
-        return Repository.get(`${resource}` + '/readall');
-    },
     readAllOnUser(userId) {
-        return Repository.get(`${resource}` + '/readallonuser/' + userId);
-    },
-    readById(id) {
-        return Repository.get(`${resource}` + '/readbyid?id=' + id);
+        return Repository.get(`${resource}` + 'readallonuser/' + userId);
     },
     post(food) {
-        return Repository.post(`${resource}` + '/post', food);
+        return Repository.post(`${resource}`, food);
     },
     deleteAllName(name) {
-        return Repository.delete(`${resource}` + '/delallname/' + name);
+        return Repository.delete(`${resource}` + 'delallname/' + name);
     }
 }

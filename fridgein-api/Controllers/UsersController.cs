@@ -34,34 +34,8 @@ namespace fridgein_api.Controllers
             return user;
         }
 
-        // GET: api/user/get/email
-        [HttpGet("getonemail/{email}")]
-        public async Task<ActionResult<User>> GetUserOnEmail(string email)
-        {
-            var user = await _context.User.Where(u => u.Email == email).FirstAsync();
-
-            if (user == null) 
-            {
-                return NotFound();
-            }
-
-            return user;
-        }
-
-        // POST: api/user/post
+        // POST: api/user/
         [HttpPost]
-        [Route("post")]
-        public async Task<ActionResult<User>> PostUser(User user)
-        {
-            _context.User.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
-        }
-
-        // POST: api/user/postnewuser
-        [HttpPost]
-        [Route("postnewuser")]
         public async Task<ActionResult<User>> PostNewUser(User user)
         {
             try
@@ -76,27 +50,6 @@ namespace fridgein_api.Controllers
 
                 return CreatedAtAction("GetUser", new { id = user.UserId }, user);
             }
-        }
-
-        // DELETE: api/user/del/5
-        [HttpDelete("del/{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
-        {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return user;
-        }
-
-        private bool UserExists(int id)
-        {
-            return _context.User.Any(e => e.UserId == id);
         }
     }
 }
