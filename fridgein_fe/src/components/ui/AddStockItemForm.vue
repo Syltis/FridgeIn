@@ -212,8 +212,11 @@ export default {
       this.purchaseDate = new Date().toISOString().substr(0, 10);
     },
     onFoodSelected(value) {
-      this.stockItemName = value.name;
+      if (value) {
+        this.stockItemName = value.name;
       this.stockItemType = value.type;
+      }
+      
     }
   }
 };

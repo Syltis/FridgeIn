@@ -89,17 +89,16 @@ export default {
     // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
       var idsToDelete = [];
-      if ( this.selected.some(el => { return el !== null;})) {
+      if (
+        this.selected.some(el => { return el !== null;})) {
         if (confirm("Are you sure you want to delete this item?")) {
           this.stockItemsUniqueGrouped.forEach(array => {
             this.selected.forEach(s => {
-              if (s != null) {
-                if (array.some(x => x.stockitemId == s.stockitemId)) {
-                  let newArr = array.map(s => s.stockitemId);
-                  newArr.forEach(id => {
-                    idsToDelete.push(id);
-                  });
-                }
+              if (s != null && array.some(x => x.stockitemId == s.stockitemId)) {
+                let newArr = array.map(s => s.stockitemId);
+                newArr.forEach(id => {
+                  idsToDelete.push(id);
+                });
               }
             });
           });
