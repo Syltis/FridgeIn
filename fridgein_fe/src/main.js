@@ -5,6 +5,7 @@ import './../node_modules/jquery/dist/jquery.min.js';
 import router from './router/index';
 import store from './store';
 import AuthPlugin from './services/auth/auth';
+import VueGoogleCharts from 'vue-google-charts';
 
 import NavigationBar from "./components/layout/NavigationBar";
 import BottomBar from "./components/layout/BottomBar";
@@ -14,6 +15,7 @@ Vue.config.devtools = true;
 
 Vue.config.productionTip = false;
 
+Vue.use(VueGoogleCharts)
 Vue.use(AuthPlugin);
 
 Vue.component('navigationBar', NavigationBar);

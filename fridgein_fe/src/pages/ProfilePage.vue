@@ -1,11 +1,10 @@
 <template>
   <div v-if="profile">
     <h1 id="title" class="display-1 font-weight-thin mb-3">
-      User
-      <b>{{ profile.nickname }}</b>
+      Your profile
     </h1>
     <v-layout row wrap>
-      <v-card xs12 md6 class="profile-card">
+      <v-card xs12 md6 id="profile-card">
         <v-layout row wrap>
           <v-flex xs12 md6 class="flexBox">
             <img :src="profile.picture" />
@@ -23,7 +22,9 @@
           </v-flex>
         </v-layout>
       </v-card>
+      <v-card xs12 md6 id="statistics-card">
       <UserStatistics />
+      </v-card>
     </v-layout>
   </div>
 </template>
@@ -68,10 +69,16 @@ export default {
   color: grey;
 }
 
-.profile-card {
+#profile-card {
   margin: 1% 0.5%;
   padding: 1%;
-  width: 49%;
+  width: 30%;
+}
+
+#statistics-card {
+  margin: 1% 0.5%;
+  padding: 1%;
+  width: 68%;
 }
 
 .flexBox {

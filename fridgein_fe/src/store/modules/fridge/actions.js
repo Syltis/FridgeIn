@@ -7,6 +7,9 @@ export const actions = {
   updateStock: ({ commit }, payload) => {
     commit(types.FRIDGE_UPDATE_STOCK, payload);
   },
+  updateStockByType: ({ commit }, payload) => {
+    commit(types.FRIDGE_UPDATE_STOCK_BYTYPE, payload);
+  },
   addFood: ({ commit }, payload) => {
     commit(types.FRIDGE_ADD_FOOD, payload);
   },

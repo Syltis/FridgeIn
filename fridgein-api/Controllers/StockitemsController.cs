@@ -52,8 +52,8 @@ namespace fridgein_api.Controllers
 
         // GET: api/stockitem/readuniqueonuser
         [HttpGet]
-        [Route("readuniqueonuser/{email}")]
-        public async Task<ActionResult<IEnumerable<Stockitem>>> GetUniqueStockitemOnUser(string email)
+        [Route("getgroupedonuser/{email}")]
+        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitemGroupedOnUser(string email)
         {
             User user = await _context.User.Where(u => u.Email == email).FirstAsync();
 
@@ -63,14 +63,31 @@ namespace fridgein_api.Controllers
                 .Include(s => s.Food)
                 .ToListAsync();
 
-            List<Stockitem> distinctItems = allItems
-                .GroupBy(s => new { s.FoodId, s.PurchaseDate, s.ExpirationDate })
-                .Select(g => g.First())
-                .ToList();
+            //List<Stockitem> distinctItems = allItems
+                //.GroupBy(s => new { s.FoodId, s.PurchaseDate, s.ExpirationDate })
+                //.Select(g => g.First())
+                //.ToList();
 
             // Group by chosen fiels
             var grouped = allItems.GroupBy(x => new { x.FoodId, x.PurchaseDate, x.ExpirationDate });
 
+
+            return Ok(grouped);
+        }
+
+        // GET: api/stockitem/getgroupedbytypeonuser
+        [HttpGet]
+        [Route("getgroupedbytypeonuser/{email}")]
+        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitemGroupedByTypeOnUser(string email)
+        {
+            User user = await _context.User.Where(u => u.Email == email).FirstAsync();
+
+            ICollection<Stockitem> allItems = await _context.Stockitem
+                .Where(s => s.UserId == user.UserId)
+                .Include(s => s.Food)
+                .ToListAsync();
+
+            var grouped = allItems.GroupBy(x => new { x.Food.Type });
 
             return Ok(grouped);
         }

@@ -25,6 +25,7 @@
     "sockjs-client": "^1.3.0",
     "vue": "^2.6.6",
     "vue-float-action-button": "^0.4.4",
+    "vue-google-charts": "^0.3.2",
     "vue-plugin-load-script": "^1.2.0",
     "vue-router": "^3.0.2",
     "vuetify": "^1.5.5",
