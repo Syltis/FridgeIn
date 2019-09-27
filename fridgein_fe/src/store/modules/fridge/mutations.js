@@ -8,6 +8,9 @@ export const mutations = {
   [types.FRIDGE_UPDATE_STOCK]: (state, payload) => {
     state.stock = payload;
   },
+  [types.FRIDGE_UPDATE_STOCK_BYTYPE]: (state, payload) => {
+    state.stockByType = payload;
+  },
   [types.FRIDGE_ADD_FOOD]: (state, payload) => {
     state.food.forEach(f => {
       if (f.name != payload.name

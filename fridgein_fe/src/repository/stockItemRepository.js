@@ -2,8 +2,11 @@ import Repository from './repository';
 
 const resource = '/stockitem';
 export default {
-    readUniqueOnUser(email) {
-        return Repository.get(`${resource}` + '/readuniqueonuser/' + email);
+    getgroupedonuser(email) {
+        return Repository.get(`${resource}` + '/getgroupedonuser/' + email);
+    },
+    getGroupedByTypeOnUser(email) {
+        return Repository.get(`${resource}` + '/getgroupedbytypeonuser/' + email);
     },
     post(stockitem) {
         return Repository.post(`${resource}` + '/post', stockitem);

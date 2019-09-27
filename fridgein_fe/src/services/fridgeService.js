@@ -11,14 +11,21 @@ export default {
             store.dispatch('fridge/updateFood', response.data);
         });
     },
-    
+
     async updateStock() {
         console.log("updating stock");
-        await stockItemRepository.readUniqueOnUser(store.getters['app/getEmail']).then(response => {
+        await stockItemRepository.getGroupedOnUser(store.getters['app/getEmail']).then(response => {
             store.dispatch('fridge/updateStock', response.data);
         });
     },
-    
+
+    async updateStockOnType() {
+        console.log("updating stock on type");
+        await stockItemRepository.getGroupedByTypeOnUser(store.getters['app/getEmail']).then(response => {
+            store.dispatch('fridge/updateStockByType', response.data);
+        })
+    },
+
     // Post food with stockItems included
     async postFood(food) {
         await foodRepository.post(food).then(response => {
@@ -32,6 +39,16 @@ export default {
                 store.dispatch('fridge/deleteStock', element);
             });
         });
+    },
+    getStockAmount() {
+        var count = 0;
+        store.getters['fridge/getStock'].forEach(arr => {
+            count += arr.length;
+        })
+        return count;
+    },
+    getFoodAmount() {
+        return store.getters['fridge/getFood'].length;
     }
 }
 

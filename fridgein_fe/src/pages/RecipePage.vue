@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h2 class="title">Under Construction</h2>
+		<h1 id="title" class="display-1 font-weight-thin mb-3">Your recipes</h1>
 	</div>
 </template>
 
@@ -12,4 +12,8 @@
 
 <style scoped>
 
+#title {
+  color: black;
+  padding: 0% 0% 0% 0.4%;
+}
 </style>
