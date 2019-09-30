@@ -8,9 +8,15 @@
       <p>Items in stock: {{ this.stockAmount }}</p>
       <p>Saved foods: {{ this.foodAmount }}</p>
     </v-flex>
-    <!-- <v-flex xs12 md12 class="flexBox" id="statistics-flex">
-      <GChart type="PieChart" :data="pieChartDummyData" :options="chartOptions" id="gchart" />
-    </v-flex> -->
+    <v-flex xs12 md12 class="flexBox" id="statistics-flex">
+      <GChart
+        type="PieChart"
+        :data="pieChartDummyData"
+        :resizeDebounce="500"
+        :options="chartOptions"
+        id="gchart"
+      />
+    </v-flex>
   </v-layout>
 </template>
 
@@ -35,7 +41,7 @@ export default {
           subtitle: ""
         }
       },
-      pieChartTestData: []
+      arr: []
     };
   },
   computed: {
@@ -47,7 +53,13 @@ export default {
     }
   },
   mounted() {
-   
+    this.arr = this.getPieChartArray();
+  },
+  methods: {
+    getPieChartArray() {
+      console.log("bolle");
+      return fridgeService.getPieChartStock();
+    }
   }
 };
 </script>
