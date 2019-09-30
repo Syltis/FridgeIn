@@ -52,7 +52,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile v-if="!isAuthenticated">
-          <v-btn flat id="loginBtn" @click.prevent="login" value="Log out button" class="btnlink">Log in</v-btn>
+          <v-btn flat id="loginBtn" @click.prevent="login" value="Log in button" class="btnlink">Log in</v-btn>
         </v-list-tile>
         <v-list-tile v-if="isAuthenticated">
           <v-btn flat id="loginBtn" @click.prevent="logout" value="Log out button" class="btnlink">Log out</v-btn>

@@ -33,15 +33,14 @@ namespace fridgein_api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+            
             services.AddDbContext<FridgeInDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
-
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:8080", "https://fridgein-api.azurewebsites.net")
+                        builder.WithOrigins("http://localhost:8080", "http://localhost:8081", "https://fridgein-api.azurewebsites.net")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                     });

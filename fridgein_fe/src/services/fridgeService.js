@@ -11,14 +11,12 @@ export default {
             store.dispatch('fridge/updateFood', response.data);
         });
     },
-
     async updateStock() {
         console.log("updating stock");
         await stockItemRepository.getGroupedOnUser(store.getters['app/getEmail']).then(response => {
             store.dispatch('fridge/updateStock', response.data);
         });
     },
-
     async updateStockOnType() {
         console.log("updating stock on type");
         await stockItemRepository.getGroupedByTypeOnUser(store.getters['app/getEmail']).then(response => {
@@ -28,18 +26,17 @@ export default {
 
     // Post food with stockItems included
     async postFood(food) {
-        console.log(food);
         await foodRepository.post(food).then(response => {
             store.dispatch('fridge/addFood', response.data);
+            store.dispatch('fridge/addStockByType', response.data);
         });
     },
     async deleteStock(stockIds, userId) {
-        console.log(stockIds);
         await stockIds.forEach(element => {
-            console.log(userId);
             // eslint-disable-next-line
             stockItemRepository.delete(element, userId).then(response => {
                 store.dispatch('fridge/deleteStock', element);
+                store.dispatch('fridge/deleteStockByType', response.data);
             });
         });
     },
@@ -52,6 +49,21 @@ export default {
     },
     getFoodAmount() {
         return store.getters['fridge/getFood'].length;
+    },
+    getPieChartStock() {
+        var stockByType = store.getters['fridge/getStockByType'];
+        var barChartArr = [stockByType.length+1]
+        barChartArr[0] = ['Type', 'Amount'];
+        for (let i = 0; i < stockByType.length; i++) {
+            const arr = stockByType[i];
+            barChartArr[i+1] = ([this.capitalize(arr[0].food.type), arr.length]);
+        }
+        return barChartArr;
+    },
+
+    // Helpers
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 }
 

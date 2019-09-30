@@ -1,11 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace fridgein_api.Models
 {
     public partial class FridgeInDbContext : DbContext
     {
+
         public FridgeInDbContext()
         {
         }
@@ -21,10 +23,10 @@ namespace fridgein_api.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:fridgein-server.database.windows.net,1433;Initial Catalog=fridgein-db;Persist Security Info=False;User ID=kakemann;Password=Daddy199;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                
             }
         }
 

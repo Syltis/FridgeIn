@@ -9,7 +9,13 @@
       <p>Saved foods: {{ this.foodAmount }}</p>
     </v-flex>
     <v-flex xs12 md12 class="flexBox" id="statistics-flex">
-      <GChart type="PieChart" :data="pieChartDummyData" :options="chartOptions" id="gchart" />
+      <GChart
+        type="PieChart"
+        :data="this.getPieChartArray"
+        :resizeDebounce="500"
+        :options="chartOptions"
+        id="gchart"
+      />
     </v-flex>
   </v-layout>
 </template>
@@ -21,21 +27,13 @@ export default {
   name: "UserStatistics",
   data() {
     return {
-      // Automatically processed with visualization.arrayToDataTable function
-      pieChartDummyData: [
-        ["Year", "Sales"],
-        ["2014", 1000],
-        ["2015", 1170],
-        ["2016", 660],
-        ["2017", 1030]
-      ],
       chartOptions: {
         chart: {
           title: "Current Stock",
           subtitle: ""
         }
       },
-      pieChartTestData: []
+      arr: []
     };
   },
   computed: {
@@ -44,16 +42,14 @@ export default {
     },
     foodAmount() {
       return fridgeService.getFoodAmount();
+    },
+    // Automatically processed with visualization.arrayToDataTable function
+    getPieChartArray() {
+      
+      return fridgeService.getPieChartStock();
     }
-  },
-  methods: {
-    runChartData() {
-      this.pieChartTestData = fridgeService.getPieChartFridge();
-    }
-  },
-  mounted() {
-    this.runChartData();
   }
+  
 };
 </script>
 
