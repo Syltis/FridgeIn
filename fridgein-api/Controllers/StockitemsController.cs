@@ -33,11 +33,14 @@ namespace fridgein_api.Controllers
                 .Include(s => s.Food)
                 .ToListAsync();
 
-            //List<Stockitem> distinctItems = allItems
-                //.GroupBy(s => new { s.FoodId, s.PurchaseDate, s.ExpirationDate })
-                //.Select(g => g.First())
-                //.ToList();
-
+            // This is a hack, find better way
+            foreach (var item in allItems)
+            {
+                item.Food.User = null;
+                item.Food.Stockitem = null;
+                item.User.Food = null;
+                item.User.Stockitem = null;
+            }
             // Group by chosen fiels
             var grouped = allItems.GroupBy(x => new { x.FoodId, x.PurchaseDate, x.ExpirationDate });
 
@@ -56,6 +59,14 @@ namespace fridgein_api.Controllers
                 .Where(s => s.UserId == user.UserId)
                 .Include(s => s.Food)
                 .ToListAsync();
+
+            foreach (var item in allItems)
+            {
+                item.Food.User = null;
+                item.Food.Stockitem = null;
+                item.User.Food = null;
+                item.User.Stockitem = null;
+            }
 
             var grouped = allItems.GroupBy(x => new { x.Food.Type });
 

@@ -33,9 +33,8 @@ namespace fridgein_api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
+            
             services.AddDbContext<FridgeInDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Development")));
-
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
