@@ -11,7 +11,7 @@
     <v-flex xs12 md12 class="flexBox" id="statistics-flex">
       <GChart
         type="PieChart"
-        :data="pieChartDummyData"
+        :data="this.getPieChartArray"
         :resizeDebounce="500"
         :options="chartOptions"
         id="gchart"
@@ -27,14 +27,6 @@ export default {
   name: "UserStatistics",
   data() {
     return {
-      // Automatically processed with visualization.arrayToDataTable function
-      pieChartDummyData: [
-        ["Year", "Sales"],
-        ["2014", 1000],
-        ["2015", 1170],
-        ["2016", 660],
-        ["2017", 1030]
-      ],
       chartOptions: {
         chart: {
           title: "Current Stock",
@@ -50,17 +42,14 @@ export default {
     },
     foodAmount() {
       return fridgeService.getFoodAmount();
-    }
-  },
-  mounted() {
-    this.arr = this.getPieChartArray();
-  },
-  methods: {
+    },
+    // Automatically processed with visualization.arrayToDataTable function
     getPieChartArray() {
-      console.log("bolle");
+      
       return fridgeService.getPieChartStock();
     }
   }
+  
 };
 </script>
 

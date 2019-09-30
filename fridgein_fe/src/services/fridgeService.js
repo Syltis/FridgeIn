@@ -28,6 +28,7 @@ export default {
     async postFood(food) {
         await foodRepository.post(food).then(response => {
             store.dispatch('fridge/addFood', response.data);
+            store.dispatch('fridge/addStockByType', response.data);
         });
     },
     async deleteStock(stockIds, userId) {
@@ -35,6 +36,7 @@ export default {
             // eslint-disable-next-line
             stockItemRepository.delete(element, userId).then(response => {
                 store.dispatch('fridge/deleteStock', element);
+                store.dispatch('fridge/deleteStockByType', response.data);
             });
         });
     },
@@ -50,22 +52,13 @@ export default {
     },
     getPieChartStock() {
         var stockByType = store.getters['fridge/getStockByType'];
-
-        // Construct barChartArr
         var barChartArr = [stockByType.length+1]
-        
         barChartArr[0] = ['Type', 'Amount'];
-
-        // Adding Titles
         for (let i = 0; i < stockByType.length; i++) {
             const arr = stockByType[i];
             barChartArr[i+1] = ([this.capitalize(arr[0].food.type), arr.length]);
-    
         }
-  
-        console.log(barChartArr);
         return barChartArr;
-
     },
 
     // Helpers
