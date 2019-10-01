@@ -30,6 +30,21 @@ namespace fridgein_api.Controllers
             return await _context.Food.Include(f => f.Stockitem).ToListAsync();
         }
 
+        // GET: api/Foods/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Food>> GetFood(int id)
+        {
+            var food = await _context.Food.Include(f => f.Stockitem).SingleOrDefaultAsync(f => f.FoodId == id);
+            Console.WriteLine("Using GET method");
+            Console.WriteLine(food);
+            if (food == null)
+            {
+                return NotFound();
+            }
+
+            return food;
+        }
+
         // GET: api/food/readall
         [HttpGet]
         [Route("readallonuser/{userId}")]
@@ -69,7 +84,8 @@ namespace fridgein_api.Controllers
                 _context.Food.Add(food);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
+                return Ok(food);
+                //return CreatedAtAction("GetFood", new { id = food.FoodId }, food);
             }
         }
 

@@ -27,16 +27,18 @@ export default {
     // Post food with stockItems included
     async postFood(food) {
         await foodRepository.post(food).then(response => {
-            store.dispatch('fridge/addFood', response.data);
-            store.dispatch('fridge/addStockByType', response.data);
+            var result = response;
+            var stockitemResult = response.data.stockitem;
+            store.dispatch('fridge/addFood', result.data);
+            store.dispatch('fridge/addStockByType', stockitemResult);
         });
     },
     async deleteStock(stockIds, userId) {
-        await stockIds.forEach(element => {
+        await stockIds.forEach(id => {
             // eslint-disable-next-line
-            stockItemRepository.delete(element, userId).then(response => {
-                store.dispatch('fridge/deleteStock', element);
-                store.dispatch('fridge/deleteStockByType', response.data);
+            stockItemRepository.delete(id, userId).then(response => {
+                store.dispatch('fridge/deleteStock', id);
+                store.dispatch('fridge/deleteStockByType', id);
             });
         });
     },
@@ -52,11 +54,13 @@ export default {
     },
     getPieChartStock() {
         var stockByType = store.getters['fridge/getStockByType'];
-        var barChartArr = [stockByType.length+1]
+        var barChartArr = [stockByType.length + 1]
         barChartArr[0] = ['Type', 'Amount'];
         for (let i = 0; i < stockByType.length; i++) {
             const arr = stockByType[i];
-            barChartArr[i+1] = ([this.capitalize(arr[0].food.type), arr.length]);
+            if (typeof arr[0] !== 'undefined') {
+                barChartArr[i + 1] = ([this.capitalize(arr[0].food.type), arr.length]);
+            }
         }
         return barChartArr;
     },
