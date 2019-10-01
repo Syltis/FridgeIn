@@ -15,7 +15,7 @@ namespace fridgein_api.Models
         public string Name { get; set; }
         public string Email { get; set; }
 
-        public  ICollection<Food> Food { get; set; }
-        public  ICollection<Stockitem> Stockitem { get; set; }
+        public virtual ICollection<Food> Food { get; set; }
+        public virtual ICollection<Stockitem> Stockitem { get; set; }
     }
 }
