@@ -50,10 +50,10 @@
               <v-date-picker v-model="purchaseDate" @input="modal = false" scrollable></v-date-picker>
             </v-dialog>
           </v-flex>
-          <v-spacer xs1 md1></v-spacer>
+          
           <v-flex xs12 md1 class="formFlex">
             <v-checkbox
-              hint="Expirable"
+              label="Expirable"
               persistent-hint
               v-model="expiresCheckbox"
               @click.native="atChecked"
@@ -61,7 +61,7 @@
             ></v-checkbox>
           </v-flex>
           <v-spacer xs1 md1></v-spacer>
-          <v-flex xs12 md6 class="formFlex">
+          <v-flex xs12 md4 class="formFlex">
             <div v-if="expirationCheckBox">
               <v-dialog v-model="modal2" ref="dialog" lazy full-width width="290px">
                 <template v-slot:activator="{ on }">
@@ -166,7 +166,6 @@ export default {
     },
     submitStockItem() {
       this.errors = [];
-
       // Setup object for post
       const foodToPost = {
         userid: this.userId,
@@ -174,7 +173,6 @@ export default {
         type: this.stockItemType.toLowerCase(),
         stockitem: []
       };
-
       // Multiply Stockitems on chosen amount
       for (let step = 0; step < this.slider; step++) {
         foodToPost.stockitem.push({
@@ -223,8 +221,9 @@ export default {
 
 <style scoped>
 .formCard {
+  width: auto;
   padding: 2%;
-  margin-bottom: 5%;
+  width: 98%;
 }
 
 .formFlex {
