@@ -20,6 +20,29 @@ namespace fridgein_api.Controllers
             _context = context;
         }
 
+        // GET: api/stockitem/
+        [HttpGet("{email}")]
+        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem(string email)
+        {
+            User user = await _context.User.Where(u => u.Email == email).FirstAsync();
+
+            ICollection<Stockitem> allItems = await _context.Stockitem
+                .Where(s => s.UserId == user.UserId)
+                .Include(s => s.Food)
+                .Include(s => s.User)
+                .ToListAsync();
+
+            foreach (var item in allItems)
+            {
+                item.Food.User = null;
+                item.Food.Stockitem = null;
+                item.User.Food = null;
+                item.User.Stockitem = null;
+            }
+
+            return Ok(allItems);
+        }
+
         // GET: api/stockitem/readuniqueonuser
         [HttpGet]
         [Route("getgroupedonuser/{email}")]

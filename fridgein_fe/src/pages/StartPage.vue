@@ -165,13 +165,15 @@ h4 {
   #titleCard {
     margin-top: 180px;
   }
+  .parallax {
+    min-height: 780px;
+  }
+  .parallax2 {
+    min-height: 580px;
+  }
 }
 
 .parallax {
-  min-height: 780px;
-}
-
-.parallax2 {
-  min-height: 580px;
-}
+    min-height: 580px;
+  }
 </style>

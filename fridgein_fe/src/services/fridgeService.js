@@ -64,10 +64,43 @@ export default {
         }
         return barChartArr;
     },
-
+    formatStockitems(allStock, compareFunc) {
+        let listStock = [[]]
+        var temp = allStock[0]
+        listStock[0].push(temp);
+        allStockLoop:
+        for (let i = 1; i < allStock.length; i++) {
+            const s = allStock[i];
+            listStockLoop:
+            for (let i = 0; i < listStock.length; i++) {
+                const arr = listStock[i];
+                subListStockLoop:
+                for (let i = 0; i < arr.length; i++) {
+                    const ss = arr[i];
+                    if (compareFunc(s, ss)) {
+                        arr.push(s);
+                        continue allStockLoop;
+                    } else {
+                        continue subListStockLoop;
+                    }
+                }
+                continue listStockLoop;
+            }
+            let tempArr = [s];
+            listStock.push(tempArr);
+            continue allStockLoop;
+        }
+    },
     // Helpers
     capitalize(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+    stockitemCompare(s, ss) {
+        return (s.foodId == ss.foodId
+            && s.purchaseDate == ss.purchaseDate
+            && s.expirationDate == ss.expirationDate);
+    },
+    stockitemCompareType(s, ss) {
+        return (s.food.type == ss.food.type);
     }
 }
-

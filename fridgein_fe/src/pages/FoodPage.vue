@@ -4,11 +4,11 @@
     <h1 id="title" class="display-1 font-weight-thin mb-3">Your stock</h1>
 
     <!-- Content -->
-    <v-layout row wrap justify-center>
+    <v-layout row wrap >
       <v-flex xs12 md6 class="flexBox">
         <StockItemList></StockItemList>
       </v-flex>
-      <v-flex xs12 md5 class="flexBox">
+      <v-flex xs12 md6 class="flexBox">
         <AddStockItemForm></AddStockItemForm>
       </v-flex>
     </v-layout>
@@ -46,6 +46,15 @@ export default {
 }
 
 .flexBox {
-  margin: 0% 0.5% 5% 0.5%;
-}
+  
+  padding: 1% 0% 0% 0%;
+  
+} 
+
+.flexBox2 {
+  
+  padding: 1%;
+  
+} 
+
 </style>

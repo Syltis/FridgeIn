@@ -76,13 +76,13 @@ export default {
 #profile-card {
   margin: 1% 0.5%;
   padding: 1%;
-  width: 50%;
+  width: 48%;
 }
 
 #statistics-card {
   margin: 1% 0.5%;
   padding: 1%;
-  width: 48%;
+  width: 50%;
 }
 
 @media (max-width:  800px) {

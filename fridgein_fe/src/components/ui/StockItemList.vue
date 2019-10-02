@@ -36,7 +36,6 @@
                   <span class="right count">{{ stockItem.amount }}</span>
                 </h4>
               </v-list-tile-title>
-
               <v-list-tile-action-text>
                 <span class="left">Bought {{stockItem.purchaseDate.substring(0,10)}} &nbsp;</span>
               </v-list-tile-action-text>
@@ -113,6 +112,7 @@ export default {
  <style scoped>
 .formCard {
   padding: 2%;
+  width: 98%;
 }
 
 #list-div {
