@@ -10,7 +10,6 @@
     </v-flex>
     <v-flex xs12 md12 class="flexBox" id="statistics-flex">
       <v-card class="chart-card" :elevation="1"  >
-        
         <h2 class="title font-weight-thin mb-3">Store by Food-type</h2>
         <v-divider></v-divider>
       <GChart

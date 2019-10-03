@@ -109,7 +109,7 @@ class AuthService extends EventEmitter {
     }
     await userService.updateUser(userToPost);
     fridgeService.updateFood();
-    fridgeService.updateNewStock();
+    fridgeService.updateStock();
   }
 }
 

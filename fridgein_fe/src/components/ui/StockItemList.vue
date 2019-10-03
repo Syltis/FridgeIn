@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      stock: "fridge/getNewStock",
+      stock: "fridge/getStock",
       userId: "app/getUserId"
     }),
     stockItemsGrouped() {
@@ -79,8 +79,6 @@ export default {
     },
     uniqueStockitems() {
       var stockItems = [];
-      console.log("stockItemsGrouped");
-      console.table(this.stockItemsGrouped);
       this.stockItemsGrouped.forEach(s => {
         if (s[0]) {
           var newObj = s[0];
@@ -88,7 +86,6 @@ export default {
           stockItems.push(newObj);
         }
       });
-      console.log(stockItems);
       return stockItems.sort((a, b) => (a.food.name > b.food.name ? 1 : -1));
     }
   },
@@ -104,7 +101,6 @@ export default {
                 }
               })
             })
-          console.log(idsToDelete);
           fridgeService.deleteStock(idsToDelete, this.userId);
         }
       }

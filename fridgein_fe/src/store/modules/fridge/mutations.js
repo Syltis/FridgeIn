@@ -1,28 +1,22 @@
 import * as types from './mutation_types'
-import Vue from 'vue'
 
 export const mutations = {
   [types.FRIDGE_UPDATE_FOOD]: (state, payload) => {
     state.food = payload;
   },
-  [types.FRIDGE_UPDATE_NEWSTOCK]: (state, payload) => {
-    state.newStock = payload;
+  [types.FRIDGE_UPDATE_STOCK]: (state, payload) => {
+    state.stock = payload;
   },
   [types.FRIDGE_ADD_FOOD]: (state, payload) => {
     state.food.push(payload);
   },
   [types.FRIDGE_ADD_STOCK]: (state, payload) => {
-    state.newStock = state.newStock.concat(payload);
-    console.log("concatted");
-    console.log(payload);
-  },
-  [types.FRIDGE_SET_STOCK]: (state, payload) => {
-    Vue.set(state.stock, payload.index, payload.data);
+    state.stock = state.stock.concat(payload);
   },
   [types.FRIDGE_DELETE_STOCK]: (state, payload) => {
-    for (var i = state.newStock.length - 1; i >= 0; --i) {
-      if (state.newStock[i].stockitemId == payload) {
-        state.newStock.splice(i, 1);
+    for (var i = state.stock.length - 1; i >= 0; --i) {
+      if (state.stock[i].stockitemId == payload) {
+        state.stock.splice(i, 1);
       }
     }
   }

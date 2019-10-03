@@ -4,7 +4,7 @@ import { mutations } from './mutations';
 
 const state = {
     food: [],
-    newStock: []
+    stock: []
 }
 
 export default {

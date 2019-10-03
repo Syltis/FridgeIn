@@ -43,59 +43,6 @@ namespace fridgein_api.Controllers
             return Ok(allItems);
         }
 
-        // GET: api/stockitem/readuniqueonuser
-        [HttpGet]
-        [Route("getgroupedonuser/{email}")]
-        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitemGroupedOnUser(string email)
-        {
-            User user = await _context.User.Where(u => u.Email == email).FirstAsync();
-
-            // Get list of all stockitems
-            ICollection<Stockitem> allItems = await _context.Stockitem
-                .Where(s => s.UserId == user.UserId)
-                .Include(s => s.Food)
-                .ToListAsync();
-
-            // This is a hack, find better way
-            foreach (var item in allItems)
-            {
-                item.Food.User = null;
-                item.Food.Stockitem = null;
-                item.User.Food = null;
-                item.User.Stockitem = null;
-            }
-            // Group by chosen fiels
-            var grouped = allItems.GroupBy(x => new { x.FoodId, x.PurchaseDate, x.ExpirationDate });
-
-
-            return Ok(grouped);
-        }
-
-        // GET: api/stockitem/getgroupedbytypeonuser
-        [HttpGet]
-        [Route("getgroupedbytypeonuser/{email}")]
-        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitemGroupedByTypeOnUser(string email)
-        {
-            User user = await _context.User.Where(u => u.Email == email).FirstAsync();
-
-            ICollection<Stockitem> allItems = await _context.Stockitem
-                .Where(s => s.UserId == user.UserId)
-                .Include(s => s.Food)
-                .ToListAsync();
-
-            foreach (var item in allItems)
-            {
-                item.Food.User = null;
-                item.Food.Stockitem = null;
-                item.User.Food = null;
-                item.User.Stockitem = null;
-            }
-
-            var grouped = allItems.GroupBy(x => new { x.Food.Type });
-
-            return Ok(grouped);
-        }
-
         // DELETE: api/stockitem/del/5
         [HttpDelete("{id}/{userid}")]
         public async Task<ActionResult<Stockitem>> DeleteStockitem(int id, int userid)

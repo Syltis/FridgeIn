@@ -11,10 +11,10 @@ export default {
             store.dispatch('fridge/updateFood', response.data);
         });
     },
-    async updateNewStock() {
-        console.log("updating newStock");
+    async updateStock() {
+        console.log("updating stock");
         await stockItemRepository.getAllOnUser(store.getters['app/getUserId']).then(response => {
-            store.dispatch('fridge/updateNewStock', response.data);
+            store.dispatch('fridge/updateStock', response.data);
         })
     },
     // Post food with stockItems included
@@ -33,13 +33,13 @@ export default {
         });
     },
     getStockAmount() {
-        return store.getters['fridge/getNewStock'].length;
+        return store.getters['fridge/getStock'].length;
     },
     getFoodAmount() {
         return store.getters['fridge/getFood'].length;
     },
     getPieChartStock() {
-        var stockByType = this.getFormattedStock(store.getters['fridge/getNewStock'], this.stockitemCompareType);
+        var stockByType = this.getFormattedStock(store.getters['fridge/getStock'], this.stockitemCompareType);
         var barChartArr = [stockByType.length + 1]
         barChartArr[0] = ['Type', 'Amount'];
         for (let i = 0; i < stockByType.length; i++) {
