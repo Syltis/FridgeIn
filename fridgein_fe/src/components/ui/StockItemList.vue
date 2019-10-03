@@ -68,12 +68,18 @@ export default {
   },
   computed: {
     ...mapGetters({
-      stockItemsUniqueGrouped: "fridge/getStock",
+      stock: "fridge/getStock",
       userId: "app/getUserId"
     }),
+    stockItemsGrouped() {
+      return fridgeService.getFormattedStock(
+        this.stock,
+        fridgeService.stockitemCompare
+      );
+    },
     uniqueStockitems() {
       var stockItems = [];
-      this.stockItemsUniqueGrouped.forEach(s => {
+      this.stockItemsGrouped.forEach(s => {
         if (s[0]) {
           var newObj = s[0];
           newObj.amount = s.length;
@@ -84,23 +90,17 @@ export default {
     }
   },
   methods: {
-    // Check every array in the uniqueStockitemsGrouped-array. If any item in a subarray matches, save every stockitemId in the subarray and delete them.
-    // TODO: Refactor this with better use of filter, map, some
     async deleteItems() {
       var idsToDelete = [];
-      if (
-        this.selected.some(el => { return el !== null;})) {
+      if (this.selected.some(el => { return el !== null;})) {
         if (confirm("Are you sure you want to delete this item?")) {
-          this.stockItemsUniqueGrouped.forEach(array => {
-            this.selected.forEach(s => {
-              if (s != null && array.some(x => x.stockitemId == s.stockitemId)) {
-                let newArr = array.map(s => s.stockitemId);
-                newArr.forEach(id => {
-                  idsToDelete.push(id);
-                });
-              }
-            });
-          });
+            this.stock.forEach(s => {
+              this.selected.forEach(sel => {
+                if (fridgeService.stockitemCompare(s, sel)) {
+                  idsToDelete.push(s.stockitemId);
+                }
+              })
+            })
           fridgeService.deleteStock(idsToDelete, this.userId);
         }
       }

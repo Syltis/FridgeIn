@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 md12 class="flexBox">
-      <h2 class="display-1 font-weight-thin mb-3">Statistics</h2>
+      <h2 class="display-1 font-weight-thin">Statistics</h2>
     </v-flex>
     <v-divider></v-divider>
     <v-flex xs12 md12 class="flexBox">
@@ -9,6 +9,9 @@
       <p>Saved foods: {{ this.foodAmount }}</p>
     </v-flex>
     <v-flex xs12 md12 class="flexBox" id="statistics-flex">
+      <v-card class="chart-card" :elevation="1"  >
+        <h2 class="title font-weight-thin mb-3">Store by Food-type</h2>
+        <v-divider></v-divider>
       <GChart
         type="PieChart"
         :data="this.getPieChartArray"
@@ -16,6 +19,7 @@
         :options="chartOptions"
         id="gchart"
       />
+      </v-card>
     </v-flex>
   </v-layout>
 </template>
@@ -63,7 +67,21 @@ export default {
   padding: 0% 15% 0% 0%;
 }
 
+.chart-card {
+  padding: 2%;
+  width: 70%;
+}
+
+@media (max-width:  1000px) {
+  .chart-card {
+  padding: 2%;
+  width: 100%;
+}
+}
+
+
 #gchart {
   width: 100%;
+  padding-left: -10%;
 }
 </style>
