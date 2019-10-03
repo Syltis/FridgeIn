@@ -80,10 +80,6 @@ export default {
         }
         return result;
     },
-    // Helpers
-    capitalize(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    },
     stockitemCompare(s, ss) {
         return (s.foodId == ss.foodId
             && s.purchaseDate == ss.purchaseDate
@@ -91,5 +87,9 @@ export default {
     },
     stockitemCompareType(s, ss) {
         return (s.food.type == ss.food.type);
+    },
+    // Helpers
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 }

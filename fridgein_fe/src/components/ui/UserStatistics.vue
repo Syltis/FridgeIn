@@ -9,8 +9,8 @@
       <p>Saved foods: {{ this.foodAmount }}</p>
     </v-flex>
     <v-flex xs12 md12 class="flexBox" id="statistics-flex">
-      <v-card class="chart-card" :elevation="1"  >
-        <h2 class="title font-weight-thin mb-3">Store by Food-type</h2>
+      <v-card class="chart-card" :elevation="3"  >
+        <h2 class="title font-weight-regular mb-3">Store by Food-type</h2>
         <v-divider></v-divider>
       <GChart
         type="PieChart"
@@ -49,17 +49,16 @@ export default {
     },
     // Automatically processed with visualization.arrayToDataTable function
     getPieChartArray() {
-      
       return fridgeService.getPieChartStock();
     }
   }
-  
 };
 </script>
 
 <style scoped>
 .flexBox {
   margin: 1% 0.5%;
+  padding: 0.5%;
 }
 
 #statistics-flex {
@@ -74,11 +73,15 @@ export default {
 
 @media (max-width:  1000px) {
   .chart-card {
-  padding: 2%;
-  width: 100%;
-}
-}
+    padding: 2%;
+    width: 100%;
+  }
 
+  #statistics-flex {
+  
+  padding: 0% 0% 0% 0%;
+}
+}
 
 #gchart {
   width: 100%;

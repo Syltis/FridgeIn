@@ -40,21 +40,18 @@ export default {
 .subheader {
   margin-top: -0.5%;
 }
+
 #title {
   color: black;
   padding: 0% 0% 0% 0.4%;
 }
 
-.flexBox {
-  
+.flexBox { 
   padding: 1% 0% 0% 0%;
-  
 } 
 
 .flexBox2 {
-  
   padding: 1%;
-  
 } 
 
 </style>
