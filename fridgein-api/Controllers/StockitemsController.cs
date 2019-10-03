@@ -21,13 +21,13 @@ namespace fridgein_api.Controllers
         }
 
         // GET: api/stockitem/
-        [HttpGet("{email}")]
-        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem(string email)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem(int id)
         {
-            User user = await _context.User.Where(u => u.Email == email).FirstAsync();
+            
 
             ICollection<Stockitem> allItems = await _context.Stockitem
-                .Where(s => s.UserId == user.UserId)
+                .Where(s => s.UserId == id)
                 .Include(s => s.Food)
                 .Include(s => s.User)
                 .ToListAsync();
