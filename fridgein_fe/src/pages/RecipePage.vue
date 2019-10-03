@@ -7,9 +7,15 @@
     </div>
     <v-card id="content-card">
       <v-layout row wrap>
-        <v-flex md12 xs12>
+        <v-flex md11 xs12>
           <h2 id="subtitle" class="subheader font-weight-regular mb-3">Recipes ready</h2>
         </v-flex>
+
+        <v-flex md1 xs12>
+          <v-btn id="add-recipe-btn" @click.stop="showModal=true">Add Recipe</v-btn>
+            <AddRecipeModal v-model="showModal" />
+        </v-flex>
+
         <v-flex md12 xs12>
           <v-divider></v-divider>
         </v-flex>
@@ -20,6 +26,7 @@
                 <v-card-text>
                   <div>Recipe Type</div>
                   <p class="headline font-weight-light text--primary">Recipe Name</p>
+                  <v-divider class="card-divider"></v-divider>
                   <p>Vegan / Meat / Fish</p>
                   <div class="text--primary">
                     <p class="recipe-description">Easy to make, great for a monday evening</p>
@@ -57,8 +64,16 @@
 </template>
 
 <script>
+import AddRecipeModal from "../components/ui/AddRecipeModal";
+
 export default {
-  name: "RecipePage"
+  name: "RecipePage",
+  components: { AddRecipeModal },
+  data() {
+    return {
+      showModal: false
+    };
+  }
 };
 </script>
 
@@ -76,6 +91,12 @@ export default {
   padding: 1%;
 }
 
+#add-recipe-btn {
+  margin: 0% 0% 2% 0%;
+  color: white;
+  background-color: #80ff80;
+}
+
 .recipe-flex {
   padding: 1%;
 }
@@ -84,10 +105,14 @@ export default {
   padding: 0.2%;
   margin: 1% 0% 1% 1%;
   width: 220px;
+  background-color: #f5fffa;
 }
 
 .recipe-description {
   color: #b3b3b3;
 }
 
+.card-divider {
+  margin: -2% 0% 5% 0%;
+}
 </style>
