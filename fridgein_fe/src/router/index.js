@@ -7,8 +7,8 @@ import ContactPage from "../pages/ContactPage";
 import RecipePage from "../pages/RecipePage";
 import StartPage from "../pages/StartPage";
 import ProfilePage from '../pages/ProfilePage';
+import DashboardPage from '../pages/DashboardPage';
 import CallBack from '../components/CallBack';
-
 
 Vue.use(Router);
 
@@ -18,6 +18,7 @@ const routes = [
     { path: '/contact', component: ContactPage },
     { path: '/recipes', component: RecipePage },
     { path: '/profile', component: ProfilePage },
+    { path: '/dashboard', component: DashboardPage },
     { path: '/callback', component: CallBack }
   ];
 
@@ -31,9 +32,6 @@ const routes = [
     if (to.path === "/" || to.path === "/callback" || auth.isAuthenticated()) {
       return next();
     }
-
-
     auth.login({ target: to.path });
   });
-
   export default router;

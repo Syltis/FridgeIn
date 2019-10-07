@@ -1,14 +1,18 @@
 <template>
   <v-toolbar>
     <v-toolbar-title class="headline text-uppercase">
-      <router-link class="btnlink" to="/">
+      <router-link v-if="!this.isAuthenticated" class="btnlink" to="/">
+        <v-img :src="logo" height="40%" width="120px" alt="Fridgein Logo"></v-img>
+      </router-link>
+      <router-link v-if="this.isAuthenticated" class="btnlink" to="/dashboard">
         <v-img :src="logo" height="40%" width="120px" alt="Fridgein Logo"></v-img>
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-toolbar-items class="hidden-sm-and-down">
-      <label id="loggedin-toolbar-label"  class="logged-in-common" v-if="this.isAuthenticated">Logged in as <b>{{ profile.nickname }}</b></label>
-      <v-btn flat to="/" class="btnlink">Home</v-btn>
+      <label id="loggedin-toolbar-label" class="logged-in-common" v-if="this.isAuthenticated">Logged in as <b>{{ profile.nickname }}</b></label>
+      <v-btn flat v-if="!this.isAuthenticated" to="/" class="btnlink">Home</v-btn>
+      <v-btn flat v-if="this.isAuthenticated" to="/dashboard" class="btnlink">Dashboard</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/food" class="btnlink">Stock</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/recipes" class="btnlink">Recipes</v-btn>
       <v-btn flat v-if="this.isAuthenticated" to="/profile" class="btnlink">Profile</v-btn>

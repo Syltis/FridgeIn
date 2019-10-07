@@ -1,6 +1,8 @@
-import Vue from 'vue'
-import './plugins/vuetify'
-import App from './App.vue'
+import Vue from 'vue';
+import './plugins/vuetify';
+import Vuetify from 'vuetify/lib'
+
+import App from './App.vue';
 import './../node_modules/jquery/dist/jquery.min.js';
 import router from './router/index';
 import store from './store';
@@ -24,5 +26,6 @@ Vue.component('bottomBar', BottomBar);
 new Vue({
   render: h => h(App),
   store,
-  router: router
+  router: router,
+  Vuetify
 }).$mount('#app');
