@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import vuetify from './plugins/vuetify';
+import Vuetify from 'vuetify/lib';
 
 import App from './App.vue';
 import './../node_modules/jquery/dist/jquery.min.js';
@@ -16,6 +16,8 @@ Vue.config.devtools = true;
 
 Vue.config.productionTip = false;
 
+const opts = { }
+Vue.use(Vuetify)
 Vue.use(VueGoogleCharts)
 Vue.use(AuthPlugin);
 
@@ -26,5 +28,5 @@ new Vue({
   render: h => h(App),
   store,
   router: router,
-  vuetify
-}).$mount('#app');m
+  vuetify: new Vuetify(opts)
+}).$mount('#app');

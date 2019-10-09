@@ -2,34 +2,51 @@
   <div>
     <main>
       <section>
-        <v-parallax dark :src="header1" class="parallax" style="margin-top: -1%">
-          <v-layout column>
+        <v-parallax
+          dark
+          :src="header1"
+          class="parallax"
+          style="margin-top: -1%"
+        >
+          <v-row>
             <v-card id="titleCard">
-              <v-card-text class="text-xs-center">
-                <h1 class="display-3 font-weight-thin mb-3">FridgeIn</h1>
-                <hr />
+              <v-card-text class="text-center">
+                <h1 class="display-3 font-weight-thin mb-3">
+                  FridgeIn
+                </h1>
+                <hr>
                 <h4 class="display-1 font-weight-thin">
                   Giving you the tools you need to optimize your kitchen
                   stores.
                 </h4>
                 <v-btn
+                  v-if="!isLoggedIn"
                   color="#82b9dd"
-                  v-if="!this.isLoggedIn"
                   class="white--text"
-                  @click="login"
                   large
-                  round
-                >Sign Up / In</v-btn>
+                  rounded
+                  @click="login"
+                >
+                  Sign Up / In
+                </v-btn>
               </v-card-text>
             </v-card>
-          </v-layout>
+          </v-row>
         </v-parallax>
         <div class="content">
-          <v-layout row wrap class="my-5">
-            <v-flex xs12 sm4>
+          <v-row class="my-5">
+            <v-col
+              cols="12"
+              sm="4"
+            >
               <v-card class="elevation-2">
                 <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width: 100%">Tracking your stores</div>
+                  <div
+                    class="headline text-center"
+                    style="width: 100%"
+                  >
+                    Tracking your stores
+                  </div>
                 </v-card-title>
                 <v-card-text>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc
@@ -39,12 +56,20 @@
                   Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros.
                 </v-card-text>
               </v-card>
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12 sm4>
+            <v-col
+              cols="12"
+              sm="4"
+            >
               <v-card class="elevation-2">
                 <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width: 100%">Planning your meals</div>
+                  <div
+                    class="headline text-center"
+                    style="width: 100%"
+                  >
+                    Planning your meals
+                  </div>
                 </v-card-title>
                 <v-card-text>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc
@@ -57,11 +82,19 @@
                   Etiam pellentesque tristique arcu, non consequat magna fermentum ac.
                 </v-card-text>
               </v-card>
-            </v-flex>
-            <v-flex xs12 sm4>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="4"
+            >
               <v-card class="elevation-2">
                 <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width: 100%">Reducing food-waste</div>
+                  <div
+                    class="headline text-center"
+                    style="width: 100%"
+                  >
+                    Reducing food-waste
+                  </div>
                 </v-card-title>
                 <v-card-text>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc
@@ -71,20 +104,29 @@
                   Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros.
                 </v-card-text>
               </v-card>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </div>
       </section>
       <section>
-        <v-parallax dark :src="header2" class="parallax2"></v-parallax>
+        <v-parallax
+          dark
+          :src="header2"
+          class="parallax2"
+        />
       </section>
       <section>
         <div class="content">
-          <v-layout row wrap class="my-5">
-            <v-flex xs12>
+          <v-row class="my-5">
+            <v-col cols="12">
               <v-card class="elevation-2">
                 <v-card-title primary-title>
-                  <div class="headline text-xs-center" style="width: 100%">Our mission</div>
+                  <div
+                    class="headline text-center"
+                    style="width: 100%"
+                  >
+                    Our mission
+                  </div>
                 </v-card-title>
                 <v-card-text>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc
@@ -102,8 +144,8 @@
                   faucibus orci luctus et ultrices posuere cubilia Curae;
                 </v-card-text>
               </v-card>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
         </div>
       </section>
     </main>
@@ -123,6 +165,14 @@ export default {
       logo: require("@/assets/images/LogoBluer.png")
     };
   },
+  computed: {
+    ...mapState({
+      userId: state => state.app.userId
+    }),
+    isLoggedIn() {
+      return this.userId !== "";
+    }
+  },
   methods: {
     login() {
       console.log("login attempt");
@@ -131,14 +181,6 @@ export default {
     handleLoginEvent(data) {
       this.isAuthenticated = data.loggedIn;
       this.profile = data.profile;
-    }
-  },
-  computed: {
-    ...mapState({
-      userId: state => state.app.userId
-    }),
-    isLoggedIn() {
-      return this.userId !== "";
     }
   }
 };
@@ -174,6 +216,6 @@ h4 {
 }
 
 .parallax {
-    min-height: 580px;
-  }
+  min-height: 580px;
+}
 </style>
