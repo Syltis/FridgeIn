@@ -1,6 +1,5 @@
 import Vue from 'vue';
-import './plugins/vuetify';
-import Vuetify from 'vuetify/lib'
+import vuetify from './plugins/vuetify';
 
 import App from './App.vue';
 import './../node_modules/jquery/dist/jquery.min.js';
@@ -27,5 +26,5 @@ new Vue({
   render: h => h(App),
   store,
   router: router,
-  Vuetify
-}).$mount('#app');
+  vuetify
+}).$mount('#app');m
