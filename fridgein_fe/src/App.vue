@@ -1,18 +1,20 @@
 <template>
   <v-app>
     <div id="header">
-      <navigation-bar app></navigation-bar>
+      <NavigationBar app />
     </div>
     <v-content>
       <v-container fluid >
         <router-view />
       </v-container>
     </v-content>
-    <bottom-bar app></bottom-bar>
+    <BottomBar app />
   </v-app>
 </template>
 
 <script>
+
+
 </script>
 
 <style>

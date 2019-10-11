@@ -1,17 +1,17 @@
 <template>
   <div>
     <!-- SubHeader -->
-    <h1 id="title" class="display-1 font-weight-thin mb-3">Your stock</h1>
+    <PageTitle title="Your Stock" />
 
     <!-- Content -->
-    <v-layout row wrap >
-      <v-flex xs12 md6 class="flexBox">
-        <StockItemList></StockItemList>
-      </v-flex>
-      <v-flex xs12 md6 class="flexBox">
-        <AddStockItemForm></AddStockItemForm>
-      </v-flex>
-    </v-layout>
+    <v-row >
+      <v-col md="6" class="flexBox">
+        <StockItemList />
+      </v-col>
+      <v-col md="6" class="flexBox">
+        <AddStockItemForm />
+      </v-col>
+    </v-row>
   </div>
 </template>
 

@@ -1,22 +1,13 @@
 <template>
   <v-card class="formCard">
-    <v-list
-      two-line
-      class="main-list"
-    >
+    <v-list two-line class="main-list">
       <v-list-item class="top-item">
         <v-list-item-content>
           <v-list-item-title>
-            <h4 class="subheading top">
+            <h4 class="subtitle-1 top">
               <label>Name &amp; Type</label>
               <v-list-item-action class="float-right">
-                <v-icon
-                  small
-                  class="delete-icon"
-                  @click="deleteItems()"
-                >
-                  delete
-                </v-icon>
+                <v-icon small class="delete-icon" @click="deleteItems()">delete</v-icon>
               </v-list-item-action>
               <span class="float-right amount-subheader">Amount</span>
             </h4>
@@ -25,18 +16,12 @@
       </v-list-item>
 
       <!-- List -->
-      <div
-        id="list-div"
-        class="overflow-y-auto"
-      >
+      <div id="list-div" class="overflow-y-auto">
         <template v-for="(stockItem, index) in uniqueStockitems">
-          <v-list-item
-            :key="index"
-            class="listTile"
-          >
+          <v-list-item :key="index" class="listTile">
             <v-list-item-content>
               <v-list-item-title>
-                <h4 class="subheading">
+                <h4 class="subtitle-1">
                   <span class="float-left name">{{ stockItem.food.name }}</span>
                   <span class="float-left type">
                     <i>&nbsp;&nbsp;{{ stockItem.food.type.toLowerCase() }}</i>
@@ -107,15 +92,19 @@ export default {
   methods: {
     async deleteItems() {
       var idsToDelete = [];
-      if (this.selected.some(el => { return el !== null;})) {
+      if (
+        this.selected.some(el => {
+          return el !== null;
+        })
+      ) {
         if (confirm("Are you sure you want to delete this item?")) {
-            this.stock.forEach(s => {
-              this.selected.forEach(sel => {
-                if (fridgeService.stockitemCompare(s, sel)) {
-                  idsToDelete.push(s.stockitemId);
-                }
-              })
-            })
+          this.stock.forEach(s => {
+            this.selected.forEach(sel => {
+              if (fridgeService.stockitemCompare(s, sel)) {
+                idsToDelete.push(s.stockitemId);
+              }
+            });
+          });
           fridgeService.deleteStock(idsToDelete, this.userId);
         }
       }
@@ -138,7 +127,7 @@ export default {
   margin: -2% 0%;
 }
 
-.subheading.top {
+.subtitle-1.top {
   color: #bfbfbf;
   font-size: 2%;
 }

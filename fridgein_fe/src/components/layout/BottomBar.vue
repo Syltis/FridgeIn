@@ -1,5 +1,5 @@
 <template>
-  <v-footer dark>
+  <v-footer dark padless>
     <v-card
       class="flex"
       color="#90ccf4"
@@ -34,6 +34,7 @@
 
 <script>
 export default {
+  name: 'BottomBar',
   data() {
     return {
 	  logo: require("@/assets/images/LogoIcon.png"),

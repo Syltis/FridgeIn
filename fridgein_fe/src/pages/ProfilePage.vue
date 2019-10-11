@@ -1,32 +1,31 @@
 <template>
   <div v-if="profile">
-    <h1 id="title" class="display-1 font-weight-thin mb-3">
-      Your profile
-    </h1>
-    <v-layout row wrap >
-      <v-card xs12 md6 id="profile-card">
-        <v-layout row wrap>
-          <v-flex xs12 md6 class="flexBox">
+    <PageTitle title="Your Profile" />
+
+    <v-row>
+      <v-card id="profile-card" xs="12" md="6">
+        <v-row>
+          <v-col md="6" class="colBox xs">
             <img :src="profile.picture" />
-          </v-flex>
-          <v-flex xs12 md6 class="flexBox">
+          </v-col>
+          <v-col md="6" class="colBox xs">
             <h2>{{ profile.nickname }}</h2>
             <p>{{ profile.email }}</p>
-            <p id="verified" v-if="profile.email_verified">Email verified</p>
-            <p id="not-verified" v-if="!profile.email_verified">Email not yet verified</p>
-          </v-flex>
-          <v-flex xs12 md6 class="flexBox">
+            <p v-if="profile.email_verified" id="verified">Email verified</p>
+            <p v-if="!profile.email_verified" id="not-verified">Email not yet verified</p>
+          </v-col>
+          <v-col md="6" class="colBox xs">
             <p>
               Last update at
               <b>{{ updatedAt }}</b>
             </p>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-card>
-      <v-card xs12 md6 id="statistics-card">
-      <UserStatistics />
+      <v-card id="statistics-card" xs="12" md="6">
+        <UserStatistics />
       </v-card>
-    </v-layout>
+    </v-row>
   </div>
 </template>
 
@@ -85,7 +84,7 @@ export default {
   width: 50%;
 }
 
-@media (max-width:  800px) {
+@media (max-width: 800px) {
   #profile-card {
     width: 100%;
   }
@@ -97,7 +96,7 @@ export default {
   }
 }
 
-.flexBox {
+.colBox {
   margin: 1% 0.5%;
 }
 </style>

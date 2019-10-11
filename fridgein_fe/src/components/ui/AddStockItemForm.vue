@@ -4,31 +4,18 @@
       <v-container>
         <v-row>
           <!-- Row one -->
-          <v-col
-            cols="12"
-            class="formFlex"
-          >
-            <h1 class="display-1 font-weight-thin">
-              Add to your stock
-            </h1>
+          <v-col cols="12" class="formFlex">
+            <h1 class="display-1 font-weight-thin">Add to your stock</h1>
             <v-spacer />
           </v-col>
 
           <!-- Row two -->
-          <v-col
-            cols="12"
-            md="8"
-            class="formFlex"
-          >
+          <v-col cols="12" md="8" class="formFlex">
             <FoodSelect @foodSelected="onFoodSelected" />
           </v-col>
 
           <!-- Row three -->
-          <v-col
-            cols="12"
-            md="5"
-            class="formFlex"
-          >
+          <v-col cols="12" md="5" class="formFlex">
             <v-text-field
               v-model="stockItemName"
               label="Food Name"
@@ -38,11 +25,7 @@
             />
           </v-col>
 
-          <v-col
-            cols="12"
-            md="5"
-            class="formFlex"
-          >
+          <v-col cols="12" md="5" class="formFlex">
             <v-text-field
               v-model="stockItemType"
               label="Type"
@@ -53,16 +36,8 @@
           </v-col>
 
           <!-- Row four -->
-          <v-col
-            cols="12"
-            md="4"
-            class="formFlex"
-          >
-            <v-dialog
-              ref="dialog"
-              v-model="modal"
-              width="290px"
-            >
+          <v-col cols="12" md="4" class="formFlex">
+            <v-dialog ref="dialog" v-model="modal" width="290px">
               <template v-slot:activator="{ on }">
                 <v-text-field
                   v-model="purchaseDate"
@@ -72,19 +47,11 @@
                   v-on="on"
                 />
               </template>
-              <v-date-picker
-                v-model="purchaseDate"
-                scrollable
-                @input="modal = false"
-              />
+              <v-date-picker v-model="purchaseDate" scrollable @input="modal = false" />
             </v-dialog>
           </v-col>
-          
-          <v-col
-            cols="12"
-            md="1"
-            class="formFlex"
-          >
+
+          <v-col cols="12" md="1" class="formFlex">
             <v-checkbox
               id="expirationCheckBox"
               v-model="expiresCheckbox"
@@ -93,21 +60,10 @@
               @click.native="atChecked"
             />
           </v-col>
-          <v-spacer
-            cols="1"
-            md="1"
-          />
-          <v-col
-            cols="12"
-            md="4"
-            class="formFlex"
-          >
+          <v-spacer cols="1" md="1" />
+          <v-col cols="12" md="4" class="formFlex">
             <div v-if="expirationCheckBox">
-              <v-dialog
-                ref="dialog"
-                v-model="modal2"
-                width="290px"
-              >
+              <v-dialog ref="dialog" v-model="modal2" width="290px">
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="expirationDate"
@@ -117,21 +73,13 @@
                     v-on="on"
                   />
                 </template>
-                <v-date-picker
-                  v-model="expirationDate"
-                  scrollable
-                  @input="modal2 = false"
-                />
+                <v-date-picker v-model="expirationDate" scrollable @input="modal2 = false" />
               </v-dialog>
             </div>
           </v-col>
 
           <!-- Row five -->
-          <v-col
-            cols="12"
-            md="6"
-            class="formFlex"
-          >
+          <v-col cols="12" md="6" class="formFlex">
             <v-slider
               v-model="slider"
               label="Amount"
@@ -145,50 +93,19 @@
           </v-col>
 
           <!-- Row six -->
-          <v-col
-            cols="12"
-            md="12"
-          >
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              @click="validate"
-            >
-              submit
-            </v-btn>
-            <v-btn
-              color="warning"
-              @click="reset"
-            >
-              clear
-            </v-btn>
+          <v-col cols="12" md="12">
+            <v-btn :disabled="!valid" color="success" @click="validate">submit</v-btn>
+            <v-btn color="warning" @click="reset">clear</v-btn>
             <!-- <v-btn @click="deleteType" color="error">delete type</v-btn> -->
           </v-col>
-          <v-col
-            cols="12"
-            md="4"
-          >
-            <v-card
-              v-if="errors.length"
-              class="response-card"
-              color="error"
-            >
+          <v-col cols="12" md="4">
+            <v-card v-if="errors.length" class="response-card" color="error">
               <ul>
-                <li
-                  v-for="error in errors"
-                  :key="error"
-                  class="responseText"
-                >
-                  {{ error }}
-                </li>
+                <li v-for="error in errors" :key="error" class="responseText">{{ error }}</li>
               </ul>
             </v-card>
-            <v-card
-              v-if="stockItemSuccess"
-              class="response-card"
-              color="success"
-            >
-              <b class="subheading responseText">
+            <v-card v-if="stockItemSuccess" class="response-card" color="success">
+              <b class="subtitle-1 responseText">
                 {{ amountSaved }}
                 <b>{{ itemSaved }}</b> added
               </b>
@@ -204,7 +121,7 @@
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
 import { mapGetters } from "vuex";
-import fridgeService from '../../services/fridgeService';
+import fridgeService from "../../services/fridgeService";
 
 export default {
   name: "AddStockItemForm",
@@ -295,7 +212,7 @@ export default {
     onFoodSelected(value) {
       if (value) {
         this.stockItemName = value.name;
-      this.stockItemType = value.type;
+        this.stockItemType = value.type;
       }
     }
   }
