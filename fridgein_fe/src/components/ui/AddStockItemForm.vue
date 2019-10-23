@@ -1,43 +1,43 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-card class="formCard">
     <v-form ref="form">
-      <v-container grid-list-md>
-        <v-layout row wrap>
+      <v-container>
+        <v-row>
           <!-- Row one -->
-          <v-flex xs12 class="formFlex">
+          <v-col cols="12" class="formFlex">
             <h1 class="display-1 font-weight-thin">Add to your stock</h1>
-            <v-spacer></v-spacer>
-          </v-flex>
+            <v-spacer />
+          </v-col>
 
           <!-- Row two -->
-          <v-flex xs12 md8 class="formFlex">
-            <FoodSelect v-on:foodSelected="onFoodSelected"></FoodSelect>
-          </v-flex>
+          <v-col cols="12" md="8" class="formFlex">
+            <FoodSelect @foodSelected="onFoodSelected" />
+          </v-col>
 
           <!-- Row three -->
-          <v-flex xs12 md5 class="formFlex">
+          <v-col cols="12" md="5" class="formFlex">
             <v-text-field
               v-model="stockItemName"
               label="Food Name"
               :rules="nameTypeRules"
               :counter="25"
               required
-            ></v-text-field>
-          </v-flex>
+            />
+          </v-col>
 
-          <v-flex xs12 md5 class="formFlex">
+          <v-col cols="12" md="5" class="formFlex">
             <v-text-field
               v-model="stockItemType"
               label="Type"
               :rules="nameTypeRules"
               :counter="25"
               required
-            ></v-text-field>
-          </v-flex>
+            />
+          </v-col>
 
           <!-- Row four -->
-          <v-flex xs12 md4 class="formFlex">
-            <v-dialog v-model="modal" ref="dialog" lazy full-width width="290px">
+          <v-col cols="12" md="4" class="formFlex">
+            <v-dialog ref="dialog" v-model="modal" width="290px">
               <template v-slot:activator="{ on }">
                 <v-text-field
                   v-model="purchaseDate"
@@ -45,25 +45,25 @@
                   prepend-icon="event"
                   readonly
                   v-on="on"
-                ></v-text-field>
+                />
               </template>
-              <v-date-picker v-model="purchaseDate" @input="modal = false" scrollable></v-date-picker>
+              <v-date-picker v-model="purchaseDate" scrollable @input="modal = false" />
             </v-dialog>
-          </v-flex>
-          
-          <v-flex xs12 md1 class="formFlex">
+          </v-col>
+
+          <v-col cols="12" md="1" class="formFlex">
             <v-checkbox
+              id="expirationCheckBox"
+              v-model="expiresCheckbox"
               label="Expirable"
               persistent-hint
-              v-model="expiresCheckbox"
               @click.native="atChecked"
-              id="expirationCheckBox"
-            ></v-checkbox>
-          </v-flex>
-          <v-spacer xs1 md1></v-spacer>
-          <v-flex xs12 md4 class="formFlex">
+            />
+          </v-col>
+          <v-spacer cols="1" md="1" />
+          <v-col cols="12" md="4" class="formFlex">
             <div v-if="expirationCheckBox">
-              <v-dialog v-model="modal2" ref="dialog" lazy full-width width="290px">
+              <v-dialog ref="dialog" v-model="modal2" width="290px">
                 <template v-slot:activator="{ on }">
                   <v-text-field
                     v-model="expirationDate"
@@ -71,15 +71,15 @@
                     prepend-icon="event"
                     readonly
                     v-on="on"
-                  ></v-text-field>
+                  />
                 </template>
-                <v-date-picker v-model="expirationDate" @input="modal2 = false" scrollable></v-date-picker>
+                <v-date-picker v-model="expirationDate" scrollable @input="modal2 = false" />
               </v-dialog>
             </div>
-          </v-flex>
+          </v-col>
 
           <!-- Row five -->
-          <v-flex xs12 md6 class="formFlex">
+          <v-col cols="12" md="6" class="formFlex">
             <v-slider
               v-model="slider"
               label="Amount"
@@ -89,29 +89,29 @@
               :min="min"
               hide-details
               :rules="amountSliderRules"
-            ></v-slider>
-          </v-flex>
+            />
+          </v-col>
 
           <!-- Row six -->
-          <v-flex xs12 md12>
-            <v-btn @click="validate" :disabled="!valid" color="success">submit</v-btn>
-            <v-btn @click="reset" color="warning">clear</v-btn>
+          <v-col cols="12" md="12">
+            <v-btn :disabled="!valid" color="success" @click="validate">submit</v-btn>
+            <v-btn color="warning" @click="reset">clear</v-btn>
             <!-- <v-btn @click="deleteType" color="error">delete type</v-btn> -->
-          </v-flex>
-          <v-flex xs12 md4>
-            <v-card class="response-card" color="error" v-if="errors.length">
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-card v-if="errors.length" class="response-card" color="error">
               <ul>
-                <li class="responseText" v-for="error in errors" v-bind:key="error">{{error}}</li>
+                <li v-for="error in errors" :key="error" class="responseText">{{ error }}</li>
               </ul>
             </v-card>
-            <v-card class="response-card" color="success" v-if="stockItemSuccess">
-              <b class="subheading responseText">
-                {{this.amountSaved}}
-                <b>{{this.itemSaved}}</b> added
+            <v-card v-if="stockItemSuccess" class="response-card" color="success">
+              <b class="subtitle-1 responseText">
+                {{ amountSaved }}
+                <b>{{ itemSaved }}</b> added
               </b>
             </v-card>
-          </v-flex>
-        </v-layout>
+          </v-col>
+        </v-row>
       </v-container>
     </v-form>
   </v-card>
@@ -121,7 +121,7 @@
 import "es6-promise/auto";
 import FoodSelect from "./FoodSelect";
 import { mapGetters } from "vuex";
-import fridgeService from '../../services/fridgeService';
+import fridgeService from "../../services/fridgeService";
 
 export default {
   name: "AddStockItemForm",
@@ -212,7 +212,7 @@ export default {
     onFoodSelected(value) {
       if (value) {
         this.stockItemName = value.name;
-      this.stockItemType = value.type;
+        this.stockItemType = value.type;
       }
     }
   }

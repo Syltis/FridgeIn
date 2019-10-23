@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 id="title" class="display-1 font-weight-thin mb-3">Welcome {{ profile.nickname }}!</h1>
+    <PageTitle title="Welcome!" />
   </div>
 </template>
 

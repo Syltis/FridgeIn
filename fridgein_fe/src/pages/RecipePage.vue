@@ -1,50 +1,50 @@
 <template>
   <div>
     <div id="top-div">
-      <v-flex md12 xs12>
-        <h1 id="title" class="display-1 font-weight-thin mb-3">Your recipes</h1>
-      </v-flex>
+      <v-col md="12" cols="12">
+        <PageTitle title="Your Recipes" />
+      </v-col>
     </div>
     <v-card id="content-card">
-      <v-layout row wrap>
-        <v-flex md11 xs12>
+      <v-row>
+        <v-col md="11" cols="12">
           <h2 id="subtitle" class="subheader font-weight-regular mb-3">Recipes ready</h2>
-        </v-flex>
+        </v-col>
 
-        <v-flex md1 xs12>
+        <v-col md="1" cols="12">
           <v-btn id="add-recipe-btn" @click.stop="showModal=true">Add Recipe</v-btn>
-            <AddRecipeModal v-model="showModal" />
-        </v-flex>
+          <AddRecipeModal v-model="showModal" />
+        </v-col>
 
-        <v-flex md12 xs12>
-          <v-divider></v-divider>
-        </v-flex>
-        <v-flex md12 xs12>
-          <v-layout justify-start>
-            <v-flex v-for="n in 3" :key="n" class="recipe-flex">
+        <v-col md="12" cols="12">
+          <v-divider />
+        </v-col>
+        <v-col md="12" cols="12">
+          <v-row justify="start">
+            <v-col v-for="n in 3" :key="n" class="recipe-flex">
               <v-card class="recipe-card">
                 <v-card-text>
                   <div>Recipe Type</div>
                   <p class="headline font-weight-light text--primary">Recipe Name</p>
-                  <v-divider class="card-divider"></v-divider>
+                  <v-divider class="card-divider" />
                   <p>Vegan / Meat / Fish</p>
                   <div class="text--primary">
                     <p class="recipe-description">Easy to make, great for a monday evening</p>
                   </div>
                 </v-card-text>
               </v-card>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-        <v-flex md12 xs12>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col md="12" cols="12">
           <h2 id="subtitle" class="subheader font-weight-regular mb-3">Saved Recipes</h2>
-        </v-flex>
-        <v-flex md12 xs12>
-          <v-divider></v-divider>
-        </v-flex>
-        <v-flex md12 xs12>
-          <v-layout row wrap>
-            <v-flex v-for="i in 12" :key="i" class="recipe-flex">
+        </v-col>
+        <v-col md="12" cols="12">
+          <v-divider />
+        </v-col>
+        <v-col md="12" cols="12">
+          <v-row>
+            <v-col v-for="i in 12" :key="i" class="recipe-flex">
               <v-card class="recipe-card">
                 <v-card-text>
                   <div>Recipe Type</div>
@@ -55,10 +55,10 @@
                   </div>
                 </v-card-text>
               </v-card>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
     </v-card>
   </div>
 </template>

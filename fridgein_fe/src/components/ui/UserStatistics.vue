@@ -1,27 +1,44 @@
 <template>
-  <v-layout row wrap>
-    <v-flex xs12 md12 class="flexBox">
-      <h2 class="display-1 font-weight-thin">Statistics</h2>
-    </v-flex>
-    <v-divider></v-divider>
-    <v-flex xs12 md12 class="flexBox">
-      <p>Items in stock: {{ this.stockAmount }}</p>
-      <p>Saved foods: {{ this.foodAmount }}</p>
-    </v-flex>
-    <v-flex xs12 md12 class="flexBox" id="statistics-flex">
-      <v-card class="chart-card" :elevation="3"  >
-        <h2 class="title font-weight-regular mb-3">Store by Food-type</h2>
-        <v-divider></v-divider>
-      <GChart
-        type="PieChart"
-        :data="this.getPieChartArray"
-        :resizeDebounce="500"
-        :options="chartOptions"
-        id="gchart"
-      />
+  <v-row>
+    <v-col
+      md="12"
+      class="colBox xs"
+    >
+      <h1 class="display-2 font-weight-thin">
+        Statistics
+      </h1>
+    </v-col>
+    <v-divider />
+    <v-col 
+      md="12" 
+      class="colBox"
+    >
+      <p>Items in stock: {{ stockAmount }}</p>
+      <p>Saved foods: {{ foodAmount }}</p>
+    </v-col>
+    <v-col
+      id="statistics-col"
+      md="12"
+      class="colBox xs"
+    >
+      <v-card
+        class="chart-card"
+        :elevation="3"
+      >
+        <h2 class="headline font-weight-regular mb-3">
+          Store by Food-type
+        </h2>
+        <v-divider />
+        <GChart
+          id="gchart"
+          type="PieChart"
+          :data="getPieChartArray"
+          :resize-debounce="500"
+          :options="chartOptions"
+        />
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -56,12 +73,12 @@ export default {
 </script>
 
 <style scoped>
-.flexBox {
+.colBox {
   margin: 1% 0.5%;
   padding: 0.5%;
 }
 
-#statistics-flex {
+#statistics-col {
   margin: 0% 0% 0% 0%;
   padding: 0% 15% 0% 0%;
 }
@@ -77,7 +94,7 @@ export default {
     width: 100%;
   }
 
-  #statistics-flex {
+  #statistics-col {
   
   padding: 0% 0% 0% 0%;
 }
