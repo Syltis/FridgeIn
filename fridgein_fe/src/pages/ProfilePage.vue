@@ -1,12 +1,11 @@
 <template>
   <div v-if="profile">
     <PageTitle title="Your Profile" />
-
     <v-row>
       <v-card id="profile-card" xs="12" md="6">
         <v-row>
           <v-col md="6" class="colBox xs">
-            <img :src="profile.picture" />
+            <img :src="profile.picture">
           </v-col>
           <v-col md="6" class="colBox xs">
             <h2>{{ profile.nickname }}</h2>

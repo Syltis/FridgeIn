@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageTitle title="Welcome!" />
+    <PageTitle :title="welcomeText" />
   </div>
 </template>
 
@@ -8,13 +8,17 @@
 export default {
   data() {
     return {
-      profile: this.$auth.profile
+      profile: this.$auth.profile,
     };
   },
   computed: {
     updatedAt() {
       return this.profile.updated_at.substring(0, 10);
-    }
+	},
+	welcomeText() {
+		return "Welcome " + this.profile.nickname + "!"
+	}
+    
   },
   methods: {
     changeUser() {

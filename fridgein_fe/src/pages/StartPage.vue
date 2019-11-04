@@ -1,16 +1,16 @@
 <template>
   <div id="page-div">
-    <v-parallax dark :src="header1" class="parallax">
+    <v-parallax :src="header1" class="parallax">
       <v-row align="center" justify="center">
         <v-col>
           <v-card id="titleCard">
             <v-card-text class="text-center">
-              <h1 class="display-4 font-weight-thin mb-3" id="title-h1">FridgeIn</h1>
-              <hr />
-              <h4 class="display-1 font-weight-thin">
+              <h1 id="title-h1" class="display-4 font-weight-light mb-3">FridgeIn</h1>
+              <hr>
+              <h2 class="display-2 font-weight-thin">
                 Giving you the tools you need to optimize your kitchen
                 stores.
-              </h4>
+              </h2>
               <v-btn
                 v-if="!isLoggedIn"
                 id="login-btn"
@@ -19,7 +19,9 @@
                 large
                 rounded
                 @click="login"
-              >Sign Up / In</v-btn>
+              >
+                Sign Up / In
+              </v-btn>
             </v-card-text>
           </v-card>
         </v-col>

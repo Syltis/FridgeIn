@@ -92,11 +92,7 @@ export default {
   methods: {
     async deleteItems() {
       var idsToDelete = [];
-      if (
-        this.selected.some(el => {
-          return el !== null;
-        })
-      ) {
+      if (this.selected.some(el => { return el !== null; })) {
         if (confirm("Are you sure you want to delete this item?")) {
           this.stock.forEach(s => {
             this.selected.forEach(sel => {
@@ -116,7 +112,7 @@ export default {
  <style scoped>
 .formCard {
   padding: 2%;
-  width: 98%;
+  width: 100%;
 }
 
 #list-div {
