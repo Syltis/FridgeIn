@@ -74,8 +74,7 @@ export default {
                 }
                 continue resultLoop;
             }
-            let tempArr = [s];
-            result.push(tempArr);
+            result.push([s]);
             continue allStockLoop;
         }
         return result;

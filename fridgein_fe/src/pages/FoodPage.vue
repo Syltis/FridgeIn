@@ -4,11 +4,11 @@
     <PageTitle title="Your Stock" />
 
     <!-- Content -->
-    <v-row >
-      <v-col md="6" class="flexBox">
+    <v-row>
+      <v-col cols="12" md="6" class="flexBox">
         <StockItemList />
       </v-col>
-      <v-col md="6" class="flexBox">
+      <v-col cols="12" md="6" class="flexBox2">
         <AddStockItemForm />
       </v-col>
     </v-row>
@@ -46,12 +46,21 @@ export default {
   padding: 0% 0% 0% 0.4%;
 }
 
-.flexBox { 
-  padding: 1% 0% 0% 0%;
-} 
+.flexBox {
+  padding: 0% 0% 2% 1%;
+}
 
 .flexBox2 {
-  padding: 1%;
-} 
+  padding: 1% 1% 2% 1%;
+}
 
+@media (min-width: 1000px) {
+  .flexBox {
+    padding: 0% 2% 2% 1%;
+  }
+
+  .flexBox2 {
+    padding: 1% 1% 2% 1%;
+  }
+}
 </style>

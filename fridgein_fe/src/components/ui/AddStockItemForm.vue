@@ -5,7 +5,7 @@
         <v-row>
           <!-- Row one -->
           <v-col cols="12" class="formFlex">
-            <h1 class="display-1 font-weight-thin">Add to your stock</h1>
+            <h1 class="display-2 font-weight-thin">Add to your stock</h1>
             <v-spacer />
           </v-col>
 
@@ -94,8 +94,8 @@
 
           <!-- Row six -->
           <v-col cols="12" md="12">
-            <v-btn :disabled="!valid" color="success" @click="validate">submit</v-btn>
-            <v-btn color="warning" @click="reset">clear</v-btn>
+            <v-btn class="form-btn" :disabled="!valid" color="success" @click="validate">submit</v-btn>
+            <v-btn class="form-btn" color="warning" @click="reset">clear</v-btn>
             <!-- <v-btn @click="deleteType" color="error">delete type</v-btn> -->
           </v-col>
           <v-col cols="12" md="4">
@@ -223,15 +223,19 @@ export default {
 .formCard {
   width: auto;
   padding: 2%;
-  width: 98%;
+  width: 100%;
 }
 
 .formFlex {
-  margin: 1% 1%;
+  margin: 0% 1% 1% 1%;
 }
 
 .responseText {
   color: white;
+}
+
+.form-btn {
+  margin: 0% 2% 0% 0%;
 }
 
 .response-card {
