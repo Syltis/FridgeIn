@@ -1,17 +1,17 @@
 <template>
   <div>
     <!-- SubHeader -->
-    <h1 id="title" class="display-1 font-weight-thin mb-3">Your stock</h1>
+    <PageTitle title="Your Stock" />
 
     <!-- Content -->
-    <v-layout row wrap >
-      <v-flex xs12 md6 class="flexBox">
-        <StockItemList></StockItemList>
-      </v-flex>
-      <v-flex xs12 md6 class="flexBox">
-        <AddStockItemForm></AddStockItemForm>
-      </v-flex>
-    </v-layout>
+    <v-row>
+      <v-col cols="12" md="6" class="flexBox">
+        <StockItemList />
+      </v-col>
+      <v-col cols="12" md="6" class="flexBox2">
+        <AddStockItemForm />
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -46,12 +46,21 @@ export default {
   padding: 0% 0% 0% 0.4%;
 }
 
-.flexBox { 
-  padding: 1% 0% 0% 0%;
-} 
+.flexBox {
+  padding: 0% 0% 2% 1%;
+}
 
 .flexBox2 {
-  padding: 1%;
-} 
+  padding: 1% 1% 2% 1%;
+}
 
+@media (min-width: 1000px) {
+  .flexBox {
+    padding: 0% 2% 2% 1%;
+  }
+
+  .flexBox2 {
+    padding: 1% 1% 2% 1%;
+  }
+}
 </style>

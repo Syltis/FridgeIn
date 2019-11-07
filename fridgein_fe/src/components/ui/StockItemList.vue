@@ -1,53 +1,53 @@
 <template>
   <v-card class="formCard">
     <v-list two-line class="main-list">
-      <v-list-tile class="top-tile">
-        <v-list-tile-content>
-          <v-list-tile-title>
-            <h4 class="subheading top">
+      <v-list-item class="top-item">
+        <v-list-item-content>
+          <v-list-item-title>
+            <h4 class="subtitle-1 top">
               <label>Name &amp; Type</label>
-              <v-list-tile-action class="right">
+              <v-list-item-action class="float-right">
                 <v-icon small class="delete-icon" @click="deleteItems()">delete</v-icon>
-              </v-list-tile-action>
-              <span class="right amount-subheader">Amount</span>
+              </v-list-item-action>
+              <span class="float-right amount-subheader">Amount</span>
             </h4>
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
       <!-- List -->
-      <div id="list-div" class="scroll-y">
+      <div id="list-div" class="overflow-y-auto">
         <template v-for="(stockItem, index) in uniqueStockitems">
-          <v-list-tile :key="index" class="listTile">
-            <v-list-tile-content>
-              <v-list-tile-title>
-                <h4 class="subheading">
-                  <span class="left name">{{stockItem.food.name}}</span>
-                  <span class="left type">
-                    <i>&nbsp;&nbsp;{{stockItem.food.type.toLowerCase()}}</i>
+          <v-list-item :key="index" class="listTile">
+            <v-list-item-content>
+              <v-list-item-title>
+                <h4 class="subtitle-1">
+                  <span class="float-left name">{{ stockItem.food.name }}</span>
+                  <span class="float-left type">
+                    <i>&nbsp;&nbsp;{{ stockItem.food.type.toLowerCase() }}</i>
                   </span>
-                  <v-list-tile-action class="right">
+                  <v-list-item-action class="float-right">
                     <v-checkbox
                       :key="stockItem.stockitemId + index"
-                      :value="stockItem"
                       v-model="selected[index]"
-                    ></v-checkbox>
-                  </v-list-tile-action>
-                  <span class="right count">{{ stockItem.amount }}</span>
+                      :value="stockItem"
+                    />
+                  </v-list-item-action>
+                  <span class="float-right count">{{ stockItem.amount }}</span>
                 </h4>
-              </v-list-tile-title>
-              <v-list-tile-action-text>
-                <span class="left">Bought {{stockItem.purchaseDate.substring(0,10)}} &nbsp;</span>
-              </v-list-tile-action-text>
-              <v-list-tile-action-text>
+              </v-list-item-title>
+              <v-list-item-action-text>
+                <span class="float-left">Bought {{ stockItem.purchaseDate.substring(0,10) }} &nbsp;</span>
+              </v-list-item-action-text>
+              <v-list-item-action-text>
                 <span
-                  class="right"
                   v-if="stockItem.expirationDate !== null"
-                >Expires {{stockItem.expirationDate.substring(0,10)}}</span>
-              </v-list-tile-action-text>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-divider :key="index + '999'"></v-divider>
+                  class="float-right"
+                >Expires {{ stockItem.expirationDate.substring(0,10) }}</span>
+              </v-list-item-action-text>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider :key="index + '999'" />
         </template>
       </div>
     </v-list>
@@ -92,15 +92,15 @@ export default {
   methods: {
     async deleteItems() {
       var idsToDelete = [];
-      if (this.selected.some(el => { return el !== null;})) {
+      if (this.selected.some(el => { return el !== null; })) {
         if (confirm("Are you sure you want to delete this item?")) {
-            this.stock.forEach(s => {
-              this.selected.forEach(sel => {
-                if (fridgeService.stockitemCompare(s, sel)) {
-                  idsToDelete.push(s.stockitemId);
-                }
-              })
-            })
+          this.stock.forEach(s => {
+            this.selected.forEach(sel => {
+              if (fridgeService.stockitemCompare(s, sel)) {
+                idsToDelete.push(s.stockitemId);
+              }
+            });
+          });
           fridgeService.deleteStock(idsToDelete, this.userId);
         }
       }
@@ -112,18 +112,18 @@ export default {
  <style scoped>
 .formCard {
   padding: 2%;
-  width: 98%;
+  width: 100%;
 }
 
 #list-div {
   max-height: 600px;
 }
 
-.top-tile {
+.top-item {
   margin: -2% 0%;
 }
 
-.subheading.top {
+.subtitle-1.top {
   color: #bfbfbf;
   font-size: 2%;
 }
