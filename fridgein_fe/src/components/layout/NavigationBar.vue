@@ -9,90 +9,94 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer />
-    <v-toolbar-items class="hidden-sm-and-down">
-      <label v-if="isAuthenticated" id="loggedin-toolbar-label" class="logged-in-common">
-        Logged in as
-        <b>{{ profile.nickname }}</b>
-      </label>
-      <v-btn v-if="!isAuthenticated" text to="/" class="btnlink">Home</v-btn>
-      <v-btn v-if="isAuthenticated" text to="/dashboard" class="btnlink">Dashboard</v-btn>
-      <v-btn v-if="isAuthenticated" text to="/food" class="btnlink">Stock</v-btn>
-      <v-btn v-if="isAuthenticated" text to="/recipes" class="btnlink">Recipes</v-btn>
-      <v-btn v-if="isAuthenticated" text to="/profile" class="btnlink">Profile</v-btn>
-      <v-btn
-        v-if="!isAuthenticated"
-        id="loginBtn"
-        text
-        class="btnlink"
-        @click.prevent="login"
-      >Log in</v-btn>
-      <v-btn
-        v-if="isAuthenticated"
-        id="loginBtn"
-        text
-        class="btnlink"
-        @click.prevent="logout"
-      >Log out</v-btn>
-    </v-toolbar-items>
-
-    <v-menu
-      id="burger-menu"
-      class="hidden-md-and-up"
-      :offset-x="offset"
-      transition="slide-x-transition"
-      right
-      max-width="50%"
-    >
-      <v-app-bar-nav-icon v-slot:activator="{ on }" />
-      <v-list>
-        <v-list-tile to="/">
-          <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticated" to="/food">
-          <v-list-tile-content>
-            <v-list-tile-title>Stock</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticated" to="/recipes">
-          <v-list-tile-content>
-            <v-list-tile-title>Recipes</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticated" to="/profile">
-          <v-list-tile-content>
-            <v-list-tile-title>Profile</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticated">
-          <v-list-tile-content>
-            <Label
-              id="loggedin-menu-label"
-              class="logged-in-common"
-            >Logged in as {{ profile.nickname }}</Label>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile v-if="!isAuthenticated">
-          <v-btn
-            id="loginBtn"
-            text
-            value="Log in button"
-            class="btnlink"
-            @click.prevent="login"
-          >Log in</v-btn>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticated">
-          <v-btn
-            id="loginBtn"
-            text
-            value="Log out button"
-            class="btnlink"
-            @click.prevent="logout"
-          >Log out</v-btn>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
+    <div class="d-none d-sm-flex">
+      <v-toolbar-items>
+        <label v-if="isAuthenticated" id="loggedin-toolbar-label" class="logged-in-common">
+          Logged in as
+          <b>{{ profile.nickname }}</b>
+        </label>
+        <v-btn v-if="!isAuthenticated" text to="/" class="btnlink">Home</v-btn>
+        <v-btn v-if="isAuthenticated" text to="/dashboard" class="btnlink">Dashboard</v-btn>
+        <v-btn v-if="isAuthenticated" text to="/food" class="btnlink">Stock</v-btn>
+        <v-btn v-if="isAuthenticated" text to="/recipes" class="btnlink">Recipes</v-btn>
+        <v-btn v-if="isAuthenticated" text to="/profile" class="btnlink">Profile</v-btn>
+        <v-btn
+          v-if="!isAuthenticated"
+          id="loginBtn"
+          text
+          class="btnlink"
+          @click.prevent="login"
+        >Log in</v-btn>
+        <v-btn
+          v-if="isAuthenticated"
+          id="loginBtn"
+          text
+          class="btnlink"
+          @click.prevent="logout"
+        >Log out</v-btn>
+      </v-toolbar-items>
+    </div>
+    <div class="d-flex d-sm-none">
+      <v-menu
+        id="burger-menu"
+        :offset-x="offset"
+        transition="slide-x-transition"
+        bottom
+        max-width="50%"
+      >
+        <template #activator="{ on }">
+          <v-icon id="burgermenu-icon" v-on="on">menu</v-icon>
+        </template>
+        <v-list>
+          <v-list-item to="/">
+            <v-list-item-content>
+              <v-list-item-title>Home</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="isAuthenticated" to="/food">
+            <v-list-item-content>
+              <v-list-item-title>Stock</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="isAuthenticated" to="/recipes">
+            <v-list-item-content>
+              <v-list-item-title>Recipes</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="isAuthenticated" to="/profile">
+            <v-list-item-content>
+              <v-list-item-title>Profile</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="isAuthenticated">
+            <v-list-item-content>
+              <Label
+                id="loggedin-menu-label"
+                class="logged-in-common"
+              >Logged in as {{ profile.nickname }}</Label>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="!isAuthenticated">
+            <v-btn
+              id="loginBtn"
+              text
+              value="Log in button"
+              class="btnlink"
+              @click.prevent="login"
+            >Log in</v-btn>
+          </v-list-item>
+          <v-list-item v-if="isAuthenticated">
+            <v-btn
+              id="loginBtn"
+              text
+              value="Log out button"
+              class="btnlink"
+              @click.prevent="logout"
+            >Log out</v-btn>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
   </v-app-bar>
 </template>
 
@@ -138,6 +142,7 @@ export default {
 .btnlink {
   text-decoration: none;
   color: inherit;
+  
 }
 
 .logged-in-common {
