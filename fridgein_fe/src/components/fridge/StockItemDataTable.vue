@@ -1,5 +1,8 @@
 <template>
+<div>
   <v-data-table :headers="headers" :items="uniqueStockitems">
+    <template v-slot:item.purchaseDate="{ item }">{{ item.purchaseDate | onlyDate }}</template>
+    <template v-slot:item.expirationDate="{ item }">{{ item.expirationDate | onlyDate }}</template>
     <template v-slot="top">
       <v-toolbar flat color="white">
         <v-toolbar-title>My CRUD</v-toolbar-title>
@@ -16,19 +19,19 @@
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                    <v-text-field v-model="editedItem.name" label="Dessert name" />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                    <v-text-field v-model="editedItem.calories" label="Calories" />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.fat" label="Fat (g)" />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)" />
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.protein" label="Protein (g)" />
                   </v-col>
                 </v-row>
               </v-container>
@@ -51,6 +54,7 @@
       <v-btn color="primary" @click="initialize">Reset</v-btn>
     </template>
   </v-data-table>
+</div>
 </template>
 
 <script>
@@ -114,10 +118,14 @@ export default {
       this.stockItemsGrouped.forEach(s => {
         if (s[0]) {
           var newObj = s[0];
+          
+          //newObj.expirationDate = newObj.expirationDate !== null ? newObj.expirationDate.substring(0, 10) : null;
+          //newObj.purchaseDate = newObj.purchaseDate !== null ? newObj.purchaseDate.substring(0, 10) : null;
           newObj.amount = s.length;
           stockItems.push(newObj);
         }
       });
+      console.log("unique-compuation finished");
       return stockItems.sort((a, b) => (a.food.name > b.food.name ? 1 : -1));
     }
   },
@@ -141,6 +149,11 @@ export default {
         this.desserts.push(this.editedItem);
       }
       this.close();
+    }
+  },
+  filters: {
+    onlyDate: function (datetime) {
+      return datetime != null ? datetime.substring(0, 10) : '';
     }
   }
 };

@@ -129,7 +129,7 @@ export default {
 
 .toolbar-tab {
   color: #90ccf4;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .logged-in-common {
