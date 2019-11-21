@@ -1,17 +1,17 @@
 <template>
   <v-select
     v-if="food"
+    v-model="selectedFood"
     :items="food"
     item-text="name"
-    v-model="selectedFood"
-    @change="onSelected($event)"
     return-object
     clearable
     :menu-props="{ maxHeight: '400' }"
     label="Pick item from saved foods"
     hint="Creating a new one will save it to this list."
     persistent-hint
-  ></v-select>
+    @change="onSelected($event)"
+  />
 </template>
 
 <script>
