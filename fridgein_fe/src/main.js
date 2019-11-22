@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
+import Vuetify from 'vuetify/lib/framework';
 
 import App from './App.vue';
 import './../node_modules/jquery/dist/jquery.min.js';

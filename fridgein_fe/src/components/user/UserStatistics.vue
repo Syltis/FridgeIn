@@ -97,7 +97,7 @@ export default {
   #statistics-col {
   
   padding: 0% 0% 0% 0%;
-}
+  }
 }
 
 #gchart {

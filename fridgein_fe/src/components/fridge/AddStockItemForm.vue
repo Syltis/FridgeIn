@@ -50,7 +50,6 @@
               <v-date-picker v-model="purchaseDate" scrollable @input="modal = false" />
             </v-dialog>
           </v-col>
-
           <v-col cols="12" md="1" class="formFlex">
             <v-checkbox
               id="expirationCheckBox"

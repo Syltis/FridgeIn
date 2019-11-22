@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import UserStatistics from "./../components/ui/UserStatistics";
+import UserStatistics from "./../components/user/UserStatistics";
 
 export default {
   components: { UserStatistics },

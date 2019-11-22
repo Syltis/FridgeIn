@@ -10,12 +10,10 @@
         <v-col md="11" cols="12">
           <h2 id="subtitle" class="subheader font-weight-regular mb-3">Recipes ready</h2>
         </v-col>
-
         <v-col md="1" cols="12">
           <v-btn id="add-recipe-btn" @click.stop="showModal=true">Add Recipe</v-btn>
           <AddRecipeModal v-model="showModal" />
         </v-col>
-
         <v-col md="12" cols="12">
           <v-divider />
         </v-col>
@@ -64,7 +62,7 @@
 </template>
 
 <script>
-import AddRecipeModal from "../components/ui/AddRecipeModal";
+import AddRecipeModal from "../components/recipes/AddRecipeModal";
 
 export default {
   name: "RecipePage",

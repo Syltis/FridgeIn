@@ -102,7 +102,6 @@ export default {
   },
   methods: {
     login() {
-      console.log("login attempt");
       this.$auth.login();
     },
     logout() {

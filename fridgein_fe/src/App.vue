@@ -18,9 +18,6 @@
 </script>
 
 <style>
-#footer {
-  margin-top: 5%;
-}
 
 .application--wrap {
     min-height: 96.2vh;

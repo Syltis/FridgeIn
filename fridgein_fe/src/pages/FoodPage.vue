@@ -19,13 +19,13 @@
 
 <script>
 import "es6-promise/auto";
-import StockItemList from "../components/fridge/StockItemList";
-import AddStockItemForm from "../components/fridge/AddStockItemForm";
+//import StockItemList from "../components/fridge/StockItemList";
+//import AddStockItemForm from "../components/fridge/AddStockItemForm";
 import StockItemDataTable from "../components/fridge/StockItemDataTable";
 
 export default {
   name: "FoodPage",
-  components: { AddStockItemForm, StockItemList, StockItemDataTable },
+  components: { StockItemDataTable },
   data() {
     return {
       profile: this.$auth.profile

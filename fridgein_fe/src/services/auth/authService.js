@@ -45,13 +45,11 @@ class AuthService extends EventEmitter {
   }
 
   localLogin(authResult) {
-    console.log("LocalLogin running");
     this.idToken = authResult.idToken;
     this.profile = authResult.idTokenPayload;
 
     this.postNewUser();
     
-
     // Convert the JWT expiry time from seconds to milliseconds
     this.tokenExpiry = new Date(this.profile.exp * 1000);
 
