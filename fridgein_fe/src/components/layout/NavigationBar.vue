@@ -10,21 +10,21 @@
     </v-toolbar-title>
     <v-spacer />
     
-      <v-toolbar-items class="hidden-sm-and-down">
-        <label v-if="isAuthenticated" id="loggedin-toolbar-label" class="logged-in-common">
-          Logged in as
-          <b>{{ profile.nickname }}</b>
-        </label>
-        <v-tabs color="#90ccf4" id="toolbar-tabs" optional>
-          <v-tab v-if="!isAuthenticated" to="/" class="toolbar-tab">Home</v-tab>
-          <v-tab v-if="isAuthenticated" to="/dashboard" class="toolbar-tab">Dashboard</v-tab>
-          <v-tab v-if="isAuthenticated" to="/food" class="toolbar-tab">Stock</v-tab>
-          <v-tab v-if="isAuthenticated" to="/recipes" class="toolbar-tab">Recipes</v-tab>
-          <v-tab v-if="isAuthenticated" to="/profile" class="toolbar-tab">Profile</v-tab>
-        </v-tabs>
-        <v-btn v-if="!isAuthenticated" class="login-btn" text @click.prevent="login">Log in</v-btn>
-        <v-btn v-if="isAuthenticated" class="login-btn" text @click.prevent="logout">Log out</v-btn>
-      </v-toolbar-items>
+    <v-toolbar-items class="hidden-sm-and-down">
+      <label v-if="isAuthenticated" id="loggedin-toolbar-label" class="logged-in-common">
+        Logged in as
+        <b>{{ profile.nickname }}</b>
+      </label>
+      <v-tabs id="toolbar-tabs" color="#90ccf4" optional>
+        <v-tab v-if="!isAuthenticated" to="/" class="toolbar-tab">Home</v-tab>
+        <v-tab v-if="isAuthenticated" to="/dashboard" class="toolbar-tab">Dashboard</v-tab>
+        <v-tab v-if="isAuthenticated" to="/food" class="toolbar-tab">Stock</v-tab>
+        <v-tab v-if="isAuthenticated" to="/recipes" class="toolbar-tab">Recipes</v-tab>
+        <v-tab v-if="isAuthenticated" to="/profile" class="toolbar-tab">Profile</v-tab>
+      </v-tabs>
+      <v-btn v-if="!isAuthenticated" class="login-btn" text @click.prevent="login">Log in</v-btn>
+      <v-btn v-if="isAuthenticated" class="login-btn" text @click.prevent="logout">Log out</v-btn>
+    </v-toolbar-items>
     
     <div class="hidden-md-and-up">
       <v-menu
@@ -102,7 +102,6 @@ export default {
   },
   methods: {
     login() {
-      console.log("login attempt");
       this.$auth.login();
     },
     logout() {
@@ -129,7 +128,7 @@ export default {
 
 .toolbar-tab {
   color: #90ccf4;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .logged-in-common {

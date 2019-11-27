@@ -1,11 +1,15 @@
 module.exports = {
     extends: [
-        'plugin:vue/recommended'
+        'plugin:vue/recommended',
+        'eslint:recommended'
+    
     ],
     plugins: [
         'vuetify'
     ],
     rules: {
+        'no-console': 'off',
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'vue/singleline-html-element-content-newline': 'off',
         'vue/max-attributes-per-line': 'off',
         'vue/singleline-html-element-content-newline': 'off',

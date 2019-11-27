@@ -4,7 +4,7 @@
       <NavigationBar app />
     </div>
     <v-content>
-      <v-container fluid >
+      <v-container fluid>
         <router-view />
       </v-container>
     </v-content>
@@ -18,9 +18,6 @@
 </script>
 
 <style>
-#footer {
-  margin-top: 5%;
-}
 
 .application--wrap {
     min-height: 96.2vh;

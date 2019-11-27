@@ -24,8 +24,6 @@ namespace fridgein_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Stockitem>>> GetStockitem(int id)
         {
-            
-
             ICollection<Stockitem> allItems = await _context.Stockitem
                 .Where(s => s.UserId == id)
                 .Include(s => s.Food)
